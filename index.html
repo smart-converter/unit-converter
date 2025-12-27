@@ -27,17 +27,23 @@
         .input-field { flex: 1; padding: 10px; border: 1px solid #666; border-radius: 4px; font-size: 18px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
         select.input-field { background-color: #e9e9e9; }
 
-        /* Secondary Box (Find Units) */
+        /* Find Box */
         .find-box { margin-top: 20px; border: 1px solid #c3e6cb; background-color: #d4edda; padding: 15px; border-radius: 4px; }
         .find-box h3 { color: #155724; margin-top: 0; font-size: 16px; }
         .find-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .small-input { padding: 8px; border: 1px solid #aaa; border-radius: 3px; width: 100%; box-sizing: border-box; }
 
-        /* Ads placeholder */
-        .ad-space { background: #fffce5; border: 1px dashed #e6db55; margin: 20px 0; text-align: center; padding: 15px; color: #666; font-size: 12px; }
+        .ad-space { background: #fffce5; border: 1px dashed #e6db55; margin: 20px 0; text-align: center; padding: 15px; color: #666; font-size: 12px; min-height: 90px; }
 
         footer { border-top: 1px solid #ccc; margin-top: 30px; padding: 20px; text-align: center; font-size: 13px; color: #666; }
-        .modal-link { color: #003366; text-decoration: underline; cursor: pointer; }
+        .footer-link { color: #003366; text-decoration: underline; cursor: pointer; margin: 0 5px; }
+
+        /* Professional Modal Popup */
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow-y: auto; }
+        .modal-content { background-color: #fefefe; margin: 10% auto; padding: 25px; border: 1px solid #888; width: 85%; max-width: 600px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; margin-top: -10px; }
+        .close-btn:hover { color: #000; }
+        .modal-body { line-height: 1.6; font-size: 14px; text-align: left; }
 
         @media (max-width: 480px) {
             .find-inputs { grid-template-columns: 1fr; }
@@ -57,8 +63,7 @@
 <div class="container">
     <div class="page-title">Unit Converter Express Version</div>
 
-    <div class="tabs-container" id="tabs">
-        </div>
+    <div class="tabs-container" id="tabs"></div>
 
     <div class="converter-box">
         <div class="row">
@@ -83,11 +88,11 @@
         <h3>Find the Units to Convert</h3>
         <div class="find-inputs">
             <div>
-                <label style="font-size:12px;">From Unit:</label>
+                <label style="font-size:11px; display:block; margin-bottom:2px;">From Unit:</label>
                 <input type="text" class="small-input" placeholder="e.g. kilogram">
             </div>
             <div>
-                <label style="font-size:12px;">To Unit:</label>
+                <label style="font-size:11px; display:block; margin-bottom:2px;">To Unit:</label>
                 <input type="text" class="small-input" placeholder="e.g. lbs">
             </div>
         </div>
@@ -99,10 +104,17 @@
 <footer>
     <p>© 2025 UnitConverters.io - All Rights Reserved.</p>
     <p>
-        <span class="modal-link" onclick="alert('Privacy Policy: We do not collect data. We use cookies for Ads.')">Privacy Policy</span> | 
-        <span class="modal-link" onclick="alert('Terms of Use: Use at your own risk.')">Terms of Use</span>
+        <span class="footer-link" onclick="showModal('privacy')">Privacy Policy</span> | 
+        <span class="footer-link" onclick="showModal('terms')">Terms of Use</span>
     </p>
 </footer>
+
+<div id="siteModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div id="modalBody" class="modal-body"></div>
+    </div>
+</div>
 
 <script>
     const data = {
@@ -114,10 +126,24 @@
         'Time': { 'Second': 1, 'Minute': 1/60, 'Hour': 1/3600, 'Day': 1/86400 }
     };
 
+    const policies = {
+        privacy: `
+            <h3>Privacy Policy</h3>
+            <p>Your privacy is important to us. UnitConverters.io does not collect personal data from its users.</p>
+            <p><strong>Ads & Cookies:</strong> We use Google AdSense and other third-party advertising companies to serve ads. These companies may use information (cookies) to provide advertisements about goods and services of interest to you.</p>
+            <p>By using our site, you consent to our privacy standards.</p>`,
+        terms: `
+            <h3>Terms of Use</h3>
+            <p>This website provides online calculation tools for free. While we strive for accuracy, we cannot guarantee that the results are error-free.</p>
+            <p><strong>Liability:</strong> UnitConverters.io is not responsible for any financial, physical, or technical losses resulting from the use of our converters.</p>
+            <p>Use this service at your own discretion.</p>`
+    };
+
     let currentCat = 'Length';
 
     function initTabs() {
         const container = document.getElementById('tabs');
+        container.innerHTML = '';
         Object.keys(data).forEach(cat => {
             const btn = document.createElement('div');
             btn.className = `tab ${cat === currentCat ? 'active' : ''}`;
@@ -159,6 +185,19 @@
             const res = (v / data[currentCat][fi]) * data[currentCat][ti];
             out.value = res.toLocaleString('en-US', {maximumFractionDigits: 5});
         }
+    }
+
+    // Modal Functions
+    function showModal(type) {
+        document.getElementById('modalBody').innerHTML = policies[type];
+        document.getElementById('siteModal').style.display = 'block';
+    }
+    function closeModal() {
+        document.getElementById('siteModal').style.display = 'none';
+    }
+    window.onclick = function(event) {
+        const modal = document.getElementById('siteModal');
+        if (event.target == modal) modal.style.display = 'none';
     }
 
     initTabs();

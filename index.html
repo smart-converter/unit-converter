@@ -3,138 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Unit Converter - Free Online Calculation Tools</title>
-    <meta name="description" content="Professional online unit converter for length, weight, temperature, and more. Fast, accurate and free.">
+    <title>Unit Converter Express - Quick and Free Online Conversion</title>
     <style>
-        :root { --p-blue: #005580; --bg: #f8f9fa; --border: #ddd; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg); color: #333; }
-        header { background: white; border-bottom: 4px solid var(--p-blue); padding: 20px 0; text-align: center; }
-        header h1 { margin: 0; color: var(--p-blue); font-size: 26px; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fff; color: #000; }
         
-        .container { display: flex; max-width: 1140px; margin: 20px auto; gap: 20px; padding: 0 15px; }
-        
-        nav { flex: 1; background: #fff; padding: 15px; border: 1px solid var(--border); border-radius: 5px; height: fit-content; }
-        nav h3 { font-size: 16px; margin-top: 0; border-bottom: 2px solid var(--p-blue); padding-bottom: 5px; }
-        nav ul { list-style: none; padding: 0; }
-        nav li { padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 14px; }
-        nav li:hover { background: #f0f7ff; color: var(--p-blue); }
-        nav li.active { background: var(--p-blue); color: white; }
+        /* Header */
+        .top-header { background-color: #006633; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; }
+        .top-header h1 { color: #fff; margin: 0; font-size: 22px; font-weight: normal; }
+        .top-header h1 span { color: #fff; opacity: 0.8; font-size: 18px; }
 
-        main { flex: 3; background: white; padding: 25px; border: 1px solid var(--border); border-radius: 5px; }
-        .converter-ui { background: #f1f4f6; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0; }
-        .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 15px 0; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 16px; }
+        .container { max-width: 800px; margin: 10px auto; padding: 10px; }
+        .page-title { color: #006633; font-size: 18px; font-weight: bold; margin-bottom: 20px; }
 
-        .ad-slot { background: #fffde7; border: 1px dashed #ffd600; text-align: center; padding: 15px; margin: 20px 0; color: #888; font-size: 12px; min-height: 90px; }
-        
-        .seo-content { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
-        footer { text-align: center; padding: 30px; font-size: 13px; color: #777; border-top: 1px solid #ddd; margin-top: 40px; }
-        
-        /* Modal for Policies */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
-        .modal-content { background: white; margin: 10% auto; padding: 25px; width: 85%; max-height: 70vh; overflow-y: auto; border-radius: 8px; }
-        .close { float: right; cursor: pointer; font-size: 28px; font-weight: bold; }
+        /* Tabs Interface */
+        .tabs-container { display: flex; flex-wrap: wrap; border-bottom: 1px solid #ccc; margin-bottom: -1px; }
+        .tab { padding: 8px 12px; border: 1px solid #ccc; border-bottom: none; margin-right: 5px; background: #006633; color: #fff; cursor: pointer; border-radius: 4px 4px 0 0; font-size: 14px; }
+        .tab.active { background: #fff; color: #006633; border-bottom: 1px solid #fff; z-index: 2; font-weight: bold; }
 
-        @media (max-width: 768px) { .container { flex-direction: column; } .input-group { grid-template-columns: 1fr; } }
+        /* Main Converter Box */
+        .converter-box { border: 1px solid #ccc; padding: 20px; border-radius: 0 0 4px 4px; background: #f9f9f9; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+        .row { display: flex; align-items: center; margin-bottom: 15px; }
+        .row label { width: 80px; font-size: 15px; }
+        .input-field { flex: 1; padding: 10px; border: 1px solid #666; border-radius: 4px; font-size: 18px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        select.input-field { background-color: #e9e9e9; }
+
+        /* Secondary Box (Find Units) */
+        .find-box { margin-top: 20px; border: 1px solid #c3e6cb; background-color: #d4edda; padding: 15px; border-radius: 4px; }
+        .find-box h3 { color: #155724; margin-top: 0; font-size: 16px; }
+        .find-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .small-input { padding: 8px; border: 1px solid #aaa; border-radius: 3px; width: 100%; box-sizing: border-box; }
+
+        /* Ads placeholder */
+        .ad-space { background: #fffce5; border: 1px dashed #e6db55; margin: 20px 0; text-align: center; padding: 15px; color: #666; font-size: 12px; }
+
+        footer { border-top: 1px solid #ccc; margin-top: 30px; padding: 20px; text-align: center; font-size: 13px; color: #666; }
+        .modal-link { color: #003366; text-decoration: underline; cursor: pointer; }
+
+        @media (max-width: 480px) {
+            .find-inputs { grid-template-columns: 1fr; }
+            .row { flex-direction: column; align-items: flex-start; }
+            .row label { margin-bottom: 5px; }
+            .input-field { width: 100%; }
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>UnitConverters.io</h1>
-</header>
+<div class="top-header">
+    <h1>UnitConverters<span>.io</span></h1>
+    <div style="color:white; font-size:20px;">📅</div>
+</div>
 
 <div class="container">
-    <nav>
-        <h3>Main Converters</h3>
-        <ul>
-            <li onclick="updateCat('length')" class="active">Length</li>
-            <li onclick="updateCat('weight')">Weight & Mass</li>
-            <li onclick="updateCat('temp')">Temperature</li>
-            <li onclick="updateCat('area')">Area</li>
-            <li onclick="updateCat('speed')">Speed</li>
-            <li onclick="updateCat('time')">Time</li>
-            <li onclick="updateCat('digital')">Digital Storage</li>
-        </ul>
-    </nav>
+    <div class="page-title">Unit Converter Express Version</div>
 
-    <main>
-        <h2 id="title" style="color: var(--p-blue); margin-top: 0;">Length Converter</h2>
-        
-        <div class="ad-slot">ADVERTISEMENT - ADSENSE UNIT 1</div>
+    <div class="tabs-container" id="tabs">
+        </div>
 
-        <div class="converter-ui">
-            <div class="input-group">
-                <div>
-                    <label>From:</label>
-                    <input type="number" id="valIn" value="1" oninput="calc()">
-                    <select id="unitIn" onchange="calc()"></select>
-                </div>
-                <div>
-                    <label>To:</label>
-                    <input type="number" id="valOut" readonly style="background: #e9ecef;">
-                    <select id="unitOut" onchange="calc()"></select>
-                </div>
+    <div class="converter-box">
+        <div class="row">
+            <label>Amount:</label>
+            <input type="number" id="valIn" class="input-field" value="1" oninput="calc()">
+        </div>
+        <div class="row">
+            <label>From:</label>
+            <select id="unitIn" class="input-field" onchange="calc()"></select>
+        </div>
+        <div class="row">
+            <label>To:</label>
+            <select id="unitOut" class="input-field" onchange="calc()"></select>
+        </div>
+        <div class="row">
+            <label>Result:</label>
+            <input type="text" id="valOut" class="input-field" readonly style="background:#eee;">
+        </div>
+    </div>
+
+    <div class="find-box">
+        <h3>Find the Units to Convert</h3>
+        <div class="find-inputs">
+            <div>
+                <label style="font-size:12px;">From Unit:</label>
+                <input type="text" class="small-input" placeholder="e.g. kilogram">
+            </div>
+            <div>
+                <label style="font-size:12px;">To Unit:</label>
+                <input type="text" class="small-input" placeholder="e.g. lbs">
             </div>
         </div>
+    </div>
 
-        <div class="seo-content">
-            <h3 id="seo-h">About this Converter</h3>
-            <p id="seo-p">Quickly convert length units including meters, kilometers, miles, and feet. Perfect for students and professionals.</p>
-        </div>
-
-        <div class="ad-slot">ADVERTISEMENT - ADSENSE UNIT 2</div>
-    </main>
+    <div class="ad-space">ADVERTISEMENT - PLACE ADSENSE CODE HERE</div>
 </div>
 
 <footer>
-    <p>&copy; 2025 UnitConverters.io - All Rights Reserved.</p>
+    <p>© 2025 UnitConverters.io - All Rights Reserved.</p>
     <p>
-        <a href="javascript:void(0)" onclick="openModal('privacy')">Privacy Policy</a> | 
-        <a href="javascript:void(0)" onclick="openModal('terms')">Terms of Use</a>
+        <span class="modal-link" onclick="alert('Privacy Policy: We do not collect data. We use cookies for Ads.')">Privacy Policy</span> | 
+        <span class="modal-link" onclick="alert('Terms of Use: Use at your own risk.')">Terms of Use</span>
     </p>
 </footer>
 
-<div id="policyModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="modalText"></div>
-    </div>
-</div>
-
 <script>
     const data = {
-        length: { t: "Length Converter", s: "Easy to use length converter for units like Meters, Feet, Inches, Miles, and Kilometers.", u: { "Meter": 1, "Kilometer": 0.001, "Centimeter": 100, "Mile": 0.000621, "Foot": 3.2808, "Inch": 39.37 } },
-        weight: { t: "Weight & Mass Converter", s: "Convert between Kilograms, Pounds, Ounces, and Grams instantly.", u: { "Kilogram": 1, "Gram": 1000, "Pound": 2.2046, "Ounce": 35.27 } },
-        temp: { t: "Temperature Converter", s: "Scientific conversion between Celsius, Fahrenheit, and Kelvin.", u: { "Celsius": "C", "Fahrenheit": "F", "Kelvin": "K" } },
-        area: { t: "Area Converter", s: "Convert land and surface units: Square Meters, Acres, Hectares.", u: { "Square Meter": 1, "Acre": 0.000247, "Hectare": 0.0001, "Sq Foot": 10.76 } },
-        speed: { t: "Speed Converter", s: "Travel speed conversion: km/h, mph, and Knots.", u: { "m/s": 1, "km/h": 3.6, "mph": 2.236, "Knot": 1.943 } },
-        time: { t: "Time Converter", s: "Convert Seconds, Minutes, Hours, and Days.", u: { "Second": 1, "Minute": 1/60, "Hour": 1/3600, "Day": 1/86400 } },
-        digital: { t: "Digital Storage", s: "IT units: KB, MB, GB, and TB conversion.", u: { "MB": 1024, "GB": 1, "TB": 0.00097, "KB": 1048576 } }
+        'Length': { 'Meter': 1, 'Kilometer': 0.001, 'Centimeter': 100, 'Mile': 0.000621, 'Foot': 3.28, 'Inch': 39.37 },
+        'Temp': { 'type': 'temp', 'units': ['Celsius', 'Fahrenheit', 'Kelvin'] },
+        'Area': { 'Sq Meter': 1, 'Acre': 0.000247, 'Hectare': 0.0001, 'Sq Foot': 10.76 },
+        'Volume': { 'Liter': 1, 'Milliliter': 1000, 'Gallon': 0.264, 'Cubic Meter': 0.001 },
+        'Weight': { 'Kilogram': 1, 'Gram': 1000, 'Pound': 2.204, 'Ounce': 35.27 },
+        'Time': { 'Second': 1, 'Minute': 1/60, 'Hour': 1/3600, 'Day': 1/86400 }
     };
 
-    const policies = {
-        privacy: "<h2>Privacy Policy</h2><p>We do not collect any personal data. We use Google AdSense to show ads. Cookies may be used to personalize your experience.</p>",
-        terms: "<h2>Terms of Use</h2><p>This tool is provided 'as is' without warranty. We are not responsible for any calculation errors.</p>"
-    };
+    let currentCat = 'Length';
 
-    let activeCat = 'length';
+    function initTabs() {
+        const container = document.getElementById('tabs');
+        Object.keys(data).forEach(cat => {
+            const btn = document.createElement('div');
+            btn.className = `tab ${cat === currentCat ? 'active' : ''}`;
+            btn.innerText = cat;
+            btn.onclick = () => {
+                currentCat = cat;
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
+                fillUnits();
+            };
+            container.appendChild(btn);
+        });
+        fillUnits();
+    }
 
-    function updateCat(c) {
-        activeCat = c;
-        document.getElementById('title').innerText = data[c].t;
-        document.getElementById('seo-h').innerText = "Using the " + data[c].t;
-        document.getElementById('seo-p').innerText = data[c].s;
-        
-        document.querySelectorAll('nav li').forEach(li => li.classList.remove('active'));
-        const activeLi = Array.from(document.querySelectorAll('nav li')).find(li => li.innerText.includes(data[c].t.split(' ')[0]));
-        if(activeLi) activeLi.classList.add('active');
-
+    function fillUnits() {
         const si = document.getElementById('unitIn'), so = document.getElementById('unitOut');
         si.innerHTML = ''; so.innerHTML = '';
-        Object.keys(data[c].u).forEach(k => {
-            si.add(new Option(k, k)); so.add(new Option(k, k));
+        const units = data[currentCat].type === 'temp' ? data[currentCat].units : Object.keys(data[currentCat]);
+        units.forEach(u => {
+            si.add(new Option(u, u)); so.add(new Option(u, u));
         });
         so.selectedIndex = 1; calc();
     }
@@ -145,25 +149,19 @@
         const out = document.getElementById('valOut');
         if (isNaN(v)) { out.value = ''; return; }
 
-        if (activeCat === 'temp') {
+        if (data[currentCat].type === 'temp') {
             let c;
-            if (fi === "Celsius") c = v; else if (fi === "Fahrenheit") c = (v - 32) * 5/9; else c = v - 273.15;
+            if (fi === 'Celsius') c = v; else if (fi === 'Fahrenheit') c = (v-32)*5/9; else c = v-273.15;
             let res;
-            if (ti === "Celsius") res = c; else if (ti === "Fahrenheit") res = (c * 9/5) + 32; else res = c + 273.15;
+            if (ti === 'Celsius') res = c; else if (ti === 'Fahrenheit') res = (c*9/5)+32; else res = c+273.15;
             out.value = res.toFixed(2);
         } else {
-            const res = (v / data[activeCat].u[fi]) * data[activeCat].u[ti];
-            out.value = res.toLocaleString('en-US', {maximumFractionDigits: 4});
+            const res = (v / data[currentCat][fi]) * data[currentCat][ti];
+            out.value = res.toLocaleString('en-US', {maximumFractionDigits: 5});
         }
     }
 
-    function openModal(type) {
-        document.getElementById('modalText').innerHTML = policies[type];
-        document.getElementById('policyModal').style.display = 'block';
-    }
-    function closeModal() { document.getElementById('policyModal').style.display = 'none'; }
-
-    updateCat('length');
+    initTabs();
 </script>
 </body>
 </html>

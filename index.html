@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit Converter Express - Currency & Units</title>
+    <title>Unit Converter Express - Accurate Currency & Measurement Tools</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fff; color: #000; }
         .top-header { background-color: #006633; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; }
@@ -22,16 +22,24 @@
         
         /* Таблиця */
         .quick-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; border: 1px solid #ddd; }
-        .quick-table th { background-color: #006633; color: white; padding: 10px; text-align: left; }
-        .quick-table td { padding: 10px; border-bottom: 1px solid #eee; color: #444; }
-        .quick-table tr:nth-child(even) { background-color: #fcfcfc; }
+        .quick-table th { background-color: #f8f9fa; color: #006633; padding: 12px; text-align: left; border-bottom: 2px solid #006633; }
+        .quick-table td { padding: 12px; border-bottom: 1px solid #eee; color: #003366; cursor: pointer; text-decoration: underline; }
+        .quick-table tr:hover { background-color: #f1f7f1; }
 
-        .seo-content { margin-top: 30px; padding: 20px; background: #fdfdfd; border: 1px solid #eee; line-height: 1.6; }
+        .seo-content { margin-top: 30px; padding: 20px; background: #fdfdfd; border: 1px solid #eee; line-height: 1.6; color: #333; }
+        .seo-content h2 { color: #006633; font-size: 20px; margin-top: 0; }
+        .seo-content h3 { font-size: 17px; margin-top: 20px; color: #444; }
+        
         .ad-space { background: #fffce5; border: 1px dashed #e6db55; margin: 20px 0; text-align: center; padding: 15px; color: #666; font-size: 12px; min-height: 90px; }
+        
         footer { border-top: 1px solid #ccc; margin-top: 30px; padding: 20px; text-align: center; font-size: 13px; color: #666; }
         .footer-link { color: #003366; text-decoration: underline; cursor: pointer; margin: 0 5px; }
-        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
-        .modal-content { background-color: #fefefe; margin: 10% auto; padding: 25px; border: 1px solid #888; width: 85%; max-width: 600px; border-radius: 8px; }
+        
+        /* Modal Structure */
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow-y: auto; }
+        .modal-content { background-color: #fefefe; margin: 5% auto; padding: 25px; border: 1px solid #888; width: 85%; max-width: 600px; border-radius: 8px; line-height: 1.6; }
+        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; margin-top: -10px; }
+        
         @media (max-width: 480px) { .row { flex-direction: column; align-items: flex-start; } .input-field { width: 100%; } }
     </style>
 </head>
@@ -65,16 +73,31 @@
         </div>
     </div>
 
-    <div class="ad-space">ADVERTISEMENT - TOP BANNER</div>
+    <div class="ad-space">ADVERTISEMENT - PLACE ADSENSE CODE HERE</div>
 
     <div id="tableWrapper">
+        <p style="font-size: 12px; color: #666;">* Click on a unit name below to select it in the converter.</p>
         <table class="quick-table" id="conversionTable"></table>
     </div>
 
     <div class="seo-content">
-        <h2>Professional Conversion Experience</h2>
-        <p>At <strong>UnitConverters.io</strong>, we provide high-precision tools for all your calculation needs. Our platform is a free resource designed to help you navigate through different measurement systems globally.</p>
-        <div id="dynamic-seo"></div>
+        <h2>Online Unit Converter Express - Accurate & Fast</h2>
+        <p>Welcome to <strong>UnitConverters.io</strong>, your ultimate destination for precise and reliable conversion tools. In our fast-paced world, whether you are a student solving physics problems, a traveler managing a budget, or a professional working on international projects, having a fast unit converter is essential.</p>
+        
+        <h3>Why Choose Our Tools?</h3>
+        <p>Our platform is designed for speed and accuracy. We use the latest international standards for all physical measurements and provide <strong>live exchange rates</strong> for global currencies. Our "Express Version" focuses on simplicity, ensuring you get your results in seconds without complex menus.</p>
+        
+        <h3>Comprehensive Conversion Categories</h3>
+        <ul>
+            <li><strong>Currency:</strong> Stay updated with real-time rates for USD, EUR, GBP, UAH, and more.</li>
+            <li><strong>Length & Distance:</strong> Seamlessly switch between kilometers, miles, meters, and inches.</li>
+            <li><strong>Weight & Mass:</strong> Convert kilograms to pounds, ounces, or grams with high precision.</li>
+            <li><strong>Temperature:</strong> Accurate formulas for Celsius, Fahrenheit, and Kelvin conversions.</li>
+        </ul>
+        
+        <h3>Frequently Asked Questions</h3>
+        <p><strong>Q: How accurate are the currency rates?</strong><br>A: Our currency data is updated regularly via reliable financial APIs, ensuring you get the most current market rates available.</p>
+        <p><strong>Q: Can I use this tool on my mobile phone?</strong><br>A: Yes! Our responsive design is optimized for iPhones, Android devices, and tablets for on-the-go conversions.</p>
     </div>
 
     <div class="ad-space">ADVERTISEMENT - BOTTOM BANNER</div>
@@ -90,7 +113,7 @@
 
 <div id="siteModal" class="modal">
     <div class="modal-content">
-        <span onclick="document.getElementById('siteModal').style.display='none'" style="float:right; cursor:pointer;">&times;</span>
+        <span class="close-btn" onclick="closeModal()">&times;</span>
         <div id="modalBody"></div>
     </div>
 </div>
@@ -103,6 +126,11 @@
         'Area': { 'Sq Meter': 1, 'Acre': 0.000247, 'Hectare': 0.0001, 'Sq Foot': 10.76 },
         'Weight': { 'Kilogram': 1, 'Gram': 1000, 'Pound': 2.204, 'Ounce': 35.27 },
         'Time': { 'Second': 1, 'Minute': 1/60, 'Hour': 1/3600, 'Day': 1/86400 }
+    };
+
+    const policies = {
+        privacy: `<h3>Privacy Policy</h3><p>Your privacy is important to us. UnitConverters.io does not collect personal data from its users.</p><p><strong>Ads & Cookies:</strong> We use Google AdSense and third-party advertising companies to serve ads. These companies may use cookies to provide advertisements about goods and services of interest to you.</p><p>By using our site, you consent to our privacy standards.</p>`,
+        terms: `<h3>Terms of Use</h3><p>This website provides online calculation tools for free. While we strive for accuracy, we cannot guarantee that the results are error-free.</p><p><strong>Liability:</strong> UnitConverters.io is not responsible for any financial or technical losses resulting from the use of our converters.</p>`
     };
 
     let currentCat = 'Length';
@@ -137,40 +165,35 @@
         fillUnits();
     }
 
+    function selectUnitFromTable(unit) {
+        document.getElementById('unitIn').value = unit;
+        calc();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function fillUnits() {
         const si = document.getElementById('unitIn'), so = document.getElementById('unitOut');
         si.innerHTML = ''; so.innerHTML = '';
         
         let units;
-        if (data[currentCat].type === 'temp') {
-            units = data[currentCat].units;
-        } else if (data[currentCat].type === 'currency') {
-            units = Object.keys(data[currentCat].units);
-        } else {
-            units = Object.keys(data[currentCat]);
-        }
+        if (data[currentCat].type === 'temp') units = data[currentCat].units;
+        else if (data[currentCat].type === 'currency') units = Object.keys(data[currentCat].units);
+        else units = Object.keys(data[currentCat]);
         
         units.forEach(u => {
             si.add(new Option(u, u)); so.add(new Option(u, u));
         });
         
         if (so.options.length > 1) so.selectedIndex = 1;
-        updateQuickTable(units);
-        calc();
-    }
-
-    function updateQuickTable(units) {
-        const table = document.getElementById('conversionTable');
-        table.innerHTML = `<tr><th>${currentCat} Unit</th><th>Type / Description</th></tr>`;
         
-        // Беремо перші 6 одиниць для таблиці
-        const displayUnits = units.slice(0, 6);
-        displayUnits.forEach(u => {
-            let desc = "Standard Unit";
-            if (currentCat === 'Currency') desc = "International Currency";
-            if (currentCat === 'Temp') desc = "Temperature Scale";
-            table.innerHTML += `<tr><td>${u}</td><td>${desc}</td></tr>`;
+        // Update Table
+        const table = document.getElementById('conversionTable');
+        table.innerHTML = `<tr><th>Quick Select ${currentCat} Unit</th></tr>`;
+        units.slice(0, 12).forEach(u => {
+            table.innerHTML += `<tr><td onclick="selectUnitFromTable('${u}')">${u} (Click to Select)</td></tr>`;
         });
+        
+        calc();
     }
 
     function calc() {
@@ -195,11 +218,11 @@
     }
 
     function showModal(type) {
-        const body = document.getElementById('modalBody');
-        if(type === 'privacy') body.innerHTML = "<h3>Privacy Policy</h3><p>We use cookies to enhance your experience and serve ads.</p>";
-        else body.innerHTML = "<h3>Terms of Use</h3><p>Tools are for informational purposes only.</p>";
+        document.getElementById('modalBody').innerHTML = policies[type];
         document.getElementById('siteModal').style.display = 'block';
     }
+    function closeModal() { document.getElementById('siteModal').style.display = 'none'; }
+    window.onclick = function(e) { if (e.target.className === 'modal') closeModal(); }
 
     fetchCurrency();
     initTabs();

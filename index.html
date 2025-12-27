@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit Converter Express - Accurate Currency & Measurement Tools</title>
+    <title>Unit Converter Express - Currency & Units</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fff; color: #000; }
         .top-header { background-color: #006633; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; }
@@ -19,17 +19,19 @@
         .row label { width: 80px; font-size: 15px; }
         .input-field { flex: 1; padding: 10px; border: 1px solid #666; border-radius: 4px; font-size: 18px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
         select.input-field { background-color: #e9e9e9; }
-        .quick-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
-        .quick-table th, .quick-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        .quick-table th { background-color: #f2f2f2; color: #006633; }
+        
+        /* Таблиця */
+        .quick-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; border: 1px solid #ddd; }
+        .quick-table th { background-color: #006633; color: white; padding: 10px; text-align: left; }
+        .quick-table td { padding: 10px; border-bottom: 1px solid #eee; color: #444; }
+        .quick-table tr:nth-child(even) { background-color: #fcfcfc; }
+
         .seo-content { margin-top: 30px; padding: 20px; background: #fdfdfd; border: 1px solid #eee; line-height: 1.6; }
-        .faq-section { margin-top: 20px; border-top: 2px solid #006633; padding-top: 10px; }
         .ad-space { background: #fffce5; border: 1px dashed #e6db55; margin: 20px 0; text-align: center; padding: 15px; color: #666; font-size: 12px; min-height: 90px; }
         footer { border-top: 1px solid #ccc; margin-top: 30px; padding: 20px; text-align: center; font-size: 13px; color: #666; }
         .footer-link { color: #003366; text-decoration: underline; cursor: pointer; margin: 0 5px; }
         .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
-        .modal-content { background-color: #fefefe; margin: 10% auto; padding: 25px; border: 1px solid #888; width: 85%; max-width: 600px; border-radius: 8px; max-height: 80vh; overflow-y: auto; }
-        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; margin-top: -10px; }
+        .modal-content { background-color: #fefefe; margin: 10% auto; padding: 25px; border: 1px solid #888; width: 85%; max-width: 600px; border-radius: 8px; }
         @media (max-width: 480px) { .row { flex-direction: column; align-items: flex-start; } .input-field { width: 100%; } }
     </style>
 </head>
@@ -65,18 +67,14 @@
 
     <div class="ad-space">ADVERTISEMENT - TOP BANNER</div>
 
-    <table class="quick-table" id="conversionTable">
-        </table>
+    <div id="tableWrapper">
+        <table class="quick-table" id="conversionTable"></table>
+    </div>
 
     <div class="seo-content">
         <h2>Professional Conversion Experience</h2>
         <p>At <strong>UnitConverters.io</strong>, we provide high-precision tools for all your calculation needs. Our platform is a free resource designed to help you navigate through different measurement systems globally.</p>
-        
-        <div class="faq-section">
-            <h3>Frequently Asked Questions</h3>
-            <p><strong>Q: How accurate are the currency rates?</strong><br>A: Our currency data is updated every 24 hours via reliable financial APIs, ensuring you get the most current market rates.</p>
-            <p><strong>Q: Can I use this tool on my mobile phone?</strong><br>A: Yes! Our responsive design is optimized for iPhones, Android devices, and tablets for on-the-go conversions.</p>
-        </div>
+        <div id="dynamic-seo"></div>
     </div>
 
     <div class="ad-space">ADVERTISEMENT - BOTTOM BANNER</div>
@@ -92,7 +90,7 @@
 
 <div id="siteModal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <span onclick="document.getElementById('siteModal').style.display='none'" style="float:right; cursor:pointer;">&times;</span>
         <div id="modalBody"></div>
     </div>
 </div>
@@ -107,11 +105,6 @@
         'Time': { 'Second': 1, 'Minute': 1/60, 'Hour': 1/3600, 'Day': 1/86400 }
     };
 
-    const policies = {
-        privacy: `<h3>Privacy Policy</h3><p>Your privacy is our priority. We use cookies to improve your experience and serve relevant ads via Google AdSense.</p>`,
-        terms: `<h3>Terms of Use</h3><p>Our tools are free. We strive for accuracy but are not liable for any calculation errors.</p>`
-    };
-
     let currentCat = 'Length';
 
     async function fetchCurrency() {
@@ -121,7 +114,8 @@
             data['Currency'].units = result.rates;
             if (currentCat === 'Currency') fillUnits();
         } catch (e) {
-            data['Currency'].units = { 'USD': 1, 'EUR': 0.92, 'GBP': 0.79, 'UAH': 41 };
+            data['Currency'].units = { 'USD': 1, 'EUR': 0.92, 'GBP': 0.79, 'UAH': 41, 'PLN': 4.02 };
+            if (currentCat === 'Currency') fillUnits();
         }
     }
 
@@ -146,25 +140,36 @@
     function fillUnits() {
         const si = document.getElementById('unitIn'), so = document.getElementById('unitOut');
         si.innerHTML = ''; so.innerHTML = '';
-        let units = data[currentCat].type === 'temp' ? data[currentCat].units : Object.keys(data[currentCat]);
-        if (data[currentCat].type === 'currency') units = Object.keys(data[currentCat].units).slice(0, 50); // limit for UI
+        
+        let units;
+        if (data[currentCat].type === 'temp') {
+            units = data[currentCat].units;
+        } else if (data[currentCat].type === 'currency') {
+            units = Object.keys(data[currentCat].units);
+        } else {
+            units = Object.keys(data[currentCat]);
+        }
         
         units.forEach(u => {
             si.add(new Option(u, u)); so.add(new Option(u, u));
         });
-        so.selectedIndex = 1; 
-        updateQuickTable();
+        
+        if (so.options.length > 1) so.selectedIndex = 1;
+        updateQuickTable(units);
         calc();
     }
 
-    function updateQuickTable() {
+    function updateQuickTable(units) {
         const table = document.getElementById('conversionTable');
-        table.innerHTML = `<tr><th>Common ${currentCat} Units</th><th>Value</th></tr>`;
-        const units = data[currentCat].type === 'temp' ? data[currentCat].units : Object.keys(data[currentCat]).slice(0, 5);
+        table.innerHTML = `<tr><th>${currentCat} Unit</th><th>Type / Description</th></tr>`;
         
-        units.forEach(u => {
-            let val = "1 " + u;
-            table.innerHTML += `<tr><td>${u}</td><td>Standard Unit Reference</td></tr>`;
+        // Беремо перші 6 одиниць для таблиці
+        const displayUnits = units.slice(0, 6);
+        displayUnits.forEach(u => {
+            let desc = "Standard Unit";
+            if (currentCat === 'Currency') desc = "International Currency";
+            if (currentCat === 'Temp') desc = "Temperature Scale";
+            table.innerHTML += `<tr><td>${u}</td><td>${desc}</td></tr>`;
         });
     }
 
@@ -189,9 +194,13 @@
         }
     }
 
-    function showModal(type) { document.getElementById('modalBody').innerHTML = policies[type]; document.getElementById('siteModal').style.display = 'block'; }
-    function closeModal() { document.getElementById('siteModal').style.display = 'none'; }
-    
+    function showModal(type) {
+        const body = document.getElementById('modalBody');
+        if(type === 'privacy') body.innerHTML = "<h3>Privacy Policy</h3><p>We use cookies to enhance your experience and serve ads.</p>";
+        else body.innerHTML = "<h3>Terms of Use</h3><p>Tools are for informational purposes only.</p>";
+        document.getElementById('siteModal').style.display = 'block';
+    }
+
     fetchCurrency();
     initTabs();
 </script>

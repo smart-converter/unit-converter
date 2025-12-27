@@ -3,54 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit Converter Express - Quick and Free Online Conversion</title>
+    <title>Unit Converter Express - Currency & Units</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fff; color: #000; }
-        
-        /* Header */
         .top-header { background-color: #006633; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; }
         .top-header h1 { color: #fff; margin: 0; font-size: 22px; font-weight: normal; }
         .top-header h1 span { color: #fff; opacity: 0.8; font-size: 18px; }
-
         .container { max-width: 800px; margin: 10px auto; padding: 10px; }
         .page-title { color: #006633; font-size: 18px; font-weight: bold; margin-bottom: 20px; }
-
-        /* Tabs Interface */
         .tabs-container { display: flex; flex-wrap: wrap; border-bottom: 1px solid #ccc; margin-bottom: -1px; }
         .tab { padding: 8px 12px; border: 1px solid #ccc; border-bottom: none; margin-right: 5px; background: #006633; color: #fff; cursor: pointer; border-radius: 4px 4px 0 0; font-size: 14px; }
         .tab.active { background: #fff; color: #006633; border-bottom: 1px solid #fff; z-index: 2; font-weight: bold; }
-
-        /* Main Converter Box */
         .converter-box { border: 1px solid #ccc; padding: 20px; border-radius: 0 0 4px 4px; background: #f9f9f9; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
         .row { display: flex; align-items: center; margin-bottom: 15px; }
         .row label { width: 80px; font-size: 15px; }
         .input-field { flex: 1; padding: 10px; border: 1px solid #666; border-radius: 4px; font-size: 18px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
         select.input-field { background-color: #e9e9e9; }
-
-        /* Find Box */
         .find-box { margin-top: 20px; border: 1px solid #c3e6cb; background-color: #d4edda; padding: 15px; border-radius: 4px; }
         .find-box h3 { color: #155724; margin-top: 0; font-size: 16px; }
-        .find-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .small-input { padding: 8px; border: 1px solid #aaa; border-radius: 3px; width: 100%; box-sizing: border-box; }
-
         .ad-space { background: #fffce5; border: 1px dashed #e6db55; margin: 20px 0; text-align: center; padding: 15px; color: #666; font-size: 12px; min-height: 90px; }
-
         footer { border-top: 1px solid #ccc; margin-top: 30px; padding: 20px; text-align: center; font-size: 13px; color: #666; }
         .footer-link { color: #003366; text-decoration: underline; cursor: pointer; margin: 0 5px; }
-
-        /* Professional Modal Popup */
-        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow-y: auto; }
-        .modal-content { background-color: #fefefe; margin: 10% auto; padding: 25px; border: 1px solid #888; width: 85%; max-width: 600px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal-content { background-color: #fefefe; margin: 10% auto; padding: 25px; border: 1px solid #888; width: 85%; max-width: 600px; border-radius: 8px; }
         .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; margin-top: -10px; }
-        .close-btn:hover { color: #000; }
-        .modal-body { line-height: 1.6; font-size: 14px; text-align: left; }
-
-        @media (max-width: 480px) {
-            .find-inputs { grid-template-columns: 1fr; }
-            .row { flex-direction: column; align-items: flex-start; }
-            .row label { margin-bottom: 5px; }
-            .input-field { width: 100%; }
-        }
+        @media (max-width: 480px) { .row { flex-direction: column; align-items: flex-start; } .input-field { width: 100%; } }
     </style>
 </head>
 <body>
@@ -62,7 +39,6 @@
 
 <div class="container">
     <div class="page-title">Unit Converter Express Version</div>
-
     <div class="tabs-container" id="tabs"></div>
 
     <div class="converter-box">
@@ -85,17 +61,8 @@
     </div>
 
     <div class="find-box">
-        <h3>Find the Units to Convert</h3>
-        <div class="find-inputs">
-            <div>
-                <label style="font-size:11px; display:block; margin-bottom:2px;">From Unit:</label>
-                <input type="text" class="small-input" placeholder="e.g. kilogram">
-            </div>
-            <div>
-                <label style="font-size:11px; display:block; margin-bottom:2px;">To Unit:</label>
-                <input type="text" class="small-input" placeholder="e.g. lbs">
-            </div>
-        </div>
+        <h3>Currency Information</h3>
+        <p style="font-size: 12px; color: #155724;" id="curr-info">Select 'Currency' tab to see live exchange rates.</p>
     </div>
 
     <div class="ad-space">ADVERTISEMENT - PLACE ADSENSE CODE HERE</div>
@@ -112,7 +79,7 @@
 <div id="siteModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">&times;</span>
-        <div id="modalBody" class="modal-body"></div>
+        <div id="modalBody"></div>
     </div>
 </div>
 
@@ -120,26 +87,30 @@
     const data = {
         'Length': { 'Meter': 1, 'Kilometer': 0.001, 'Centimeter': 100, 'Mile': 0.000621, 'Foot': 3.28, 'Inch': 39.37 },
         'Temp': { 'type': 'temp', 'units': ['Celsius', 'Fahrenheit', 'Kelvin'] },
+        'Currency': { 'type': 'currency', 'units': {} },
         'Area': { 'Sq Meter': 1, 'Acre': 0.000247, 'Hectare': 0.0001, 'Sq Foot': 10.76 },
-        'Volume': { 'Liter': 1, 'Milliliter': 1000, 'Gallon': 0.264, 'Cubic Meter': 0.001 },
         'Weight': { 'Kilogram': 1, 'Gram': 1000, 'Pound': 2.204, 'Ounce': 35.27 },
         'Time': { 'Second': 1, 'Minute': 1/60, 'Hour': 1/3600, 'Day': 1/86400 }
     };
 
     const policies = {
-        privacy: `
-            <h3>Privacy Policy</h3>
-            <p>Your privacy is important to us. UnitConverters.io does not collect personal data from its users.</p>
-            <p><strong>Ads & Cookies:</strong> We use Google AdSense and other third-party advertising companies to serve ads. These companies may use information (cookies) to provide advertisements about goods and services of interest to you.</p>
-            <p>By using our site, you consent to our privacy standards.</p>`,
-        terms: `
-            <h3>Terms of Use</h3>
-            <p>This website provides online calculation tools for free. While we strive for accuracy, we cannot guarantee that the results are error-free.</p>
-            <p><strong>Liability:</strong> UnitConverters.io is not responsible for any financial, physical, or technical losses resulting from the use of our converters.</p>
-            <p>Use this service at your own discretion.</p>`
+        privacy: `<h3>Privacy Policy</h3><p>We do not collect personal data. Cookies are used for ads.</p>`,
+        terms: `<h3>Terms of Use</h3><p>Tools are free. Use at your own risk.</p>`
     };
 
     let currentCat = 'Length';
+
+    async function fetchCurrency() {
+        try {
+            const res = await fetch('https://open.er-api.com/v6/latest/USD');
+            const result = await res.json();
+            data['Currency'].units = result.rates;
+            document.getElementById('curr-info').innerText = "Live rates updated: " + new Date().toLocaleTimeString();
+            if (currentCat === 'Currency') fillUnits();
+        } catch (e) {
+            data['Currency'].units = { 'USD': 1, 'EUR': 0.92, 'GBP': 0.79, 'UAH': 40 };
+        }
+    }
 
     function initTabs() {
         const container = document.getElementById('tabs');
@@ -162,7 +133,9 @@
     function fillUnits() {
         const si = document.getElementById('unitIn'), so = document.getElementById('unitOut');
         si.innerHTML = ''; so.innerHTML = '';
-        const units = data[currentCat].type === 'temp' ? data[currentCat].units : Object.keys(data[currentCat]);
+        let units = data[currentCat].type === 'temp' ? data[currentCat].units : Object.keys(data[currentCat]);
+        if (data[currentCat].type === 'currency') units = Object.keys(data[currentCat].units);
+        
         units.forEach(u => {
             si.add(new Option(u, u)); so.add(new Option(u, u));
         });
@@ -173,7 +146,7 @@
         const v = parseFloat(document.getElementById('valIn').value);
         const fi = document.getElementById('unitIn').value, ti = document.getElementById('unitOut').value;
         const out = document.getElementById('valOut');
-        if (isNaN(v)) { out.value = ''; return; }
+        if (isNaN(v)) return;
 
         if (data[currentCat].type === 'temp') {
             let c;
@@ -181,25 +154,20 @@
             let res;
             if (ti === 'Celsius') res = c; else if (ti === 'Fahrenheit') res = (c*9/5)+32; else res = c+273.15;
             out.value = res.toFixed(2);
+        } else if (data[currentCat].type === 'currency') {
+            const res = (v / data['Currency'].units[fi]) * data['Currency'].units[ti];
+            out.value = res.toLocaleString('en-US', {maximumFractionDigits: 2});
         } else {
             const res = (v / data[currentCat][fi]) * data[currentCat][ti];
             out.value = res.toLocaleString('en-US', {maximumFractionDigits: 5});
         }
     }
 
-    // Modal Functions
-    function showModal(type) {
-        document.getElementById('modalBody').innerHTML = policies[type];
-        document.getElementById('siteModal').style.display = 'block';
-    }
-    function closeModal() {
-        document.getElementById('siteModal').style.display = 'none';
-    }
-    window.onclick = function(event) {
-        const modal = document.getElementById('siteModal');
-        if (event.target == modal) modal.style.display = 'none';
-    }
+    function showModal(type) { document.getElementById('modalBody').innerHTML = policies[type]; document.getElementById('siteModal').style.display = 'block'; }
+    function closeModal() { document.getElementById('siteModal').style.display = 'none'; }
+    window.onclick = function(e) { if (e.target.className === 'modal') closeModal(); }
 
+    fetchCurrency();
     initTabs();
 </script>
 </body>

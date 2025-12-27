@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Unit Converter - Accurate Online Measurement Tools</title>
+    <meta name="description" content="Free online unit converter for length, weight, area, volume, temperature, and more. Fast and accurate calculations.">
+    <style>
+        :root { --p-blue: #005580; --bg: #f8f9fa; --border: #ddd; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg); line-height: 1.6; }
+        header { background: white; border-bottom: 4px solid var(--p-blue); padding: 20px 0; text-align: center; }
+        header h1 { margin: 0; color: var(--p-blue); font-size: 24px; }
+        
+        .container { display: flex; max-width: 1140px; margin: 20px auto; gap: 20px; padding: 0 15px; }
+        
+        nav { flex: 1; background: #fff; padding: 15px; border: 1px solid var(--border); border-radius: 5px; height: fit-content; }
+        nav h3 { font-size: 16px; margin-top: 0; border-bottom: 2px solid var(--p-blue); }
+        nav ul { list-style: none; padding: 0; }
+        nav li { padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; transition: 0.3s; }
+        nav li:hover { background: #f0f7ff; color: var(--p-blue); }
+        nav li.active { background: var(--p-blue); color: white; }
+
+        main { flex: 3; background: white; padding: 25px; border: 1px solid var(--border); border-radius: 5px; }
+        .converter-ui { background: #f1f4f6; padding: 25px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e2e8f0; }
+        .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 16px; }
+
+        .ad-slot { background: #fffde7; border: 1px dashed #ffd600; text-align: center; padding: 10px; margin: 20px 0; color: #888; font-size: 12px; min-height: 90px; }
+        
+        .seo-content { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; color: #444; }
+        footer { text-align: center; padding: 20px; font-size: 13px; color: #777; border-top: 1px solid #ddd; margin-top: 40px; }
+        
+        @media (max-width: 768px) { .container { flex-direction: column; } .input-group { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>UnitConverters.io</h1>
+</header>
+
+<div class="container">
+    <nav>
+        <h3>Common Converters</h3>
+        <ul>
+            <li onclick="updateCat('length')" class="active">Length</li>
+            <li onclick="updateCat('weight')">Weight & Mass</li>
+            <li onclick="updateCat('temp')">Temperature</li>
+            <li onclick="updateCat('area')">Area</li>
+            <li onclick="updateCat('speed')">Speed</li>
+            <li onclick="updateCat('time')">Time</li>
+            <li onclick="updateCat('digital')">Digital Storage</li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2 id="title" style="color: var(--p-blue);">Length Converter</h2>
+        
+        <div class="ad-slot">ADVERTISEMENT (Responsive Display Unit)</div>
+
+        <div class="converter-ui">
+            <div class="input-group">
+                <div>
+                    <label>From:</label>
+                    <input type="number" id="valIn" value="1" oninput="calc()">
+                    <select id="unitIn" onchange="calc()"></select>
+                </div>
+                <div>
+                    <label>To:</label>
+                    <input type="number" id="valOut" readonly style="background: #e9ecef;">
+                    <select id="unitOut" onchange="calc()"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="seo-content">
+            <h3 id="seo-h">About this Converter</h3>
+            <p id="seo-p">Quickly convert length units including meters, kilometers, miles, and feet. Perfect for students, engineers, and DIY projects.</p>
+        </div>
+
+        <div class="ad-slot">ADVERTISEMENT (In-Feed Unit)</div>
+    </main>
+</div>
+
+<footer>
+    <p>&copy; 2025 UnitConverters.io - Fast, Free, and Accurate Tools.</p>
+    <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a> | <a href="#">Contact</a></p>
+</footer>
+
+<script>
+    const data = {
+        length: { t: "Length Converter", s: "This length converter is a tool that helps to convert between various units of length, including meters, feet, inches, miles, and kilometers.", u: { "Meter": 1, "Kilometer": 0.001, "Centimeter": 100, "Mile": 0.000621371, "Foot": 3.28084, "Inch": 39.3701 } },
+        weight: { t: "Weight & Mass Converter", s: "Need to convert kilograms to pounds or ounces? Our weight converter provides instant results for all standard mass units.", u: { "Kilogram": 1, "Gram": 1000, "Pound": 2.20462, "Ounce": 35.274 } },
+        temp: { t: "Temperature Converter", s: "Convert between Celsius, Fahrenheit, and Kelvin. Accurate formulas used for all scientific and everyday conversions.", u: { "Celsius": "C", "Fahrenheit": "F", "Kelvin": "K" } },
+        area: { t: "Area Converter", s: "Convert square meters to acres, hectares, or square feet. Useful for real estate and construction calculations.", u: { "Square Meter": 1, "Square Foot": 10.7639, "Acre": 0.000247105, "Hectare": 0.0001 } },
+        speed: { t: "Speed Converter", s: "Instant conversion between kilometers per hour, miles per hour, and knots. Great for travel and physics problems.", u: { "m/s": 1, "km/h": 3.6, "mph": 2.23694, "Knot": 1.94384 } },
+        time: { t: "Time Converter", s: "Convert seconds to hours, days, or weeks. Simple tool for time management and calculations.", u: { "Second": 1, "Minute": 1/60, "Hour": 1/3600, "Day": 1/86400 } },
+        digital: { t: "Digital Storage Converter", s: "Convert between Megabytes, Gigabytes, and Terabytes. Ideal for IT professionals and data management.", u: { "MB": 1024, "GB": 1, "TB": 0.0009765625, "KB": 1048576 } }
+    };
+
+    let activeCat = 'length';
+
+    function updateCat(c) {
+        activeCat = c;
+        document.getElementById('title').innerText = data[c].t;
+        document.getElementById('seo-h').innerText = "How to use " + data[c].t;
+        document.getElementById('seo-p').innerText = data[c].s;
+        
+        document.querySelectorAll('nav li').forEach(li => li.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+
+        const si = document.getElementById('unitIn'), so = document.getElementById('unitOut');
+        si.innerHTML = ''; so.innerHTML = '';
+        Object.keys(data[c].u).forEach(k => {
+            si.add(new Option(k, k)); so.add(new Option(k, k));
+        });
+        so.selectedIndex = 1; calc();
+    }
+
+    function calc() {
+        const v = parseFloat(document.getElementById('valIn').value);
+        const fi = document.getElementById('unitIn').value, ti = document.getElementById('unitOut').value;
+        const out = document.getElementById('valOut');
+        if (isNaN(v)) { out.value = ''; return; }
+
+        if (activeCat === 'temp') {
+            let c;
+            if (fi === "Celsius") c = v;
+            else if (fi === "Fahrenheit") c = (v - 32) * 5/9;
+            else c = v - 273.15;
+            let res;
+            if (ti === "Celsius") res = c;
+            else if (ti === "Fahrenheit") res = (c * 9/5) + 32;
+            else res = c + 273.15;
+            out.value = res.toFixed(2);
+        } else {
+            const res = (v / data[activeCat].u[fi]) * data[activeCat].u[ti];
+            out.value = res.toLocaleString('en-US', {maximumFractionDigits: 5});
+        }
+    }
+    updateCat('length');
+</script>
+</body>
+</html>

@@ -3,134 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit Converter Express</title>
+    <title>Unit Converter Express - 8-in-1 Tool</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; -webkit-tap-highlight-color: transparent; }
         .top-header { background-color: #006633; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; color: white; }
-        .top-header h1 { margin: 0; font-size: 20px; font-weight: 500; }
-        .container { max-width: 800px; margin: 0 auto; background: #fff; min-height: 100vh; }
-
-        /* ВКЛАДКИ ЯК НА СКРИНШОТІ: Горизонтальний скрол, великий текст, низька висота */
-        .tabs-container {
-            overflow-x: auto;
-            white-space: nowrap;
-            background: #eee;
-            border-bottom: 1px solid #ccc;
-            -webkit-overflow-scrolling: touch;
-            display: flex;
-        }
-        .tabs-container::-webkit-scrollbar { display: none; } /* Ховаємо скроллбар */
-
-        .tab {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #006633;
-            color: white;
-            text-decoration: none;
-            font-size: 17px; /* ВЕЛИКИЙ ШРИФТ */
-            font-weight: bold;
-            border-right: 1px solid #004d26;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        .tab.active {
-            background: white;
-            color: #006633;
-            border-bottom: 2px solid white;
-            margin-bottom: -1px;
-        }
-
-        /* ФОРМА КОНВЕРТЕРА: Компактна, але з великими елементами */
-        .converter-box { 
-            padding: 15px; 
-            background: #fdfdfd; 
-            border: 1px solid #ddd; 
-            margin: 10px;
-            border-radius: 4px;
-        }
-        .row { display: flex; align-items: center; margin-bottom: 12px; }
-        .row:last-child { margin-bottom: 0; }
-        .row label { width: 80px; font-size: 16px; font-weight: bold; color: #555; }
+        .top-header h1 { margin: 0; font-size: 22px; font-weight: bold; }
+        .container { max-width: 800px; margin: 0 auto; padding: 10px; background: #fff; min-height: 100vh; box-sizing: border-box; }
         
-        .input-field { 
-            flex: 1; 
-            padding: 12px; 
-            border: 1px solid #999; 
-            border-radius: 4px; 
-            font-size: 20px; /* ДУЖЕ ВЕЛИКИЙ ТЕКСТ У ПОЛЯХ */
-            font-weight: bold;
-            width: 100%;
-            box-sizing: border-box;
-            background: white;
+        /* МЕНЮ У ДВА РЯДИ: Вузькі прямокутники, великий шрифт */
+        .tabs-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 2px; 
+            background-color: #ccc; 
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
         }
+        .tab { 
+            background: #006633; 
+            color: #fff; 
+            padding: 10px 1px;
+            min-height: 40px;
+            text-align: center; 
+            cursor: pointer; 
+            font-size: 16px; /* ВЕЛИКИЙ ШРИФТ */
+            font-weight: 900; /* ДУЖЕ ЖИРНИЙ */
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tab.active { background: #fff; color: #006633; }
 
-        .ad-space { background: #fffce5; border: 1px dashed #e6db55; margin: 10px; text-align: center; padding: 15px; color: #888; font-size: 12px; }
+        /* КОНВЕРТЕР: Розширений та зручний */
+        .converter-box { border: 1px solid #ccc; padding: 20px; background: #f9f9f9; border-radius: 6px; margin-bottom: 15px; }
+        .row { display: flex; align-items: center; margin-bottom: 12px; }
+        .row label { width: 90px; font-size: 16px; color: #444; font-weight: bold; }
+        .input-field { flex: 1; padding: 12px; border: 1px solid #777; border-radius: 4px; font-size: 20px; font-weight: bold; width: 100%; box-sizing: border-box; }
 
-        .quick-table { width: calc(100% - 20px); margin: 10px; border-collapse: collapse; font-size: 16px; }
-        .quick-table th { background: #f8f9fa; color: #006633; padding: 10px; text-align: left; border-bottom: 2px solid #006633; }
-        .quick-table td { padding: 12px; border-bottom: 1px solid #eee; color: #004488; text-decoration: underline; cursor: pointer; }
+        .ad-space { background: #fffce5; border: 1px dashed #e6db55; margin: 15px 0; text-align: center; padding: 15px; color: #666; font-size: 12px; min-height: 70px; }
 
-        .seo-content { padding: 15px; font-size: 15px; line-height: 1.6; color: #444; }
+        /* ТАБЛИЦЯ: Максимально стиснута */
+        .quick-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 15px; border: 1px solid #ddd; }
+        .quick-table th { background-color: #f8f9fa; color: #006633; padding: 6px 10px; text-align: left; border-bottom: 2px solid #006633; }
+        .quick-table td { padding: 4px 10px; border-bottom: 1px solid #eee; color: #003366; cursor: pointer; text-decoration: underline; line-height: 1.2; }
 
-        footer { text-align: center; padding: 20px; border-top: 1px solid #eee; background: #f9f9f9; }
-        .footer-link { color: #004488; font-weight: bold; cursor: pointer; text-decoration: none; padding: 0 10px; }
+        /* SEO ТЕКСТ: ПОВЕРНУТО */
+        .seo-content { padding: 15px; line-height: 1.7; font-size: 16px; color: #333; background: #fdfdfd; border-top: 1px solid #eee; }
+        .seo-content h2 { color: #006633; font-size: 22px; margin-top: 0; }
+        .seo-content ul { padding-left: 20px; margin: 10px 0; }
+        
+        footer { border-top: 1px solid #ccc; padding: 25px 10px; text-align: center; background: #f9f9f9; }
+        .footer-link { color: #003366; text-decoration: underline; cursor: pointer; padding: 10px; display: inline-block; font-weight: bold; }
 
-        /* Модалка */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-        .modal-content { background: white; margin: 20% auto; padding: 20px; width: 80%; border-radius: 8px; position: relative; }
-        .close { position: absolute; right: 10px; top: 5px; font-size: 28px; cursor: pointer; }
+        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
+        .modal-content { background: #fff; margin: 15% auto; padding: 25px; width: 85%; max-width: 500px; border-radius: 8px; position: relative; }
+        .close-btn { position: absolute; right: 10px; top: 0px; font-size: 40px; cursor: pointer; }
+
+        @media (max-width: 480px) {
+            .tab { font-size: 13px; min-height: 38px; }
+            .row { flex-direction: column; align-items: flex-start; }
+            .row label { width: 100%; margin-bottom: 5px; }
+        }
     </style>
 </head>
 <body>
 
 <div class="top-header">
     <h1>UnitConverters.io</h1>
-    <span style="font-size: 20px;">📊</span>
+    <div style="font-size:24px;">⚖️</div>
 </div>
 
 <div class="container">
-    <div class="tabs-container" id="tabs"></div>
+    <div class="tabs-grid" id="tabs"></div>
 
-    <div class="ad-space">ADVERTISEMENT</div>
+    <div class="ad-space">ADVERTISEMENT - TOP BANNER</div>
 
     <div class="converter-box">
-        <div class="row">
-            <label>Amount:</label>
-            <input type="number" id="valIn" class="input-field" value="1" oninput="calc()">
-        </div>
-        <div class="row">
-            <label>From:</label>
-            <select id="unitIn" class="input-field" onchange="calc()"></select>
-        </div>
-        <div class="row">
-            <label>To:</label>
-            <select id="unitOut" class="input-field" onchange="calc()"></select>
-        </div>
-        <div class="row">
-            <label>Result:</label>
-            <input type="text" id="valOut" class="input-field" readonly style="background:#eee;">
-        </div>
+        <div class="row"><label>Amount:</label><input type="number" id="valIn" class="input-field" value="1" oninput="calc()"></div>
+        <div class="row"><label>From:</label><select id="unitIn" class="input-field" onchange="calc()"></select></div>
+        <div class="row"><label>To:</label><select id="unitOut" class="input-field" onchange="calc()"></select></div>
+        <div class="row"><label>Result:</label><input type="text" id="valOut" class="input-field" readonly style="background:#eee; color:#006633;"></div>
     </div>
 
     <table class="quick-table" id="conversionTable"></table>
 
     <div class="seo-content">
-        <h2 style="font-size: 18px; color: #006633;">Quick Unit Converter</h2>
-        <p>Reliable results for currency, clothing sizes, and more. Optimized for mobile use.</p>
+        <h2>Online Unit Converter Express - Accurate & Fast</h2>
+        <p>Welcome to <strong>UnitConverters.io</strong>, your ultimate destination for precise and reliable conversion tools. Optimized for speed and ease of use.</p>
+        
+        <h3>Comprehensive Conversion Categories:</h3>
+        <ul>
+            <li><strong>Currency:</strong> Real-time rates for USD, EUR, GBP, UAH.</li>
+            <li><strong>Clothing:</strong> Sizes for US, EU, UK, and Japan.</li>
+            <li><strong>Length & Weight:</strong> Kilometers, Miles, Kilograms, Pounds.</li>
+            <li><strong>Speed & Temp:</strong> Mph, Km/h, Celsius, Fahrenheit.</li>
+        </ul>
+        
+        <p><strong>Accuracy:</strong> We use international metric standards and live API data for currency to ensure maximum precision for every calculation.</p>
     </div>
 
-    <div class="ad-space">ADVERTISEMENT</div>
+    <div class="ad-space">ADVERTISEMENT - BOTTOM BANNER</div>
 </div>
 
 <footer>
     <p>© 2025 UnitConverters.io</p>
-    <span class="footer-link" onclick="openPol('privacy')">Privacy</span> | 
-    <span class="footer-link" onclick="openPol('terms')">Terms</span>
+    <div class="footer-link" onclick="openPol('privacy')">Privacy Policy</div>
+    <div class="footer-link" onclick="openPol('terms')">Terms of Use</div>
 </footer>
 
 <div id="siteModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="close-btn" onclick="closeModal()">×</span>
         <div id="modalBody"></div>
     </div>
 </div>
@@ -151,7 +135,7 @@
         'Temp': { type: 'temp', units: ['Celsius', 'Fahrenheit', 'Kelvin'] },
         'Speed': { 'Km/h': 3.6, 'Mph': 2.237, 'Knot': 1.943 },
         'Area': { 'Sq Meter': 1, 'Acre': 0.000247, 'Hectare': 0.0001 },
-        'Time': { 'Minute': 1, 'Hour': 0.0166, 'Day': 0.00069 }
+        'Time': { 'Minute': 1, 'Hour': 0.0166, 'Day': 0.00069, 'Second': 60 }
     };
 
     let currentCat = 'Currency';
@@ -188,11 +172,11 @@
         if (so.options.length > 1) so.selectedIndex = 1;
         const tbl = document.getElementById('conversionTable');
         tbl.innerHTML = `<tr><th>${currentCat} Reference</th></tr>`;
-        u.slice(0, 5).forEach(x => { tbl.innerHTML += `<tr><td onclick="setUnit('${x}')">${x}</td></tr>`; });
+        u.slice(0, 10).forEach(x => { tbl.innerHTML += `<tr><td onclick="setUnit('${x}')">${x}</td></tr>`; });
         calc();
     }
 
-    function setUnit(x) { document.getElementById('unitIn').value = x; calc(); }
+    function setUnit(x) { document.getElementById('unitIn').value = x; calc(); window.scrollTo({top: 0, behavior: 'smooth'}); }
 
     function calc() {
         const v = parseFloat(document.getElementById('valIn').value);
@@ -221,4 +205,3 @@
 </script>
 </body>
 </html>
-

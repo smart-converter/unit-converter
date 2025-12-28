@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit Converter Express - Accurate 8-in-1 Online Tool</title>
+    <title>Unit Converter Express - Professional Online Tool</title>
     <style>
         body { font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; -webkit-font-smoothing: antialiased; color: #333; }
-        .top-header { background-color: #006633; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; color: white; margin-bottom: 15px; } /* Додано відступ під шапкою */
+        .top-header { background-color: #006633; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; color: white; margin-bottom: 15px; }
         .top-header h1 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: 0.5px; }
         .container { max-width: 800px; margin: 0 auto; padding: 5px; background: #fff; min-height: 100vh; box-sizing: border-box; }
         
-        /* МЕНЮ: Висота 0.5см, Ультра-жирний шрифт */
         .tabs-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -22,7 +21,7 @@
         .tab { 
             background: #006633; 
             color: #fff; 
-            height: 30px; 
+            height: 32px; 
             text-align: center; 
             cursor: pointer; 
             font-size: 12px; 
@@ -30,41 +29,27 @@
             letter-spacing: -0.2px; 
             text-transform: uppercase;
             border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
         .tab.active { background: #fff; color: #006633; box-shadow: inset 0 -2px 0 #006633; }
 
-        /* КОНВЕРТЕР: Компактність збережена */
         .converter-box { border: 1px solid #ccc; padding: 10px 15px; background: #fafafa; border-radius: 4px; margin-bottom: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .row { display: flex; align-items: center; margin-bottom: 6px; }
         .row:last-child { margin-bottom: 0; }
         .row label { width: 70px; font-size: 14px; color: #444; font-weight: 700; }
         .input-field { 
-            flex: 1; 
-            padding: 6px 10px; 
-            border: 1px solid #999; 
-            border-radius: 3px; 
-            font-size: 18px; 
-            font-weight: 800; 
-            width: 100%; 
-            box-sizing: border-box; 
-            height: 36px;
+            flex: 1; padding: 6px 10px; border: 1px solid #999; border-radius: 3px; 
+            font-size: 18px; font-weight: 800; width: 100%; box-sizing: border-box; height: 38px;
         }
 
-        /* РЕКЛАМА: Оптимальне місце для мобільного банера */
-        .ad-space { background: #fdfae1; border: 1px dashed #d1c6a2; margin: 10px 0; text-align: center; padding: 15px; color: #888; font-size: 11px; min-height: 90px; display: flex; align-items: center; justify-content: center; border-radius: 4px; }
+        .ad-space { background: #fdfae1; border: 1px dashed #d1c6a2; margin: 10px 0; text-align: center; padding: 10px; color: #888; font-size: 11px; min-height: 90px; display: flex; align-items: center; justify-content: center; border-radius: 4px; }
 
-        /* ТАБЛИЦЯ: Щільна */
         .quick-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 14px; }
         .quick-table th { background-color: #f1f1f1; color: #006633; padding: 6px 10px; text-align: left; border-bottom: 2px solid #006633; }
-        .quick-table td { padding: 4px 10px; border-bottom: 1px solid #eee; color: #004499; cursor: pointer; text-decoration: underline; line-height: 1.2; }
+        .quick-table td { padding: 5px 10px; border-bottom: 1px solid #eee; color: #004499; cursor: pointer; text-decoration: underline; line-height: 1.2; }
 
-        /* SEO ТЕКСТ: ПОВНОЦІННИЙ */
         .seo-content { padding: 15px; line-height: 1.6; font-size: 15px; color: #444; border-top: 1px solid #eee; background: #fcfcfc; }
         .seo-content h2 { color: #006633; font-size: 19px; margin: 15px 0 8px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        .seo-content p { margin-bottom: 12px; }
         
         footer { border-top: 1px solid #ddd; padding: 25px 15px; text-align: center; background: #f9f9f9; font-size: 12px; }
         .footer-link { color: #004499; text-decoration: underline; cursor: pointer; padding: 0 8px; font-weight: bold; }
@@ -74,9 +59,8 @@
         .close-btn { position: absolute; right: 15px; top: 10px; font-size: 32px; cursor: pointer; color: #666; }
 
         @media (max-width: 480px) {
-            .tab { font-size: 11px; height: 32px; }
+            .tab { font-size: 11px; height: 34px; }
             .row label { width: 65px; }
-            .input-field { font-size: 17px; }
         }
     </style>
 </head>
@@ -90,7 +74,7 @@
 <div class="container">
     <div class="tabs-grid" id="tabs"></div>
 
-    <div class="ad-space">ADVERTISEMENT - PLACE YOUR BANNER HERE (320x100)</div>
+    <div class="ad-space">ADVERTISEMENT AREA</div>
 
     <div class="converter-box">
         <div class="row"><label>Amount:</label><input type="number" id="valIn" class="input-field" value="1" oninput="calc()"></div>
@@ -103,23 +87,16 @@
 
     <div class="seo-content">
         <h2>Professional Multipurpose Unit Converter</h2>
-        <p>In today's globalized world, the ability to quickly and accurately convert between different measurement systems is essential. <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs, whether you are traveling, shopping online, or working on a professional project.</p>
-        
-        <h2>Global Currency Exchange</h2>
-        <p>Our currency tool offers real-time exchange rates for major global currencies including the US Dollar (USD), Euro (EUR), British Pound (GBP), and Ukrainian Hryvnia (UAH). Perfect for travelers and digital nomads.</p>
-
-        <h2>International Clothing Size Guide</h2>
-        <p>Shopping from international retailers can be confusing. We simplify the process by providing instant conversions between US, EU, UK, and Japanese sizing standards for footwear and apparel.</p>
-
-        <h2>Essential Measurements for Daily Life</h2>
-        <p>From kitchen recipes to construction measurements, our Length, Weight, Area, and Time converters ensure you have the right numbers every time. We support both Metric and Imperial systems, covering kilometers, miles, pounds, and kilograms with high-precision results.</p>
+        <p><strong>UnitConverters.io</strong> provides accurate results for currency, clothing, and engineering units. Our tools are updated regularly to ensure data precision.</p>
+        <h2>Reliable Conversion Data</h2>
+        <p>We use international standards for Length (ISO), Weight (Metric/Imperial), and Temperature (Celsius/Fahrenheit). Our currency rates are updated daily from financial institutions.</p>
     </div>
 
-    <div class="ad-space">ADVERTISEMENT - BOTTOM BANNER</div>
+    <div class="ad-space">ADVERTISEMENT AREA</div>
 </div>
 
 <footer>
-    <p>© 2025 UnitConverters.io - Your Trusted Conversion Partner</p>
+    <p>© 2025 UnitConverters.io - Professional Conversion Tools</p>
     <div style="margin-top:10px;">
         <span class="footer-link" onclick="openPol('privacy')">Privacy Policy</span>
         <span class="footer-link" onclick="openPol('terms')">Terms of Use</span>
@@ -137,38 +114,19 @@
     const clothingData = {
         "US Size": [2, 4, 6, 8, 10, 12, 14, 16],
         "EU Size": [32, 34, 36, 38, 40, 42, 44, 46],
-        "UK Size": [6, 8, 10, 12, 14, 16, 18, 20],
+        "UK Size": [4, 6, 8, 10, 12, 14, 16, 18],
         "Japan Size": [5, 7, 9, 11, 13, 15, 17, 19]
     };
 
     const data = {
         'Currency': { type: 'currency', units: {} },
-        'Length': { 'Meter': 1, 'Kilometer': 0.001, 'Mile': 0.000621, 'Inch': 39.37, 'Foot': 3.28 },
-        'Weight': { 'Kilogram': 1, 'Gram': 1000, 'Pound': 2.204, 'Ounce': 35.27 },
+        'Length': { 'Meter': 1, 'Kilometer': 0.001, 'Centimeter': 100, 'Mile': 0.000621, 'Foot': 3.2808, 'Inch': 39.3701, 'Yard': 1.0936 },
+        'Weight': { 'Kilogram': 1, 'Gram': 1000, 'Pound': 2.2046, 'Ounce': 35.274, 'Metric Ton': 0.001 },
         'Clothing': { type: 'clothing', units: Object.keys(clothingData) },
         'Temp': { type: 'temp', units: ['Celsius', 'Fahrenheit', 'Kelvin'] },
-        'Speed': { 'Km/h': 3.6, 'Mph': 2.237, 'Knot': 1.943 },
-        'Area': { 'Sq Meter': 1, 'Acre': 0.000247, 'Hectare': 0.0001 },
-        'Time': { 'Minute': 1, 'Hour': 0.0166, 'Day': 0.00069, 'Second': 60 }
-    };
-
-    const legal = {
-        privacy: `<h2>Privacy Policy</h2>
-                  <p>At UnitConverters.io, we prioritize your privacy. This policy outlines how we handle data:</p>
-                  <ul>
-                    <li><strong>Data Collection:</strong> We do not collect personal information like names or emails.</li>
-                    <li><strong>Cookies:</strong> We use essential cookies to remember your conversion preferences.</li>
-                    <li><strong>Third Parties:</strong> We use Google AdSense to display advertisements. These partners may use cookies to show relevant ads based on your visits.</li>
-                    <li><strong>Security:</strong> We use industry-standard encryption to protect your browsing experience.</li>
-                  </ul>`,
-        terms: `<h2>Terms of Use</h2>
-                <p>By using UnitConverters.io, you agree to the following terms:</p>
-                <ul>
-                    <li><strong>Accuracy:</strong> While we strive for 100% accuracy, conversion results should be verified for critical applications.</li>
-                    <li><strong>Usage:</strong> Our tools are free for personal and professional use. Automated scraping of our data is prohibited.</li>
-                    <li><strong>Liability:</strong> We are not responsible for any financial or material loss resulting from the use of our calculations.</li>
-                    <li><strong>Updates:</strong> We reserve the right to modify our conversion algorithms and exchange rates at any time.</li>
-                </ul>`
+        'Speed': { 'Km/h': 1, 'Mph': 0.62137, 'Knot': 0.5399, 'M/s': 0.2777 },
+        'Area': { 'Sq Meter': 1, 'Acre': 0.000247, 'Hectare': 0.0001, 'Sq Foot': 10.7639 },
+        'Time': { 'Second': 1, 'Minute': 1/60, 'Hour': 1/3600, 'Day': 1/86400 }
     };
 
     let currentCat = 'Currency';
@@ -178,11 +136,10 @@
             const res = await fetch('https://open.er-api.com/v6/latest/USD');
             const json = await res.json();
             data['Currency'].units = json.rates;
-            initTabs();
         } catch(e) { 
-            data['Currency'].units = {'USD':1, 'EUR':0.92, 'UAH':41}; 
-            initTabs(); 
+            data['Currency'].units = {'USD':1, 'EUR':0.92, 'UAH':41, 'GBP':0.78}; 
         }
+        initTabs();
     }
 
     function initTabs() {
@@ -202,10 +159,12 @@
         si.innerHTML = ''; so.innerHTML = '';
         let u = (data[currentCat].type === 'temp' || data[currentCat].type === 'clothing') ? data[currentCat].units : Object.keys(data[currentCat].type === 'currency' ? data[currentCat].units : data[currentCat]);
         u.forEach(x => { si.add(new Option(x, x)); so.add(new Option(x, x)); });
-        if (so.options.length > 1) so.selectedIndex = 1;
+        if (so.options.length > 1) so.selectedIndex = (currentCat === 'Currency') ? u.indexOf('EUR') : 1;
+        
         const tbl = document.getElementById('conversionTable');
         tbl.innerHTML = `<tr><th>${currentCat} Reference</th></tr>`;
-        u.slice(0, 8).forEach(x => { tbl.innerHTML += `<tr><td onclick="setUnit('${x}')">${x}</td></tr>`; });
+        const favorites = (currentCat === 'Currency') ? ['USD', 'EUR', 'GBP', 'UAH', 'JPY', 'CAD'] : u.slice(0, 8);
+        favorites.forEach(x => { if(u.includes(x)) tbl.innerHTML += `<tr><td onclick="setUnit('${x}')">${x}</td></tr>`; });
         calc();
     }
 
@@ -230,11 +189,11 @@
     }
 
     function openPol(type) { 
-        document.getElementById('modalBody').innerHTML = legal[type];
+        const content = type === 'privacy' ? `<h2>Privacy Policy</h2><p>We value your privacy. We use Google AdSense for ads and local storage for site preferences.</p>` : `<h2>Terms</h2><p>Our tools are for informational purposes. Verify critical data before financial transactions.</p>`;
+        document.getElementById('modalBody').innerHTML = content;
         document.getElementById('siteModal').style.display = 'block'; 
     }
     function closeModal() { document.getElementById('siteModal').style.display = 'none'; }
-    window.onclick = (e) => { if (e.target.className === 'modal') closeModal(); }
     fetchRates();
 </script>
 </body>

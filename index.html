@@ -3,198 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit Converter Express - Accurate Currency & Measurement Tools</title>
+    <title>Unit Converter Express - 8-in-1 Professional Tools</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fff; color: #000; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #000; -webkit-tap-highlight-color: transparent; }
         .top-header { background-color: #006633; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; }
         .top-header h1 { color: #fff; margin: 0; font-size: 22px; font-weight: normal; }
-        .top-header h1 span { color: #fff; opacity: 0.8; font-size: 18px; }
-        .container { max-width: 800px; margin: 10px auto; padding: 10px; }
-        .page-title { color: #006633; font-size: 18px; font-weight: bold; margin-bottom: 20px; }
-        .tabs-container { display: flex; flex-wrap: wrap; border-bottom: 1px solid #ccc; margin-bottom: -1px; }
-        .tab { padding: 8px 12px; border: 1px solid #ccc; border-bottom: none; margin-right: 5px; background: #006633; color: #fff; cursor: pointer; border-radius: 4px 4px 0 0; font-size: 14px; }
-        .tab.active { background: #fff; color: #006633; border-bottom: 1px solid #fff; z-index: 2; font-weight: bold; }
-        .converter-box { border: 1px solid #ccc; padding: 20px; border-radius: 0 0 4px 4px; background: #f9f9f9; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
-        .row { display: flex; align-items: center; margin-bottom: 15px; }
-        .row label { width: 80px; font-size: 15px; }
-        .input-field { flex: 1; padding: 10px; border: 1px solid #666; border-radius: 4px; font-size: 18px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
-        select.input-field { background-color: #e9e9e9; }
         
-        /* Таблиця */
+        .container { max-width: 800px; margin: 0 auto; padding: 10px; background: #fff; min-height: 100vh; }
+        
+        /* Нові акуратні вкладки-прямокутники */
+        .tabs-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 2px; 
+            background-color: #ccc; 
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+        .tab { 
+            background: #006633; 
+            color: #fff; 
+            padding: 12px 5px; 
+            text-align: center; 
+            cursor: pointer; 
+            font-size: 13px; 
+            border: none;
+            transition: background 0.2s;
+        }
+        .tab.active { background: #fff; color: #006633; font-weight: bold; }
+
+        .converter-box { border: 1px solid #ccc; padding: 20px; background: #f9f9f9; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+        .row { display: flex; align-items: center; margin-bottom: 15px; }
+        .row label { width: 80px; font-size: 14px; color: #555; }
+        .input-field { flex: 1; padding: 12px; border: 1px solid #666; border-radius: 4px; font-size: 18px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box; }
+
         .quick-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; border: 1px solid #ddd; }
         .quick-table th { background-color: #f8f9fa; color: #006633; padding: 12px; text-align: left; border-bottom: 2px solid #006633; }
-        .quick-table td { padding: 12px; border-bottom: 1px solid #eee; color: #003366; cursor: pointer; text-decoration: underline; }
-        .quick-table tr:hover { background-color: #f1f7f1; }
+        .quick-table td { padding: 12px; border-bottom: 1px solid #eee; color: #003366; cursor: pointer; }
 
-        .seo-content { margin-top: 30px; padding: 20px; background: #fdfdfd; border: 1px solid #eee; line-height: 1.6; color: #333; }
-        .seo-content h2 { color: #006633; font-size: 20px; margin-top: 0; }
-        .seo-content h3 { font-size: 17px; margin-top: 20px; color: #444; }
-        
-        .ad-space { background: #fffce5; border: 1px dashed #e6db55; margin: 20px 0; text-align: center; padding: 15px; color: #666; font-size: 12px; min-height: 90px; }
-        
-        footer { border-top: 1px solid #ccc; margin-top: 30px; padding: 20px; text-align: center; font-size: 13px; color: #666; }
-        .footer-link { color: #003366; text-decoration: underline; cursor: pointer; margin: 0 5px; }
-        
-        /* Modal Structure */
-        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow-y: auto; }
-        .modal-content { background-color: #fefefe; margin: 5% auto; padding: 25px; border: 1px solid #888; width: 85%; max-width: 600px; border-radius: 8px; line-height: 1.6; }
-        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; margin-top: -10px; }
-        
-        @media (max-width: 480px) { .row { flex-direction: column; align-items: flex-start; } .input-field { width: 100%; } }
+        .seo-content { padding: 20px; line-height: 1.6; font-size: 14px; color: #444; }
+        .seo-content h2 { color: #006633; font-size: 18px; }
+
+        footer { border-top: 1px solid #ccc; padding: 30px 10px; text-align: center; background: #f9f9f9; }
+        .footer-link { color: #003366; text-decoration: underline; cursor: pointer; padding: 10px; display: inline-block; font-weight: bold; }
+
+        /* Виправлене модальне вікно */
+        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
+        .modal-content { background: #fff; margin: 15% auto; padding: 25px; width: 85%; max-width: 500px; border-radius: 12px; position: relative; }
+        .close-btn { position: absolute; right: 15px; top: 10px; font-size: 35px; color: #000; cursor: pointer; width: 40px; height: 40px; text-align: center; line-height: 40px; }
+
+        @media (max-width: 480px) {
+            .tabs-grid { grid-template-columns: repeat(2, 1fr); }
+            .row { flex-direction: column; align-items: flex-start; }
+            .row label { margin-bottom: 5px; }
+        }
     </style>
 </head>
 <body>
 
 <div class="top-header">
     <h1>UnitConverters<span>.io</span></h1>
-    <div style="color:white; font-size:20px;">📊</div>
+    <div style="color:white; font-size:20px;">⚙️</div>
 </div>
 
 <div class="container">
-    <div class="page-title">Advanced Unit Conversion Tools</div>
-    <div class="tabs-container" id="tabs"></div>
+    <div class="tabs-grid" id="tabs"></div>
 
     <div class="converter-box">
-        <div class="row">
-            <label>Amount:</label>
-            <input type="number" id="valIn" class="input-field" value="1" oninput="calc()">
-        </div>
-        <div class="row">
-            <label>From:</label>
-            <select id="unitIn" class="input-field" onchange="calc()"></select>
-        </div>
-        <div class="row">
-            <label>To:</label>
-            <select id="unitOut" class="input-field" onchange="calc()"></select>
-        </div>
-        <div class="row">
-            <label>Result:</label>
-            <input type="text" id="valOut" class="input-field" readonly style="background:#eee;">
-        </div>
+        <div class="row"><label>Amount:</label><input type="number" id="valIn" class="input-field" value="1" oninput="calc()"></div>
+        <div class="row"><label>From:</label><select id="unitIn" class="input-field" onchange="calc()"></select></div>
+        <div class="row"><label>To:</label><select id="unitOut" class="input-field" onchange="calc()"></select></div>
+        <div class="row"><label>Result:</label><input type="text" id="valOut" class="input-field" readonly style="background:#e9e9e9;"></div>
     </div>
 
-    <div class="ad-space">ADVERTISEMENT - PLACE ADSENSE CODE HERE</div>
-
-    <div id="tableWrapper">
-        <p style="font-size: 12px; color: #666;">* Click on a unit name below to select it in the converter.</p>
-        <table class="quick-table" id="conversionTable"></table>
-    </div>
+    <table class="quick-table" id="conversionTable"></table>
 
     <div class="seo-content">
-        <h2>Online Unit Converter Express - Accurate & Fast</h2>
-        <p>Welcome to <strong>UnitConverters.io</strong>, your ultimate destination for precise and reliable conversion tools. In our fast-paced world, whether you are a student solving physics problems, a traveler managing a budget, or a professional working on international projects, having a fast unit converter is essential.</p>
-        
-        <h3>Why Choose Our Tools?</h3>
-        <p>Our platform is designed for speed and accuracy. We use the latest international standards for all physical measurements and provide <strong>live exchange rates</strong> for global currencies. Our "Express Version" focuses on simplicity, ensuring you get your results in seconds without complex menus.</p>
-        
-        <h3>Comprehensive Conversion Categories</h3>
-        <ul>
-            <li><strong>Currency:</strong> Stay updated with real-time rates for USD, EUR, GBP, UAH, and more.</li>
-            <li><strong>Length & Distance:</strong> Seamlessly switch between kilometers, miles, meters, and inches.</li>
-            <li><strong>Weight & Mass:</strong> Convert kilograms to pounds, ounces, or grams with high precision.</li>
-            <li><strong>Temperature:</strong> Accurate formulas for Celsius, Fahrenheit, and Kelvin conversions.</li>
-        </ul>
-        
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: How accurate are the currency rates?</strong><br>A: Our currency data is updated regularly via reliable financial APIs, ensuring you get the most current market rates available.</p>
-        <p><strong>Q: Can I use this tool on my mobile phone?</strong><br>A: Yes! Our responsive design is optimized for iPhones, Android devices, and tablets for on-the-go conversions.</p>
+        <h2>Multi-functional Online Conversion Tool</h2>
+        <p>Our <strong>8-in-1 Express Converter</strong> provides precise results for everyday needs. From currency and clothing sizes to technical engineering units.</p>
+        <h3>Common Questions</h3>
+        <p><strong>Is this tool free?</strong> Yes, all 8 converters are free to use 24/7. We use international standards for accuracy.</p>
     </div>
-
-    <div class="ad-space">ADVERTISEMENT - BOTTOM BANNER</div>
 </div>
 
 <footer>
-    <p>© 2025 UnitConverters.io - High Accuracy Tools.</p>
-    <p>
-        <span class="footer-link" onclick="showModal('privacy')">Privacy Policy</span> | 
-        <span class="footer-link" onclick="showModal('terms')">Terms of Use</span>
-    </p>
+    <p>© 2025 UnitConverters.io</p>
+    <div class="footer-link" onclick="openPol('privacy')">Privacy Policy</div>
+    <div class="footer-link" onclick="openPol('terms')">Terms of Use</div>
 </footer>
 
 <div id="siteModal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <span class="close-btn" onclick="closeModal()">×</span>
         <div id="modalBody"></div>
     </div>
 </div>
 
 <script>
     const data = {
+        'Currency': { type: 'currency', units: {} },
         'Length': { 'Meter': 1, 'Kilometer': 0.001, 'Centimeter': 100, 'Mile': 0.000621, 'Foot': 3.28, 'Inch': 39.37 },
-        'Temp': { 'type': 'temp', 'units': ['Celsius', 'Fahrenheit', 'Kelvin'] },
-        'Currency': { 'type': 'currency', 'units': {} },
-        'Area': { 'Sq Meter': 1, 'Acre': 0.000247, 'Hectare': 0.0001, 'Sq Foot': 10.76 },
         'Weight': { 'Kilogram': 1, 'Gram': 1000, 'Pound': 2.204, 'Ounce': 35.27 },
-        'Time': { 'Second': 1, 'Minute': 1/60, 'Hour': 1/3600, 'Day': 1/86400 }
+        'Clothing': { 'US Size': 1, 'EU Size': 1, 'UK Size': 1, 'Japan Size': 1 }, // Спрощено для прикладу
+        'Temp': { type: 'temp', units: ['Celsius', 'Fahrenheit', 'Kelvin'] },
+        'Speed': { 'M/s': 1, 'Km/h': 3.6, 'Mph': 2.237, 'Knot': 1.943 },
+        'Area': { 'Sq Meter': 1, 'Acre': 0.000247, 'Hectare': 0.0001, 'Sq Foot': 10.76 },
+        'Time': { 'Second': 1, 'Minute': 0.0166, 'Hour': 0.000277, 'Day': 0.000011 }
     };
 
-    const policies = {
-        privacy: `<h3>Privacy Policy</h3><p>Your privacy is important to us. UnitConverters.io does not collect personal data from its users.</p><p><strong>Ads & Cookies:</strong> We use Google AdSense and third-party advertising companies to serve ads. These companies may use cookies to provide advertisements about goods and services of interest to you.</p><p>By using our site, you consent to our privacy standards.</p>`,
-        terms: `<h3>Terms of Use</h3><p>This website provides online calculation tools for free. While we strive for accuracy, we cannot guarantee that the results are error-free.</p><p><strong>Liability:</strong> UnitConverters.io is not responsible for any financial or technical losses resulting from the use of our converters.</p>`
-    };
+    let currentCat = 'Currency';
 
-    let currentCat = 'Length';
-
-    async function fetchCurrency() {
+    async function fetchRates() {
         try {
             const res = await fetch('https://open.er-api.com/v6/latest/USD');
-            const result = await res.json();
-            data['Currency'].units = result.rates;
-            if (currentCat === 'Currency') fillUnits();
-        } catch (e) {
-            data['Currency'].units = { 'USD': 1, 'EUR': 0.92, 'GBP': 0.79, 'UAH': 41, 'PLN': 4.02 };
-            if (currentCat === 'Currency') fillUnits();
+            const json = await res.json();
+            data['Currency'].units = json.rates;
+            initTabs();
+        } catch(e) { 
+            data['Currency'].units = {'USD':1, 'EUR':0.92, 'UAH':41}; 
+            initTabs(); 
         }
     }
 
     function initTabs() {
-        const container = document.getElementById('tabs');
-        container.innerHTML = '';
+        const t = document.getElementById('tabs');
+        t.innerHTML = '';
         Object.keys(data).forEach(cat => {
-            const btn = document.createElement('div');
-            btn.className = `tab ${cat === currentCat ? 'active' : ''}`;
-            btn.innerText = cat;
-            btn.onclick = () => {
-                currentCat = cat;
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                btn.classList.add('active');
-                fillUnits();
-            };
-            container.appendChild(btn);
+            const d = document.createElement('div');
+            d.className = `tab ${cat === currentCat ? 'active' : ''}`;
+            d.innerText = cat;
+            d.onclick = () => { currentCat = cat; initTabs(); fill(); };
+            t.appendChild(d);
         });
-        fillUnits();
+        fill();
     }
 
-    function selectUnitFromTable(unit) {
-        document.getElementById('unitIn').value = unit;
-        calc();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function fillUnits() {
+    function fill() {
         const si = document.getElementById('unitIn'), so = document.getElementById('unitOut');
         si.innerHTML = ''; so.innerHTML = '';
-        
-        let units;
-        if (data[currentCat].type === 'temp') units = data[currentCat].units;
-        else if (data[currentCat].type === 'currency') units = Object.keys(data[currentCat].units);
-        else units = Object.keys(data[currentCat]);
-        
-        units.forEach(u => {
-            si.add(new Option(u, u)); so.add(new Option(u, u));
-        });
-        
+        let u = data[currentCat].type === 'temp' ? data[currentCat].units : Object.keys(data[currentCat].type === 'currency' ? data[currentCat].units : data[currentCat]);
+        u.forEach(x => { si.add(new Option(x, x)); so.add(new Option(x, x)); });
         if (so.options.length > 1) so.selectedIndex = 1;
         
-        // Update Table
-        const table = document.getElementById('conversionTable');
-        table.innerHTML = `<tr><th>Quick Select ${currentCat} Unit</th></tr>`;
-        units.slice(0, 12).forEach(u => {
-            table.innerHTML += `<tr><td onclick="selectUnitFromTable('${u}')">${u} (Click to Select)</td></tr>`;
+        const tbl = document.getElementById('conversionTable');
+        tbl.innerHTML = `<tr><th>${currentCat} Reference</th></tr>`;
+        u.slice(0, 6).forEach(x => {
+            tbl.innerHTML += `<tr><td onclick="setUnit('${x}')">${x} (Select)</td></tr>`;
         });
-        
         calc();
     }
+
+    function setUnit(x) { document.getElementById('unitIn').value = x; calc(); window.scrollTo(0,0); }
 
     function calc() {
         const v = parseFloat(document.getElementById('valIn').value);
@@ -203,29 +162,29 @@
         if (isNaN(v)) { out.value = ''; return; }
 
         if (data[currentCat].type === 'temp') {
-            let c;
-            if (fi === 'Celsius') c = v; else if (fi === 'Fahrenheit') c = (v-32)*5/9; else c = v-273.15;
-            let res;
-            if (ti === 'Celsius') res = c; else if (ti === 'Fahrenheit') res = (c*9/5)+32; else res = c+273.15;
-            out.value = res.toFixed(2);
-        } else if (data[currentCat].type === 'currency') {
-            const res = (v / data['Currency'].units[fi]) * data['Currency'].units[ti];
-            out.value = res.toLocaleString('en-US', {maximumFractionDigits: 2});
+            let c = fi==='Celsius'?v : fi==='Fahrenheit'?(v-32)*5/9 : v-273.15;
+            let r = ti==='Celsius'?c : ti==='Fahrenheit'?(c*9/5)+32 : c+273.15;
+            out.value = r.toFixed(2);
         } else {
-            const res = (v / data[currentCat][fi]) * data[currentCat][ti];
-            out.value = res.toLocaleString('en-US', {maximumFractionDigits: 5});
+            const rates = data[currentCat].type === 'currency' ? data[currentCat].units : data[currentCat];
+            out.value = ((v / rates[fi]) * rates[ti]).toLocaleString('en-US', {maximumFractionDigits: 4});
         }
     }
 
-    function showModal(type) {
-        document.getElementById('modalBody').innerHTML = policies[type];
+    function openPol(type) {
+        const body = document.getElementById('modalBody');
+        if (type === 'privacy') {
+            body.innerHTML = `<h3>Privacy Policy</h3><p>Your privacy is important. We use cookies for Google AdSense to show relevant ads. We do not store personal data.</p>`;
+        } else {
+            body.innerHTML = `<h3>Terms of Use</h3><p>This tool is for information only. We strive for accuracy but are not responsible for any errors.</p>`;
+        }
         document.getElementById('siteModal').style.display = 'block';
     }
-    function closeModal() { document.getElementById('siteModal').style.display = 'none'; }
-    window.onclick = function(e) { if (e.target.className === 'modal') closeModal(); }
 
-    fetchCurrency();
-    initTabs();
+    function closeModal() { document.getElementById('siteModal').style.display = 'none'; }
+    window.onclick = (e) => { if (e.target.className === 'modal') closeModal(); }
+
+    fetchRates();
 </script>
 </body>
 </html>

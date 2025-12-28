@@ -10,7 +10,7 @@
         .top-header h1 { color: #fff; margin: 0; font-size: 22px; font-weight: normal; }
         .container { max-width: 800px; margin: 0 auto; padding: 10px; background: #fff; min-height: 100vh; box-sizing: border-box; }
         
-        /* Вкладки: ТЕКСТ ДУЖЕ ВЕЛИКИЙ */
+        /* Вкладки: Адаптивний ВЕЛИКИЙ шрифт */
         .tabs-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -22,19 +22,21 @@
         .tab { 
             background: #006633; 
             color: #fff; 
-            height: 70px; /* Фіксована висота для стабільності прямокутника */
+            padding: 15px 2px;
             text-align: center; 
             cursor: pointer; 
-            font-size: 24px; /* ДУЖЕ ВЕЛИКИЙ ШРИФТ */
-            font-weight: 900; /* Максимальна жирність */
+            /* На комп'ютері 20px, на мобільному масштабується від ширини екрана */
+            font-size: clamp(14px, 4vw, 22px); 
+            font-weight: 900; 
             border: none;
             outline: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 2px;
+            min-height: 60px;
+            word-break: break-word; /* Щоб довгі слова не вилазили */
         }
-        .tab.active { background: #fff; color: #006633; border-bottom: none; }
+        .tab.active { background: #fff; color: #006633; }
 
         .converter-box { border: 1px solid #ccc; padding: 25px; background: #f9f9f9; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
         .row { display: flex; align-items: center; margin-bottom: 15px; }
@@ -54,11 +56,11 @@
         .footer-link { color: #003366; text-decoration: underline; cursor: pointer; padding: 15px; display: inline-block; font-weight: bold; }
 
         .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-        .modal-content { background: #fff; margin: 10% auto; padding: 25px; width: 85%; max-width: 500px; border-radius: 12px; position: relative; line-height: 1.6; }
+        .modal-content { background: #fff; margin: 15% auto; padding: 25px; width: 85%; max-width: 500px; border-radius: 12px; position: relative; line-height: 1.6; }
         .close-btn { position: absolute; right: 5px; top: 0px; font-size: 45px; color: #000; cursor: pointer; width: 50px; height: 50px; text-align: center; line-height: 50px; }
 
         @media (max-width: 480px) {
-            .tab { font-size: 13px; height: 60px; } /* Оптимально для мобільних */
+            .tab { padding: 10px 1px; min-height: 50px; }
             .row { flex-direction: column; align-items: flex-start; }
             .row label { width: 100%; margin-bottom: 5px; }
         }
@@ -87,7 +89,12 @@
 
     <div class="seo-content">
         <h2>Professional Online Unit Converter</h2>
-        <p>Your ultimate destination for precise and reliable conversion tools. Optimized for speed and accuracy across 8 essential categories.</p>
+        <p>Your ultimate destination for precise and reliable conversion tools across 8 essential categories.</p>
+        <ul>
+            <li><strong>Currency:</strong> Live rates.</li>
+            <li><strong>Clothing:</strong> US, EU, UK, JP sizes.</li>
+            <li><strong>Measurements:</strong> Length, Weight, Area, etc.</li>
+        </ul>
     </div>
 
     <div class="ad-space">ADVERTISEMENT - BOTTOM BANNER</div>
@@ -126,8 +133,8 @@
     };
 
     const policies = {
-        privacy: `<h3>Privacy Policy</h3><p>Ми використовуємо файли cookie Google AdSense для показу реклами. Дані користувачів не збираються.</p>`,
-        terms: `<h3>Terms of Use</h3><p>Інструменти надаються безкоштовно "як є".</p>`
+        privacy: `<h3>Privacy Policy</h3><p>We do not collect any personal data. We use Google AdSense to show ads. Cookies may be used to personalize your experience.</p>`,
+        terms: `<h3>Terms of Use</h3><p>Usage of our tools is free and at your own risk. Accuracy is prioritized but not guaranteed.</p>`
     };
 
     let currentCat = 'Currency';

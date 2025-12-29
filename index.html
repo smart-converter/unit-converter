@@ -46,9 +46,9 @@
         footer { border-top: 1px solid #ddd; padding: 25px 15px; text-align: center; background: #f9f9f9; font-size: 12px; }
         .footer-link { color: #004499; text-decoration: underline; cursor: pointer; padding: 0 8px; font-weight: bold; }
 
-        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; }
-        .modal-content { background: #fff; margin: 5% auto; padding: 25px; width: 85%; max-width: 600px; border-radius: 8px; position: relative; line-height: 1.6; }
-        .close-btn { position: absolute; right: 15px; top: 10px; font-size: 32px; cursor: pointer; color: #666; }
+        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); }
+        .modal-content { background: #fff; margin: 10% auto; padding: 25px; width: 85%; max-width: 600px; border-radius: 8px; position: relative; line-height: 1.6; }
+        .close-btn { position: absolute; right: 10px; top: 0; font-size: 38px; cursor: pointer; color: #333; padding: 10px; }
     </style>
 </head>
 <body>
@@ -73,17 +73,20 @@
     <table class="quick-table" id="conversionTable"></table>
 
     <div class="seo-content">
-        <h2>Professional Multipurpose Unit Converter</h2>
-        <p>In today's globalized world, the ability to quickly and accurately convert between different measurement systems is essential. <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs, whether you are traveling, shopping online, or working on a professional project.</p>
+        <h2>Professional Multipurpose Unit Converter Online</h2>
+        <p>In today's globalized world, the ability to quickly and accurately convert between different measurement systems is essential. <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs. Whether you are an engineer, a traveler, or a student, our platform offers a reliable way to switch between units in seconds. Our mobile-first design ensures that the tool is accessible anywhere, anytime.</p>
         
-        <h2>Global Currency Exchange Rates</h2>
-        <p>Our currency tool offers real-time exchange rates for major global currencies including the US Dollar (USD), Euro (EUR), British Pound (GBP), and Ukrainian Hryvnia (UAH). We fetch data from reliable financial sources to ensure that your calculations are as accurate as possible.</p>
+        <h2>Accurate Global Currency Exchange Rates</h2>
+        <p>Stay updated with our integrated currency converter. We provide real-time exchange rates for major global currencies including the US Dollar (USD), Euro (EUR), British Pound (GBP), and Ukrainian Hryvnia (UAH). Our data is fetched from trusted financial institutions daily, making it a perfect companion for international shopping, business transactions, or travel planning. Calculate exchange values instantly and accurately.</p>
 
-        <h2>International Clothing Size Guide</h2>
-        <p>Shopping from international retailers can be confusing. We simplify the process by providing instant conversions between US, EU, UK, and Japanese sizing standards for footwear and apparel. Never guess your size again with our precise conversion table.</p>
+        <h2>Universal Clothing and Shoe Size Converter</h2>
+        <p>Online shopping often presents the challenge of different sizing standards across countries. Our tool eliminates the confusion by offering a detailed size guide for the US, EU, UK, and Japan. Convert dress sizes, shoes, and apparel measurements instantly. We cover the most common sizing charts to ensure you find the perfect fit when ordering from international brands.</p>
 
-        <h2>Essential Measurements for Daily Life</h2>
-        <p>From kitchen recipes to construction measurements, our Length, Weight, Area, and Time converters ensure you have the right numbers every time. We support both Metric and Imperial systems, covering kilometers, miles, pounds, and kilograms with high-precision results.</p>
+        <h2>Scientific and Daily Life Measurements</h2>
+        <p>From complex engineering tasks to simple kitchen recipes, we've got you covered. Our converter supports <strong>Length</strong> (meters, miles, feet, inches), <strong>Weight</strong> (kilograms, pounds, grams, ounces), <strong>Area</strong>, <strong>Speed</strong>, and <strong>Temperature</strong>. We bridge the gap between Metric and Imperial systems, ensuring that your calculations for construction, science, or cooking are precise and error-free.</p>
+
+        <h2>Why Choose UnitConverters.io?</h2>
+        <p>We focus on speed, simplicity, and accuracy. Our tool requires no registration and is completely free to use. With a clean interface and optimized code, it loads instantly even on slow connections. Our goal is to provide the most efficient conversion experience on the web.</p>
     </div>
 
     <div class="ad-space">ADVERTISEMENT AREA</div>
@@ -97,7 +100,7 @@
     </div>
 </footer>
 
-<div id="siteModal" class="modal">
+<div id="siteModal" class="modal" onclick="if(event.target == this) closeModal()">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">×</span>
         <div id="modalBody"></div>
@@ -125,20 +128,20 @@
 
     const legalTexts = {
         privacy: `<h2>Privacy Policy</h2>
-                  <p>At UnitConverters.io, your privacy is a top priority. This policy outlines how we handle information:</p>
+                  <p>Your privacy is important to us. This policy describes our data practices:</p>
                   <ul>
-                    <li><strong>Data Collection:</strong> We do not collect personal identifiers like names or email addresses. Your usage remains anonymous.</li>
-                    <li><strong>Cookies:</strong> We use essential cookies to remember your conversion preferences. Third-party vendors, including Google, use cookies to serve ads based on your visits.</li>
-                    <li><strong>Google AdSense:</strong> We display ads through Google. You can opt out of personalized advertising by visiting Google's Ad Settings.</li>
-                    <li><strong>Security:</strong> We implement standard security measures to protect your browsing experience.</li>
+                    <li><strong>No Data Collection:</strong> We do not collect names, emails, or personal information.</li>
+                    <li><strong>Cookies:</strong> We use cookies only to save your settings and for Google AdSense advertising.</li>
+                    <li><strong>AdSense:</strong> Google uses cookies to serve ads based on your interests. You can manage this in your Google account.</li>
+                    <li><strong>External Links:</strong> We are not responsible for the content of external sites linked here.</li>
                   </ul>`,
         terms: `<h2>Terms of Use</h2>
-                <p>By using UnitConverters.io, you agree to the following terms:</p>
+                <p>Agreement to terms:</p>
                 <ul>
-                    <li><strong>Accuracy:</strong> While we strive for 100% accuracy, results should be cross-checked for critical applications. Currency rates are updated daily.</li>
-                    <li><strong>Usage:</strong> Our tools are free for personal and professional use. Automated scraping of our data is strictly prohibited.</li>
-                    <li><strong>Liability:</strong> UnitConverters.io is not liable for any losses or damages resulting from the use of our calculations.</li>
-                    <li><strong>Modifications:</strong> We reserve the right to update our conversion algorithms and exchange rates at any time without prior notice.</li>
+                    <li><strong>Accuracy:</strong> Results are for informational purposes. Cross-check for critical work.</li>
+                    <li><strong>No Liability:</strong> We are not responsible for errors or financial losses.</li>
+                    <li><strong>Intellectual Property:</strong> Site content and code belong to UnitConverters.io.</li>
+                    <li><strong>Fair Use:</strong> Do not use automated tools to scrape our data.</li>
                 </ul>`
     };
 
@@ -206,7 +209,6 @@
         document.getElementById('siteModal').style.display = 'block'; 
     }
     function closeModal() { document.getElementById('siteModal').style.display = 'none'; }
-    window.onclick = (e) => { if (e.target.className === 'modal') closeModal(); }
     fetchRates();
 </script>
 </body>

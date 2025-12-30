@@ -20,15 +20,16 @@
         .row label { width: 80px; font-size: 14px; color: #444; font-weight: 700; }
         .input-field { flex: 1; padding: 6px 10px; border: 1px solid #999; border-radius: 3px; font-size: 18px; font-weight: 800; width: 100%; box-sizing: border-box; height: 38px; }
         .ad-space { background: #fdfae1; border: 1px dashed #d1c6a2; margin: 10px 0; text-align: center; padding: 15px; color: #888; font-size: 11px; min-height: 90px; display: flex; align-items: center; justify-content: center; border-radius: 4px; }
-        .quick-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 14px; }
-        .quick-table th { background-color: #f1f1f1; color: #006633; padding: 6px 10px; text-align: left; border-bottom: 2px solid #006633; }
-        .quick-table td { padding: 5px 10px; border-bottom: 1px solid #eee; color: #004499; cursor: pointer; text-decoration: underline; line-height: 1.2; }
+        .quick-links-box { padding: 15px; background: #f9f9f9; border: 1px solid #eee; margin-top: 10px; border-radius: 4px; }
+        .quick-links-box h3 { font-size: 16px; color: #006633; margin-top: 0; }
+        .q-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .q-item { font-size: 13px; color: #004499; text-decoration: underline; cursor: pointer; }
         .seo-content { padding: 15px; line-height: 1.6; font-size: 15px; color: #444; border-top: 1px solid #eee; background: #fcfcfc; }
         .seo-content h2 { color: #006633; font-size: 19px; margin: 15px 0 8px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
         footer { border-top: 1px solid #ddd; padding: 25px 15px; text-align: center; background: #f9f9f9; font-size: 12px; }
         .footer-link { color: #004499; text-decoration: underline; cursor: pointer; padding: 0 8px; font-weight: bold; }
         .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; }
-        .modal-content { background: #fff; margin: 5% auto; padding: 25px; width: 90%; max-width: 600px; border-radius: 8px; position: relative; line-height: 1.6; }
+        .modal-content { background: #fff; margin: 5% auto; padding: 25px; width: 90%; max-width: 600px; border-radius: 8px; position: relative; }
         .close-btn { position: absolute; right: 10px; top: 0; font-size: 38px; cursor: pointer; color: #333; padding: 10px; }
     </style>
 </head>
@@ -46,21 +47,25 @@
 
 <div class="container">
     <div id="tabs" class="tabs-grid"></div>
-    <div class="ad-space" id="txt-ad">ADVERTISEMENT AREA</div>
+    <div class="ad-space">ADVERTISEMENT AREA</div>
     <div class="converter-box">
         <div class="row"><label id="lbl-amount">Amount:</label><input type="number" id="valIn" class="input-field" value="1" oninput="calc()"></div>
         <div class="row"><label id="lbl-from">From:</label><select id="unitIn" class="input-field" onchange="calc()"></select></div>
         <div class="row"><label id="lbl-to">To:</label><select id="unitOut" class="input-field" onchange="calc()"></select></div>
         <div class="row"><label id="lbl-result">Result:</label><input type="text" id="valOut" class="input-field" readonly style="background:#f0f0f0; color:#006633; border-color:#ccc;"></div>
     </div>
-    <table class="quick-table" id="conversionTable"></table>
+
+    <div class="quick-links-box">
+        <h3 id="h3-quick">Popular Conversions</h3>
+        <div class="q-grid" id="q-grid"></div>
+    </div>
+
     <div class="seo-content" id="seo-box"></div>
-    <div class="ad-space" id="txt-ad-2">ADVERTISEMENT AREA</div>
 </div>
 
 <footer>
     <p id="txt-footer">© 2025 UnitConverters.io - Your Trusted Partner</p>
-    <div style="margin-top:10px;">
+    <div>
         <span class="footer-link" onclick="openPol('privacy')" id="link-privacy">Privacy Policy</span>
         <span class="footer-link" onclick="openPol('terms')" id="link-terms">Terms of Use</span>
     </div>
@@ -76,88 +81,44 @@
 <script>
     const translations = {
         en: {
-            amount: "Amount:", from: "From:", to: "To:", result: "Result:", ad: "ADVERTISEMENT AREA",
+            amount: "Amount:", from: "From:", to: "To:", result: "Result:",
+            quick: "Popular Conversions",
+            q_items: ["100 USD to EUR", "1 Inch to cm", "5 Miles to km", "180 Celsius to Fahrenheit", "10 kg to lbs", "US to UK Shoes"],
             footer: "© 2025 UnitConverters.io - Your Trusted Partner", privacy: "Privacy Policy", terms: "Terms of Use",
-            ref: "Reference", categories: ['Currency', 'Length', 'Weight', 'Clothing', 'Temp', 'Speed', 'Area', 'Time'],
-            seo: `<h2>Professional Multipurpose Unit Converter Online</h2>
-                  <p>In today's globalized world, the ability to quickly and accurately convert between different measurement systems is essential. <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs. Whether you are traveling or working on a professional project, our tool ensures accuracy.</p>
-                  <h2>Global Currency Exchange Rates</h2>
-                  <p>Our currency tool offers real-time exchange rates for major global currencies including the USD, EUR, GBP, and UAH. We fetch data from reliable financial sources to ensure that your calculations are as accurate as possible for international shopping.</p>
-                  <h2>International Clothing Size Guide</h2>
-                  <p>Shopping from international retailers can be confusing. We simplify the process by providing instant conversions between US, EU, UK, and Japanese sizing standards for footwear and apparel.</p>
-                  <h2>Essential Measurements for Daily Life</h2>
-                  <p>From kitchen recipes to construction, our Length, Weight, Area, and Time converters ensure you have the right numbers every time. We support both Metric and Imperial systems.</p>`,
-            privText: `<h2>Privacy Policy</h2>
-                       <p>Your privacy is important to us. This policy describes our data practices:</p>
-                       <ul>
-                         <li><strong>No Data Collection:</strong> We do not collect names or emails.</li>
-                         <li><strong>Cookies:</strong> We use cookies only to save settings and for Google AdSense ads.</li>
-                         <li><strong>Google AdSense:</strong> Google uses cookies to serve ads based on your interests. You can manage this in your Google settings.</li>
-                         <li><strong>Security:</strong> We implement standard measures to protect your browsing.</li>
-                       </ul>`,
-            termsText: `<h2>Terms of Use</h2>
-                        <p>By using UnitConverters.io, you agree to these terms:</p>
-                        <ul>
-                          <li><strong>Accuracy:</strong> Results are for informational purposes. Cross-check for critical work.</li>
-                          <li><strong>Liability:</strong> We are not responsible for errors or financial losses.</li>
-                          <li><strong>Modifications:</strong> We reserve the right to update our algorithms at any time.</li>
-                          <li><strong>Fair Use:</strong> Do not use automated tools to scrape our data.</li>
-                        </ul>`
+            categories: ['Currency', 'Length', 'Weight', 'Clothing', 'Temp', 'Speed', 'Area', 'Time'],
+            seo: `<h2>Professional Multipurpose Unit Converter</h2><p>In today's globalized world, <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs. Accurate currency rates, clothing sizes, and technical measurements in one place.</p>`,
+            privText: `<h2>Privacy Policy</h2><p>We value your privacy. We use cookies for Google AdSense and settings. No personal data collection.</p>`,
+            termsText: `<h2>Terms of Use</h2><p>Results are for informational purposes. We are not liable for errors.</p>`
         },
         uk: {
-            amount: "Сума:", from: "З:", to: "В:", result: "Результат:", ad: "МІСЦЕ ДЛЯ РЕКЛАМИ",
-            footer: "© 2025 UnitConverters.io - Ваш надійний помічник", privacy: "Політика конфіденційності", terms: "Умови використання",
-            ref: "Довідка", categories: ['Валюта', 'Довжина', 'Вага', 'Одяг', 'Темп', 'Швидкість', 'Площа', 'Час'],
-            seo: `<h2>Професійний універсальний конвертер одиниць онлайн</h2>
-                  <p>У сучасному глобалізованому світі можливість швидко та точно конвертувати різні одиниці вимірювання є необхідною. <strong>UnitConverters.io</strong> пропонує просте та швидке рішення для всіх ваших потреб.</p>
-                  <h2>Курси валют у реальному часі</h2>
-                  <p>Наш інструмент надає актуальні курси для основних валют, включаючи USD, EUR, GBP та UAH. Дані оновлюються щодня для максимальної точності у ваших фінансових розрахунках.</p>
-                  <h2>Міжнародна таблиця розмірів одягу</h2>
-                  <p>Покупки в іноземних магазинах часто викликають труднощі через різні стандарти. Наш сайт допомагає миттєво порівняти розміри США, ЄС, Великобританії та Японії.</p>
-                  <h2>Вимірювання для повсякденного життя</h2>
-                  <p>Від кулінарних рецептів до будівництва — наші конвертери довжини, ваги, площі та часу гарантують правильні цифри щоразу. Ми підтримуємо метричну та імперську системи.</p>`,
-            privText: `<h2>Політика конфіденційності</h2>
-                       <p>Ваша конфіденційність важлива для нас. Наші правила:</p>
-                       <ul>
-                         <li><strong>Збір даних:</strong> Ми не збираємо імена чи електронні адреси.</li>
-                         <li><strong>Файли Cookie:</strong> Використовуються для збереження налаштувань та реклами Google AdSense.</li>
-                         <li><strong>Реклама:</strong> Google використовує куки для показу оголошень на основі ваших інтересів.</li>
-                         <li><strong>Безпека:</strong> Ми дбаємо про захист вашого перебування на нашому сайті.</li>
-                       </ul>`,
-            termsText: `<h2>Умови використання</h2>
-                        <p>Користуючись сайтом UnitConverters.io, ви погоджуєтеся з наступним:</p>
-                        <ul>
-                          <li><strong>Точність:</strong> Розрахунки мають інформаційний характер. Перевіряйте важливі дані.</li>
-                          <li><strong>Відповідальність:</strong> Ми не несемо відповідальності за помилки чи фінансові втрати.</li>
-                          <li><strong>Зміни:</strong> Ми можемо оновлювати алгоритми без попередження.</li>
-                          <li><strong>Використання:</strong> Заборонено автоматичне зчитування даних сайту.</li>
-                        </ul>`
+            amount: "Сума:", from: "З:", to: "В:", result: "Результат:",
+            quick: "Популярні запити",
+            q_items: ["100 Доларів у Євро", "1 Дюйм у см", "5 Миль у км", "180 Цельсія у Фаренгейти", "10 кг у фунти", "Розміри взуття США"],
+            footer: "© 2025 UnitConverters.io - Ваш надійний помічник", privacy: "Конфіденційність", terms: "Умови",
+            categories: ['Валюта', 'Довжина', 'Вага', 'Одяг', 'Темп', 'Швидкість', 'Площа', 'Час'],
+            seo: `<h2>Професійний універсальний конвертер одиниць</h2><p><strong>UnitConverters.io</strong> пропонує швидке рішення для конвертації валют, довжини, ваги та розмірів одягу. Все в одному зручному інструменті.</p>`,
+            privText: `<h2>Політика конфіденційності</h2><p>Ми використовуємо куки для реклами та налаштувань. Ваші дані не збираються.</p>`,
+            termsText: `<h2>Умови використання</h2><p>Розрахунки носять довідковий характер. Ми не несемо відповідальності за помилки.</p>`
         },
         es: {
-            amount: "Cantidad:", from: "De:", to: "A:", result: "Resultado:", ad: "ÁREA DE PUBLICIDAD",
-            footer: "© 2025 UnitConverters.io - Su socio de confianza", privacy: "Política de privacidad", terms: "Términos de uso",
-            ref: "Referencia", categories: ['Moneda', 'Longitud', 'Peso', 'Ropa', 'Temp', 'Velocidad', 'Área', 'Tiempo'],
-            seo: `<h2>Convertidor de unidades profesional en línea</h2>
-                  <p>En un mundo globalizado, la capacidad de convertir unidades de forma rápida y precisa es esencial. <strong>UnitConverters.io</strong> ofrece una solución perfecta para todas sus necesidades.</p>
-                  <h2>Tasas de cambio de divisas globales</h2>
-                  <p>Nuestra herramienta ofrece tasas en tiempo real para USD, EUR, GBP y más. Obtenemos datos de fuentes financieras confiables para asegurar la precisión.</p>
-                  <h2>Guía internacional de tallas de ropa</h2>
-                  <p>Comprar en tiendas internacionales puede ser confuso. Simplificamos el proceso con conversiones instantáneas entre estándares de EE. UU., UE, Reino Unido y Japón.</p>`,
-            privText: `<h2>Política de privacidad</h2><p>No recopilamos datos personales. Usamos cookies para personalizar anuncios de Google AdSense y mejorar su experiencia.</p>`,
-            termsText: `<h2>Términos de uso</h2><p>El uso de este sitio es bajo su responsabilidad. Los resultados son informativos y no nos hacemos responsables de errores.</p>`
+            amount: "Cantidad:", from: "De:", to: "A:", result: "Resultado:",
+            quick: "Conversiones Populares",
+            q_items: ["100 USD a EUR", "1 Pulgada a cm", "5 Millas a km", "180 Celsius a Fahrenheit", "10 kg a lbs", "Tallas EE. UU. a Reino Unido"],
+            footer: "© 2025 UnitConverters.io - Su socio de confianza", privacy: "Privacidad", terms: "Términos",
+            categories: ['Moneda', 'Longitud', 'Peso', 'Ropa', 'Temp', 'Velocidad', 'Área', 'Tiempo'],
+            seo: `<h2>Convertidor de unidades profesional</h2><p><strong>UnitConverters.io</strong> ofrece soluciones rápidas para todas sus conversiones de moneda, ropa y medidas técnicas.</p>`,
+            privText: `<h2>Privacidad</h2><p>Usamos cookies para anuncios y configuraciones. No recopilamos datos personales.</p>`,
+            termsText: `<h2>Términos</h2><p>Los resultados son informativos. No nos hacemos responsables de los errores.</p>`
         },
         de: {
-            amount: "Betrag:", from: "Von:", to: "Bis:", result: "Ergebnis:", ad: "WERBEBEREICH",
-            footer: "© 2025 UnitConverters.io - Ihr treuer Partner", privacy: "Datenschutz", terms: "Nutzungsbedingungen",
-            ref: "Referenz", categories: ['Währung', 'Länge', 'Gewicht', 'Kleidung', 'Temp', 'Tempo', 'Fläche', 'Zeit'],
-            seo: `<h2>Professioneller Einheitenrechner Online</h2>
-                  <p>In einer globalisierten Welt ist die schnelle Umrechnung von Einheiten unerlässlich. <strong>UnitConverters.io</strong> bietet eine effiziente Lösung.</p>
-                  <h2>Echtzeit-Wechselkurse</h2>
-                  <p>Unser Währungsrechner bietet aktuelle Kurse für USD, EUR, GBP und UAH. Wir nutzen zuverlässige Finanzquellen für höchste Genauigkeit.</p>
-                  <h2>Internationale Kleidergrößen</h2>
-                  <p>Wir bieten sofortige Umrechnungen zwischen US-, EU-, UK- und japanischen Standards für Schuhe und Bekleidung.</p>`,
-            privText: `<h2>Datenschutz</h2><p>Wir sammeln keine persönlichen Informationen. Cookies werden für Google AdSense-Anzeigen und Einstellungen verwendet.</p>`,
-            termsText: `<h2>Nutzungsbedingungen</h2><p>Die Nutzung erfolgt auf eigene Gefahr. Ergebnisse dienen der Information. Wir haften nicht für Berechnungsfehler.</p>`
+            amount: "Betrag:", from: "Von:", to: "Bis:", result: "Ergebnis:",
+            quick: "Beliebte Umrechnungen",
+            q_items: ["100 USD in EUR", "1 Zoll in cm", "5 Meilen in km", "180 Celsius in Fahrenheit", "10 kg in Pfund", "Schuhgrößen US zu EU"],
+            footer: "© 2025 UnitConverters.io - Ihr Partner", privacy: "Datenschutz", terms: "Nutzungsbedingungen",
+            categories: ['Währung', 'Länge', 'Gewicht', 'Kleidung', 'Temp', 'Tempo', 'Fläche', 'Zeit'],
+            seo: `<h2>Professioneller Einheitenrechner</h2><p><strong>UnitConverters.io</strong> bietet eine nahtlose Lösung für alle Ihre Umrechnungsbedürfnisse.</p>`,
+            privText: `<h2>Datenschutz</h2><p>Wir verwenden Cookies für Werbung. Keine persönlichen Daten werden gesammelt.</p>`,
+            termsText: `<h2>Nutzungsbedingungen</h2><p>Ergebnisse dienen der Information. Keine Haftung für Fehler.</p>`
         }
     };
 
@@ -175,12 +136,21 @@
         document.getElementById('lbl-from').innerText = l.from;
         document.getElementById('lbl-to').innerText = l.to;
         document.getElementById('lbl-result').innerText = l.result;
-        document.getElementById('txt-ad').innerText = l.ad;
-        document.getElementById('txt-ad-2').innerText = l.ad;
         document.getElementById('txt-footer').innerText = l.footer;
         document.getElementById('link-privacy').innerText = l.privacy;
         document.getElementById('link-terms').innerText = l.terms;
         document.getElementById('seo-box').innerHTML = l.seo;
+        document.getElementById('h3-quick').innerText = l.quick;
+        
+        const qGrid = document.getElementById('q-grid');
+        qGrid.innerHTML = '';
+        l.q_items.forEach(item => {
+            const span = document.createElement('span');
+            span.className = 'q-item';
+            span.innerText = item;
+            span.onclick = () => { window.scrollTo({top: 0, behavior: 'smooth'}); };
+            qGrid.appendChild(span);
+        });
         initTabs();
     }
 
@@ -192,8 +162,7 @@
 
     function initTabs() {
         const t = document.getElementById('tabs'); t.innerHTML = '';
-        const cats = Object.keys(rawData);
-        cats.forEach((cat, index) => {
+        Object.keys(rawData).forEach((cat, index) => {
             const d = document.createElement('div');
             d.className = `tab ${index === currentCatIndex ? 'active' : ''}`;
             d.innerText = translations[curLang].categories[index];
@@ -210,13 +179,8 @@
         let u = (rawData[catKey].type === 'temp' || rawData[catKey].type === 'clothing') ? rawData[catKey].units : Object.keys(rawData[catKey].type === 'currency' ? rawData[catKey].units : rawData[catKey]);
         u.forEach(x => { si.add(new Option(x, x)); so.add(new Option(x, x)); });
         if (so.options.length > 1) so.selectedIndex = 1;
-        const tbl = document.getElementById('conversionTable');
-        tbl.innerHTML = `<tr><th>${translations[curLang].categories[currentCatIndex]} ${translations[curLang].ref}</th></tr>`;
-        u.slice(0, 6).forEach(x => { tbl.innerHTML += `<tr><td onclick="setUnit('${x}')">${x}</td></tr>`; });
         calc();
     }
-
-    function setUnit(x) { document.getElementById('unitIn').value = x; calc(); window.scrollTo({top: 0, behavior: 'smooth'}); }
 
     function calc() {
         const v = parseFloat(document.getElementById('valIn').value);

@@ -27,8 +27,8 @@
         .seo-content h2 { color: #006633; font-size: 19px; margin: 15px 0 8px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
         footer { border-top: 1px solid #ddd; padding: 25px 15px; text-align: center; background: #f9f9f9; font-size: 12px; }
         .footer-link { color: #004499; text-decoration: underline; cursor: pointer; padding: 0 8px; font-weight: bold; }
-        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); }
-        .modal-content { background: #fff; margin: 10% auto; padding: 25px; width: 85%; max-width: 600px; border-radius: 8px; position: relative; line-height: 1.6; }
+        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; }
+        .modal-content { background: #fff; margin: 5% auto; padding: 25px; width: 90%; max-width: 600px; border-radius: 8px; position: relative; line-height: 1.6; }
         .close-btn { position: absolute; right: 10px; top: 0; font-size: 38px; cursor: pointer; color: #333; padding: 10px; }
     </style>
 </head>
@@ -79,33 +79,85 @@
             amount: "Amount:", from: "From:", to: "To:", result: "Result:", ad: "ADVERTISEMENT AREA",
             footer: "© 2025 UnitConverters.io - Your Trusted Partner", privacy: "Privacy Policy", terms: "Terms of Use",
             ref: "Reference", categories: ['Currency', 'Length', 'Weight', 'Clothing', 'Temp', 'Speed', 'Area', 'Time'],
-            seo: `<h2>Professional Multipurpose Unit Converter</h2><p>In today's globalized world, the ability to quickly and accurately convert between different measurement systems is essential. <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs. Whether you are traveling, shopping online, or working on a professional project.</p><h2>Global Currency Exchange Rates</h2><p>Our currency tool offers real-time exchange rates for major global currencies including the USD, EUR, GBP, and UAH. We fetch data from reliable financial sources to ensure accuracy.</p>`,
-            privText: `<h2>Privacy Policy</h2><p>At UnitConverters.io, your privacy is a top priority. We do not collect personal identifiers. We use cookies for preferences and Google AdSense for advertising. Third-party vendors use cookies to serve ads based on your visits.</p>`,
-            termsText: `<h2>Terms of Use</h2><p>By using UnitConverters.io, you agree to these terms: results are for informational purposes; we are not liable for any calculation errors; currency rates are updated daily.</p>`
+            seo: `<h2>Professional Multipurpose Unit Converter Online</h2>
+                  <p>In today's globalized world, the ability to quickly and accurately convert between different measurement systems is essential. <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs. Whether you are traveling or working on a professional project, our tool ensures accuracy.</p>
+                  <h2>Global Currency Exchange Rates</h2>
+                  <p>Our currency tool offers real-time exchange rates for major global currencies including the USD, EUR, GBP, and UAH. We fetch data from reliable financial sources to ensure that your calculations are as accurate as possible for international shopping.</p>
+                  <h2>International Clothing Size Guide</h2>
+                  <p>Shopping from international retailers can be confusing. We simplify the process by providing instant conversions between US, EU, UK, and Japanese sizing standards for footwear and apparel.</p>
+                  <h2>Essential Measurements for Daily Life</h2>
+                  <p>From kitchen recipes to construction, our Length, Weight, Area, and Time converters ensure you have the right numbers every time. We support both Metric and Imperial systems.</p>`,
+            privText: `<h2>Privacy Policy</h2>
+                       <p>Your privacy is important to us. This policy describes our data practices:</p>
+                       <ul>
+                         <li><strong>No Data Collection:</strong> We do not collect names or emails.</li>
+                         <li><strong>Cookies:</strong> We use cookies only to save settings and for Google AdSense ads.</li>
+                         <li><strong>Google AdSense:</strong> Google uses cookies to serve ads based on your interests. You can manage this in your Google settings.</li>
+                         <li><strong>Security:</strong> We implement standard measures to protect your browsing.</li>
+                       </ul>`,
+            termsText: `<h2>Terms of Use</h2>
+                        <p>By using UnitConverters.io, you agree to these terms:</p>
+                        <ul>
+                          <li><strong>Accuracy:</strong> Results are for informational purposes. Cross-check for critical work.</li>
+                          <li><strong>Liability:</strong> We are not responsible for errors or financial losses.</li>
+                          <li><strong>Modifications:</strong> We reserve the right to update our algorithms at any time.</li>
+                          <li><strong>Fair Use:</strong> Do not use automated tools to scrape our data.</li>
+                        </ul>`
         },
         uk: {
             amount: "Сума:", from: "З:", to: "В:", result: "Результат:", ad: "МІСЦЕ ДЛЯ РЕКЛАМИ",
             footer: "© 2025 UnitConverters.io - Ваш надійний помічник", privacy: "Політика конфіденційності", terms: "Умови використання",
             ref: "Довідка", categories: ['Валюта', 'Довжина', 'Вага', 'Одяг', 'Темп', 'Швидкість', 'Площа', 'Час'],
-            seo: `<h2>Професійний універсальний конвертер одиниць</h2><p>У сучасному глобалізованому світі можливість швидко та точно конвертувати різні одиниці вимірювання є необхідною. <strong>UnitConverters.io</strong> пропонує просте та швидке рішення для всіх ваших потреб.</p><h2>Курси валют у реальному часі</h2><p>Наш інструмент надає актуальні курси для основних валют, включаючи USD, EUR, GBP та UAH. Дані оновлюються щодня для максимальної точності.</p>`,
-            privText: `<h2>Політика конфіденційності</h2><p>Ми не збираємо ваші особисті дані. Куки використовуються лише для налаштувань та рекламної мережі Google AdSense для показу релевантних оголошень.</p>`,
-            termsText: `<h2>Умови використання</h2><p>Використовуючи наш сервіс, ви погоджуєтеся, що розрахунки мають інформаційний характер. Ми не несемо відповідальності за можливі помилки в розрахунках.</p>`
+            seo: `<h2>Професійний універсальний конвертер одиниць онлайн</h2>
+                  <p>У сучасному глобалізованому світі можливість швидко та точно конвертувати різні одиниці вимірювання є необхідною. <strong>UnitConverters.io</strong> пропонує просте та швидке рішення для всіх ваших потреб.</p>
+                  <h2>Курси валют у реальному часі</h2>
+                  <p>Наш інструмент надає актуальні курси для основних валют, включаючи USD, EUR, GBP та UAH. Дані оновлюються щодня для максимальної точності у ваших фінансових розрахунках.</p>
+                  <h2>Міжнародна таблиця розмірів одягу</h2>
+                  <p>Покупки в іноземних магазинах часто викликають труднощі через різні стандарти. Наш сайт допомагає миттєво порівняти розміри США, ЄС, Великобританії та Японії.</p>
+                  <h2>Вимірювання для повсякденного життя</h2>
+                  <p>Від кулінарних рецептів до будівництва — наші конвертери довжини, ваги, площі та часу гарантують правильні цифри щоразу. Ми підтримуємо метричну та імперську системи.</p>`,
+            privText: `<h2>Політика конфіденційності</h2>
+                       <p>Ваша конфіденційність важлива для нас. Наші правила:</p>
+                       <ul>
+                         <li><strong>Збір даних:</strong> Ми не збираємо імена чи електронні адреси.</li>
+                         <li><strong>Файли Cookie:</strong> Використовуються для збереження налаштувань та реклами Google AdSense.</li>
+                         <li><strong>Реклама:</strong> Google використовує куки для показу оголошень на основі ваших інтересів.</li>
+                         <li><strong>Безпека:</strong> Ми дбаємо про захист вашого перебування на нашому сайті.</li>
+                       </ul>`,
+            termsText: `<h2>Умови використання</h2>
+                        <p>Користуючись сайтом UnitConverters.io, ви погоджуєтеся з наступним:</p>
+                        <ul>
+                          <li><strong>Точність:</strong> Розрахунки мають інформаційний характер. Перевіряйте важливі дані.</li>
+                          <li><strong>Відповідальність:</strong> Ми не несемо відповідальності за помилки чи фінансові втрати.</li>
+                          <li><strong>Зміни:</strong> Ми можемо оновлювати алгоритми без попередження.</li>
+                          <li><strong>Використання:</strong> Заборонено автоматичне зчитування даних сайту.</li>
+                        </ul>`
         },
         es: {
             amount: "Cantidad:", from: "De:", to: "A:", result: "Resultado:", ad: "ÁREA DE PUBLICIDAD",
             footer: "© 2025 UnitConverters.io - Su socio de confianza", privacy: "Política de privacidad", terms: "Términos de uso",
             ref: "Referencia", categories: ['Moneda', 'Longitud', 'Peso', 'Ropa', 'Temp', 'Velocidad', 'Área', 'Tiempo'],
-            seo: `<h2>Convertidor de unidades profesional</h2><p>En un mundo globalizado, la capacidad de convertir unidades de forma rápida y precisa es esencial. <strong>UnitConverters.io</strong> ofrece una solución perfecta para todas sus necesidades.</p>`,
-            privText: `<h2>Política de privacidad</h2><p>Su privacidad es importante. No recopilamos datos personales. Usamos cookies para preferencias y anuncios de Google AdSense.</p>`,
-            termsText: `<h2>Términos de uso</h2><p>Al utilizar este sitio, acepta que los resultados son solo informativos y no somos responsables de errores de cálculo.</p>`
+            seo: `<h2>Convertidor de unidades profesional en línea</h2>
+                  <p>En un mundo globalizado, la capacidad de convertir unidades de forma rápida y precisa es esencial. <strong>UnitConverters.io</strong> ofrece una solución perfecta para todas sus necesidades.</p>
+                  <h2>Tasas de cambio de divisas globales</h2>
+                  <p>Nuestra herramienta ofrece tasas en tiempo real para USD, EUR, GBP y más. Obtenemos datos de fuentes financieras confiables para asegurar la precisión.</p>
+                  <h2>Guía internacional de tallas de ropa</h2>
+                  <p>Comprar en tiendas internacionales puede ser confuso. Simplificamos el proceso con conversiones instantáneas entre estándares de EE. UU., UE, Reino Unido y Japón.</p>`,
+            privText: `<h2>Política de privacidad</h2><p>No recopilamos datos personales. Usamos cookies para personalizar anuncios de Google AdSense y mejorar su experiencia.</p>`,
+            termsText: `<h2>Términos de uso</h2><p>El uso de este sitio es bajo su responsabilidad. Los resultados son informativos y no nos hacemos responsables de errores.</p>`
         },
         de: {
             amount: "Betrag:", from: "Von:", to: "Bis:", result: "Ergebnis:", ad: "WERBEBEREICH",
             footer: "© 2025 UnitConverters.io - Ihr treuer Partner", privacy: "Datenschutz", terms: "Nutzungsbedingungen",
             ref: "Referenz", categories: ['Währung', 'Länge', 'Gewicht', 'Kleidung', 'Temp', 'Tempo', 'Fläche', 'Zeit'],
-            seo: `<h2>Professioneller Einheitenrechner</h2><p>In einer globalisierten Welt ist die schnelle Umrechnung von Einheiten unerlässlich. <strong>UnitConverters.io</strong> bietet eine effiziente Lösung für all Ihre Anforderungen.</p>`,
-            privText: `<h2>Datenschutz</h2><p>Wir sammeln keine persönlichen Daten. Cookies werden für Einstellungen und Google AdSense-Anzeigen verwendet.</p>`,
-            termsText: `<h2>Nutzungsbedingungen</h2><p>Die Nutzung erfolgt auf eigene Gefahr. Die Ergebnisse dienen nur der Information; für Berechnungsfehler wird keine Haftung übernommen.</p>`
+            seo: `<h2>Professioneller Einheitenrechner Online</h2>
+                  <p>In einer globalisierten Welt ist die schnelle Umrechnung von Einheiten unerlässlich. <strong>UnitConverters.io</strong> bietet eine effiziente Lösung.</p>
+                  <h2>Echtzeit-Wechselkurse</h2>
+                  <p>Unser Währungsrechner bietet aktuelle Kurse für USD, EUR, GBP und UAH. Wir nutzen zuverlässige Finanzquellen für höchste Genauigkeit.</p>
+                  <h2>Internationale Kleidergrößen</h2>
+                  <p>Wir bieten sofortige Umrechnungen zwischen US-, EU-, UK- und japanischen Standards für Schuhe und Bekleidung.</p>`,
+            privText: `<h2>Datenschutz</h2><p>Wir sammeln keine persönlichen Informationen. Cookies werden für Google AdSense-Anzeigen und Einstellungen verwendet.</p>`,
+            termsText: `<h2>Nutzungsbedingungen</h2><p>Die Nutzung erfolgt auf eigene Gefahr. Ergebnisse dienen der Information. Wir haften nicht für Berechnungsfehler.</p>`
         }
     };
 

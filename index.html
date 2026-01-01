@@ -3,58 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UnitConverters.io - Universal Unit Converter</title>
+    <title>UnitConverters.io - Universal Converter</title>
     <style>
-        :root { --primary-green: #006633; --bg-gray: #f4f7f6; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; background: var(--bg-gray); color: #333; }
-        
-        .top-bar { background: var(--primary-green); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .top-bar h1 { margin: 0; font-size: 22px; font-weight: bold; letter-spacing: 0.5px; }
-        
-        .main-wrapper { max-width: 700px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #e0e0e0; }
-        
+        :root { --main: #006633; }
+        body { font-family: -apple-system, sans-serif; margin: 0; background: #f4f4f4; color: #333; }
+        .header { background: var(--main); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .container { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
         /* Вкладки 4х2 */
-        .tabs-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #ddd; border-bottom: 2px solid var(--primary-green); }
-        .tab-btn { background: var(--primary-green); color: white; border: none; padding: 16px 5px; cursor: pointer; font-size: 11px; font-weight: 800; text-transform: uppercase; transition: 0.3s; }
-        .tab-btn.active { background: white; color: var(--primary-green); }
-        .tab-btn:hover:not(.active) { background: #004d26; }
+        .tabs-grid { display: grid; grid-template-columns: repeat(4, 2fr); gap: 2px; background: #ccc; border: 1px solid #ccc; margin-bottom: 20px; }
+        .tab { background: var(--main); color: white; border: none; padding: 15px 5px; cursor: pointer; font-size: 11px; font-weight: 900; text-transform: uppercase; }
+        .tab.active { background: white; color: var(--main); }
 
-        /* Блок конвертера */
-        .converter-section { padding: 30px; background: #fff; }
-        .input-group { display: flex; align-items: center; margin-bottom: 20px; gap: 15px; }
-        .input-group label { width: 110px; font-size: 15px; font-weight: 700; color: #555; }
-        .input-group input, .input-group select { 
-            flex: 1; 
-            padding: 12px 15px; 
-            border: 1px solid #ccc; 
-            border-radius: 8px; 
-            font-size: 18px; 
-            font-weight: 700; 
-            outline: none;
-            transition: border 0.3s;
-        }
-        .input-group input:focus { border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(0,102,51,0.1); }
-        .res-input { background: #eef9f4 !important; border: 2px solid var(--primary-green) !important; color: var(--primary-green); }
+        /* Конвертер */
+        .box { border: 2px solid #eee; padding: 30px; background: #fafafa; border-radius: 8px; }
+        .row { display: flex; align-items: center; margin-bottom: 20px; gap: 20px; }
+        .row label { width: 120px; font-weight: 700; font-size: 16px; color: #555; }
+        .field { flex: 1; padding: 15px; border: 1px solid #ccc; border-radius: 8px; font-size: 20px; font-weight: 800; outline: none; }
+        .field:focus { border-color: var(--main); }
+        .res-field { background: #e8f5e9; border: 2px solid var(--main); color: var(--main); }
 
-        /* SEO Текст */
-        .seo-box { padding: 25px; border-top: 1px solid #eee; background: #fafafa; font-size: 15px; line-height: 1.6; }
-        .seo-box h2 { color: var(--primary-green); font-size: 20px; margin-top: 0; }
-        
-        footer { background: #2c3e50; color: #bdc3c7; padding: 30px 20px; text-align: center; }
-        .footer-links { margin-top: 15px; }
-        .footer-links span { color: #fff; text-decoration: underline; cursor: pointer; margin: 0 12px; font-size: 14px; font-weight: 600; }
-        
-        /* Модалка */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; backdrop-filter: blur(4px); }
-        .modal-content { background: white; width: 90%; max-width: 550px; margin: 10vh auto; padding: 35px; border-radius: 15px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #999; }
+        /* SEO та Футер */
+        .seo { padding: 25px; border-top: 1px solid #eee; margin-top: 25px; line-height: 1.7; font-size: 15px; }
+        .seo h2 { color: var(--main); font-size: 22px; }
+        footer { text-align: center; padding: 40px; background: #333; color: white; margin-top: 50px; }
+        .f-link { color: #82e0aa; text-decoration: underline; cursor: pointer; margin: 0 15px; font-weight: 700; }
+
+        /* Модальне вікно */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; }
+        .modal-c { background: white; width: 90%; max-width: 550px; margin: 60px auto; padding: 35px; border-radius: 15px; position: relative; color: #333; }
     </style>
 </head>
 <body>
 
-<div class="top-bar">
-    <h1>UnitConverters.io</h1>
-    <select onchange="changeLang(this.value)" id="langPicker" style="padding: 6px; border-radius: 5px; font-weight: bold;">
+<div class="header">
+    <h1 style="margin:0;">UnitConverters.io</h1>
+    <select onchange="setL(this.value)" id="langS" style="padding:8px; font-weight:bold; border-radius:5px;">
         <option value="en">English</option>
         <option value="uk" selected>Українська</option>
         <option value="es">Español</option>
@@ -62,155 +46,114 @@
     </select>
 </div>
 
-<div class="main-wrapper">
-    <div class="tabs-container" id="tabsGrid"></div>
+<div class="container">
+    <div id="tabs" class="tabs-grid"></div>
     
-    <div class="converter-section">
-        <div class="input-group">
-            <label id="lbl-amt">Сума:</label>
-            <input type="number" id="inputVal" value="1" oninput="doCalc()">
-        </div>
-        <div class="input-group">
-            <label id="lbl-from">З:</label>
-            <select id="selectFrom" onchange="doCalc()"></select>
-        </div>
-        <div class="input-group">
-            <label id="lbl-to">В:</label>
-            <select id="selectTo" onchange="doCalc()"></select>
-        </div>
-        <div class="input-group">
-            <label id="lbl-res">Результат:</label>
-            <input type="text" id="outputVal" readonly class="res-input">
-        </div>
+    <div class="box">
+        <div class="row"><label id="l-amt">Сума:</label><input type="number" id="vIn" class="field" value="1" oninput="calc()"></div>
+        <div class="row"><label id="l-fr">З:</label><select id="uIn" class="field" onchange="calc()"></select></div>
+        <div class="row"><label id="l-to">В:</label><select id="uOut" class="field" onchange="calc()"></select></div>
+        <div class="row"><label id="l-res">Результат:</label><input type="text" id="vOut" class="field res-field" readonly></div>
     </div>
 
-    <div class="seo-box" id="seoBlock"></div>
+    <div class="seo" id="seo"></div>
 </div>
 
 <footer>
-    <div id="copyText">© 2025 UnitConverters.io - All Rights Reserved</div>
-    <div class="footer-links">
-        <span onclick="togglePop('priv')" id="link-priv">Privacy Policy</span>
-        <span onclick="togglePop('term')" id="link-term">Terms of Use</span>
-    </div>
+    <div style="margin-bottom:15px; opacity:0.7;">© 2025 UnitConverters.io - All Rights Reserved</div>
+    <span class="f-link" onclick="pop('priv')" id="l-priv">Конфіденційність</span>
+    <span class="f-link" onclick="pop('term')" id="l-term">Умови використання</span>
 </footer>
 
-<div class="modal-overlay" id="modalWindow" onclick="if(event.target==this) togglePop('close')">
-    <div class="modal-content">
-        <span class="close-modal" onclick="togglePop('close')">×</span>
-        <div id="modalBody"></div>
+<div class="modal" id="mod" onclick="pop('close')">
+    <div class="modal-c" onclick="event.stopPropagation()">
+        <span style="position:absolute; right:20px; top:15px; cursor:pointer; font-size:35px; color:#999;" onclick="pop('close')">×</span>
+        <div id="m-text"></div>
     </div>
 </div>
 
 <script>
-    const config = {
-        en: { 
-            amt: "Amount:", fr: "From:", to: "To:", res: "Result:",
-            cats: ["Currency", "Length", "Weight", "Clothing", "Temp", "Speed", "Area", "Time"],
-            seo: "<h2>Universal Online Converter</h2><p>Accurate and fast unit conversion for over 50+ measurements. Supporting metric, imperial, and real-time currency rates.</p>",
-            p: "<h2>Privacy</h2><p>No personal data is collected or stored on our servers.</p>",
-            t: "<h2>Terms</h2><p>Calculations are provided for information only. Accuracy is not guaranteed.</p>"
-        },
-        uk: { 
-            amt: "Сума:", fr: "З:", to: "В:", res: "Результат:",
-            cats: ["Валюта", "Довжина", "Вага", "Одяг", "Темп", "Швидкість", "Площа", "Час"],
-            seo: "<h2>Універсальний онлайн конвертер</h2><p>Точна та швидка конвертація одиниць. Підтримка метричних, імперських систем та актуальних курсів валют.</p>",
-            p: "<h2>Конфіденційність</h2><p>Ми не збираємо та не зберігаємо ваші персональні дані.</p>",
-            t: "<h2>Умови</h2><p>Результати розрахунків мають ознайомчий характер.</p>"
-        },
-        es: { 
-            amt: "Cantidad:", fr: "De:", to: "A:", res: "Resultado:",
-            cats: ["Moneda", "Longitud", "Peso", "Ropa", "Temp", "Velocidad", "Área", "Tiempo"],
-            seo: "<h2>Convertidor Universal</h2><p>Resultados precisos para todas las unidades de medida.</p>",
-            p: "<h2>Privacidad</h2><p>No recopilamos datos personales.</p>",
-            t: "<h2>Términos</h2><p>Uso bajo su propia responsabilidad.</p>"
-        },
-        de: { 
-            amt: "Betrag:", fr: "Von:", to: "Bis:", res: "Ergebnis:",
-            cats: ["Währung", "Länge", "Gewicht", "Kleidung", "Temp", "Tempo", "Fläche", "Zeit"],
-            seo: "<h2>Einheitenrechner Online</h2><p>Konvertieren Sie Maße und Gewichte in Echtzeit.</p>",
-            p: "<h2>Datenschutz</h2><p>Keine Erfassung von Nutzerdaten.</p>",
-            t: "<h2>AGB</h2><p>Alle Angaben ohne Gewähr.</p>"
-        }
+    const langs = {
+        en: { amt: "Amount:", fr: "From:", to: "To:", res: "Result:", priv: "Privacy Policy", term: "Terms", cats: ["Currency", "Length", "Weight", "Clothing", "Temp", "Speed", "Area", "Time"], seo: "<h2>Professional Unit Converter</h2><p>Our universal tool provides instant results for all your conversion needs. High accuracy for over 100+ units.</p>", m_priv: "<h2>Privacy Policy</h2><p>We do not store or track any personal data.</p>", m_term: "<h2>Terms of Use</h2><p>Calculations are for reference only.</p>" },
+        uk: { amt: "Сума:", fr: "З:", to: "В:", res: "Результат:", priv: "Конфіденційність", term: "Умови", cats: ["Валюта", "Довжина", "Вага", "Одяг", "Темп", "Швидкість", "Площа", "Час"], seo: "<h2>Універсальний конвертер одиниць</h2><p>Найшвидший спосіб конвертувати валюту, довжину, вагу та інші величини з високою точністю.</p>", m_priv: "<h2>Конфіденційність</h2><p>Ми не збираємо ваші особисті дані.</p>", m_term: "<h2>Умови використання</h2><p>Результати розрахунків мають інформаційний характер.</p>" },
+        es: { amt: "Cantidad:", fr: "De:", to: "A:", res: "Resultado:", priv: "Privacidad", term: "Términos", cats: ["Moneda", "Longitud", "Peso", "Ropa", "Temp", "Velocidad", "Área", "Tiempo"], seo: "<h2>Convertidor Universal</h2><p>Precisión garantizada para todas las medidas mundiales.</p>", m_priv: "<h2>Privacidad</h2><p>No recopilamos datos personales.</p>", m_term: "<h2>Términos</h2><p>Uso informativo solamente.</p>" },
+        de: { amt: "Betrag:", fr: "Von:", to: "Bis:", res: "Ergebnis:", priv: "Datenschutz", term: "AGB", cats: ["Währung", "Länge", "Gewicht", "Kleidung", "Temp", "Tempo", "Fläche", "Zeit"], seo: "<h2>Einheitenrechner</h2><p>Einfach, schnell і zuverlässig Maße umrechnen.</p>", m_priv: "<h2>Datenschutz</h2><p>Keine Datenerfassung.</p>", m_term: "<h2>AGB</h2><p>Angaben ohne Gewähr.</p>" }
     };
 
-    let curLang = localStorage.getItem('lang') || 'uk';
-    let curCat = 0;
-
+    let curL = localStorage.getItem('lang') || 'uk';
+    let curC = 0;
+    
     const data = {
-        "Currency": { USD: 1, EUR: 0.92, UAH: 41.2, GBP: 0.78, PLN: 3.98 },
-        "Length": { Meter: 1, KM: 0.001, CM: 100, Mile: 0.00062, Foot: 3.28, Inch: 39.37 },
-        "Weight": { KG: 1, Gram: 1000, Pound: 2.204, Ounce: 35.27 },
-        "Clothing": { "EU Size": 1, "US Size": 0.8, "UK Size": 0.75 },
+        "Currency": { USD: 1, EUR: 0.92, UAH: 41.2, GBP: 0.78, PLN: 3.98, CAD: 1.36, JPY: 151.5 },
+        "Length": { Meter: 1, KM: 0.001, Mile: 0.00062, Foot: 3.28, Inch: 39.37, CM: 100 },
+        "Weight": { KG: 1, Gram: 1000, Pound: 2.204, Ounce: 35.27, Ton: 0.001 },
+        "Clothing": { "US Size": 1, "EU Size": 1, "UK Size": 0.95, "Japan": 1.1 },
         "Temp": { type: "temp", units: ["Celsius", "Fahrenheit", "Kelvin"] },
-        "Speed": { "Km/h": 1, "Mph": 0.621, "Knot": 0.539 },
-        "Area": { "Sq Meter": 1, "Acre": 0.00024, "Hectare": 0.0001 },
-        "Time": { Second: 1, Minute: 0.0166, Hour: 0.00027 }
+        "Speed": { "Km/h": 1, "Mph": 0.621, "Knot": 0.539, "m/s": 0.277 },
+        "Area": { "Sq Meter": 1, "Acre": 0.000247, "Hectare": 0.0001, "Sq Foot": 10.76 },
+        "Time": { Second: 1, Minute: 0.0166, Hour: 0.000277, Day: 0.0000115 }
     };
 
-    function changeLang(v) { curLang = v; localStorage.setItem('lang', v); render(); }
+    function setL(v) { curL = v; localStorage.setItem('lang', v); update(); }
 
-    function render() {
-        const l = config[curLang];
-        document.getElementById('lbl-amt').innerText = l.amt;
-        document.getElementById('lbl-from').innerText = l.fr;
-        document.getElementById('lbl-to').innerText = l.to;
-        document.getElementById('lbl-res').innerText = l.res;
-        document.getElementById('seoBlock').innerHTML = l.seo;
-        document.getElementById('link-priv').innerText = curLang === 'uk' ? 'Конфіденційність' : l.cats[0]; // спрощено
-        
-        const grid = document.getElementById('tabsGrid');
-        grid.innerHTML = '';
+    function update() {
+        const l = langs[curL] || langs.uk;
+        document.getElementById('langS').value = curL;
+        document.getElementById('l-amt').innerText = l.amt;
+        document.getElementById('l-fr').innerText = l.fr;
+        document.getElementById('l-to').innerText = l.to;
+        document.getElementById('l-res').innerText = l.res;
+        document.getElementById('seo').innerHTML = l.seo;
+        document.getElementById('l-priv').innerText = l.priv;
+        document.getElementById('l-term').innerText = l.term;
+
+        const g = document.getElementById('tabs'); g.innerHTML = '';
         Object.keys(data).forEach((cat, i) => {
             const b = document.createElement('button');
-            b.className = `tab-btn ${i === curCat ? 'active' : ''}`;
+            b.className = `tab ${i === curC ? 'active' : ''}`;
             b.innerText = l.cats[i];
-            b.onclick = () => { curCat = i; render(); };
-            grid.appendChild(b);
+            b.onclick = () => { curC = i; update(); };
+            g.appendChild(b);
         });
-        updateOptions();
+        fill();
     }
 
-    function updateOptions() {
-        const c = Object.keys(data)[curCat];
-        const sF = document.getElementById('selectFrom'), sT = document.getElementById('selectTo');
-        sF.innerHTML = ''; sT.innerHTML = '';
-        const units = data[c].type === "temp" ? data[c].units : Object.keys(data[c]);
-        units.forEach(u => { sF.add(new Option(u, u)); sT.add(new Option(u, u)); });
-        if (sT.options.length > 1) sT.selectedIndex = 1;
-        doCalc();
+    function fill() {
+        const c = Object.keys(data)[curC];
+        const i = document.getElementById('uIn'), o = document.getElementById('uOut');
+        i.innerHTML = ''; o.innerHTML = '';
+        const un = data[c].type === "temp" ? data[c].units : Object.keys(data[c]);
+        un.forEach(u => { i.add(new Option(u, u)); o.add(new Option(u, u)); });
+        if (o.options.length > 1) o.selectedIndex = 1;
+        calc();
     }
 
-    function doCalc() {
-        const v = parseFloat(document.getElementById('inputVal').value);
-        const c = Object.keys(data)[curCat];
-        const uF = document.getElementById('selectFrom').value, uT = document.getElementById('selectTo').value;
-        const res = document.getElementById('outputVal');
+    function calc() {
+        const v = parseFloat(document.getElementById('vIn').value);
+        const ck = Object.keys(data)[curC];
+        const uI = document.getElementById('uIn').value, uO = document.getElementById('uOut').value;
+        const res = document.getElementById('vOut');
         if (isNaN(v)) { res.value = ''; return; }
 
-        if (data[c].type === "temp") {
-            let base;
-            if (uF === "Celsius") base = v;
-            else if (uF === "Fahrenheit") base = (v - 32) * 5/9;
-            else base = v - 273.15;
-            let final;
-            if (uT === "Celsius") final = base;
-            else if (uT === "Fahrenheit") final = (base * 9/5) + 32;
-            else final = base + 273.15;
-            res.value = final.toFixed(2);
+        if (data[ck].type === "temp") {
+            let b;
+            if(uI==="Celsius") b=v; else if(uI==="Fahrenheit") b=(v-32)*5/9; else b=v-273.15;
+            let f;
+            if(uO==="Celsius") f=b; else if(uO==="Fahrenheit") f=(b*9/5)+32; else f=b+273.15;
+            res.value = f.toFixed(2);
         } else {
-            res.value = (v / data[c][uF] * data[c][uT]).toLocaleString(undefined, {maximumFractionDigits: 4});
+            res.value = (v / data[ck][uI] * data[ck][uO]).toLocaleString(undefined, {maximumFractionDigits: 4});
         }
     }
 
-    function togglePop(mode) {
-        const m = document.getElementById('modalWindow');
-        if (mode === 'close') { m.style.display = 'none'; return; }
-        document.getElementById('modalBody').innerHTML = mode === 'priv' ? config[curLang].p : config[curLang].t;
-        m.style.display = 'block';
+    function pop(m) {
+        const mod = document.getElementById('mod');
+        if (m === 'close') { mod.style.display = 'none'; return; }
+        document.getElementById('m-text').innerHTML = m === 'priv' ? langs[curL].m_priv : langs[curL].m_term;
+        mod.style.display = 'block';
     }
 
-    render();
+    update();
 </script>
 </body>
 </html>

@@ -1,127 +1,209 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Unit Converter PRO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="8boxzAKQUKKF8IEuVEX1wX8aUwcdch3Q11BgfGM3vkM" />
+    <title>Unit Converter Express - Accurate 8-in-1 Online Tool</title>
     <style>
-        :root { 
-            --primary: #6366f1; --primary-hover: #4f46e5;
-            --bg: #0f172a; --card-bg: #1e293b; --text: #f8fafc;
-        }
-        body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
-            color: var(--text); margin: 0; min-height: 100vh; display: flex; flex-direction: column;
-        }
-        .header { padding: 40px 20px; text-align: center; }
-        .header h1 { margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -1px; color: #fff; }
-        
-        .container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        
-        .converter-card {
-            background: var(--card-bg); width: 100%; max-width: 450px;
-            padding: 30px; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .input-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: #94a3b8; }
-        
-        input, select {
-            width: 100%; background: #0f172a; border: 2px solid #334155;
-            border-radius: 12px; padding: 14px; color: #fff; font-size: 16px;
-            font-weight: 600; transition: all 0.2s; box-sizing: border-box;
-        }
-        input:focus, select:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2); }
-
-        .result-display {
-            background: rgba(99, 102, 241, 0.1); border: 2px dashed var(--primary);
-            border-radius: 16px; padding: 20px; text-align: center; margin-top: 10px;
-        }
-        .result-value { font-size: 32px; font-weight: 800; color: #fff; margin: 0; }
-        .result-label { font-size: 14px; color: var(--primary); font-weight: 700; text-transform: uppercase; }
-
-        footer { padding: 30px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
-        .footer-link { color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 600; margin: 0 10px; transition: 0.2s; }
-        .footer-link:hover { color: var(--primary); }
+        body { font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; -webkit-font-smoothing: antialiased; color: #333; }
+        .top-header { background-color: #006633; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; color: white; }
+        .top-header h1 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: 0.5px; }
+        .lang-switcher { background: rgba(255,255,255,0.2); border: 1px solid white; color: white; padding: 4px 8px; border-radius: 4px; font-size: 14px; cursor: pointer; font-weight: bold; }
+        .lang-switcher option { color: #333; }
+        .container { max-width: 800px; margin: 0 auto; padding: 5px; background: #fff; min-height: 100vh; box-sizing: border-box; }
+        .tabs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background-color: #ddd; border: 1px solid #ddd; margin: 15px 0 10px; }
+        .tab { background: #006633; color: #fff; height: 32px; text-align: center; cursor: pointer; font-size: 11px; font-weight: 900; text-transform: uppercase; border: none; display: flex; align-items: center; justify-content: center; }
+        .tab.active { background: #fff; color: #006633; box-shadow: inset 0 -2px 0 #006633; }
+        .converter-box { border: 1px solid #ccc; padding: 10px 15px; background: #fafafa; border-radius: 4px; margin-bottom: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .row { display: flex; align-items: center; margin-bottom: 6px; }
+        .row label { width: 80px; font-size: 14px; color: #444; font-weight: 700; }
+        .input-field { flex: 1; padding: 6px 10px; border: 1px solid #999; border-radius: 3px; font-size: 18px; font-weight: 800; width: 100%; box-sizing: border-box; height: 38px; }
+        .ad-space { background: #fdfae1; border: 1px dashed #d1c6a2; margin: 10px 0; text-align: center; padding: 15px; color: #888; font-size: 11px; min-height: 90px; display: flex; align-items: center; justify-content: center; border-radius: 4px; }
+        .quick-links-box { padding: 15px; background: #f9f9f9; border: 1px solid #eee; margin-top: 10px; border-radius: 4px; }
+        .quick-links-box h3 { font-size: 16px; color: #006633; margin: 0 0 10px 0; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        .q-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .q-item { font-size: 13px; color: #004499; text-decoration: underline; cursor: pointer; line-height: 1.4; }
+        .seo-content { padding: 15px; line-height: 1.7; font-size: 15px; color: #444; border-top: 1px solid #eee; background: #fcfcfc; }
+        .seo-content h2 { color: #006633; font-size: 19px; margin: 20px 0 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        footer { border-top: 1px solid #ddd; padding: 25px 15px; text-align: center; background: #f9f9f9; font-size: 12px; }
+        .footer-link { color: #004499; text-decoration: underline; cursor: pointer; padding: 0 8px; font-weight: bold; }
+        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; }
+        .modal-content { background: #fff; margin: 5% auto; padding: 25px; width: 90%; max-width: 600px; border-radius: 8px; position: relative; line-height: 1.6; color: #333; }
+        .close-btn { position: absolute; right: 10px; top: 0; font-size: 38px; cursor: pointer; color: #333; padding: 10px; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>Unit Converter</h1>
+<div class="top-header">
+    <h1>UnitConverters.io</h1>
+    <select class="lang-switcher" onchange="changeLang(this.value)" id="langSelect">
+        <option value="en">English</option>
+        <option value="uk">Українська</option>
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
+    </select>
 </div>
 
 <div class="container">
-    <div class="converter-card">
-        <div class="input-group">
-            <label>Тип конвертації</label>
-            <select id="type" onchange="updateUnits()">
-                <option value="length">📏 Довжина</option>
-                <option value="weight">⚖️ Вага</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <label>Значення</label>
-            <input type="number" id="input" value="1" oninput="convert()">
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-            <div>
-                <label>З</label>
-                <select id="from" onchange="convert()"></select>
-            </div>
-            <div>
-                <label>В</label>
-                <select id="to" onchange="convert()"></select>
-            </div>
-        </div>
-
-        <div class="result-display">
-            <p class="result-label">Результат</p>
-            <p class="result-value" id="output">1000</p>
-        </div>
+    <div id="tabs" class="tabs-grid"></div>
+    <div class="ad-space">ADVERTISEMENT AREA</div>
+    <div class="converter-box">
+        <div class="row"><label id="lbl-amount">Amount:</label><input type="number" id="valIn" class="input-field" value="1" oninput="calc()"></div>
+        <div class="row"><label id="lbl-from">From:</label><select id="unitIn" class="input-field" onchange="calc()"></select></div>
+        <div class="row"><label id="lbl-to">To:</label><select id="unitOut" class="input-field" onchange="calc()"></select></div>
+        <div class="row"><label id="lbl-result">Result:</label><input type="text" id="valOut" class="input-field" readonly style="background:#f0f0f0; color:#006633; border-color:#ccc;"></div>
     </div>
+
+    <div class="quick-links-box">
+        <h3 id="h3-quick">Popular Conversions</h3>
+        <div class="q-grid" id="q-grid"></div>
+    </div>
+
+    <div class="seo-content" id="seo-box"></div>
 </div>
 
 <footer>
-    <div style="margin-bottom: 10px;">
-        <a href="https://smart-converter.github.io/percentage-calculator/" class="footer-link">Percentage Calculator</a>
-        <a href="#" class="footer-link">Privacy</a>
+    <p id="txt-footer">© 2025 UnitConverters.io - Your Trusted Partner</p>
+    <div style="margin-top:10px;">
+        <span class="footer-link" onclick="openPol('privacy')" id="link-privacy">Privacy Policy</span>
+        <span class="footer-link" onclick="openPol('terms')" id="link-terms">Terms of Use</span>
+        <a href="https://smart-converter.github.io/percentage-calculator/" class="footer-link" style="text-decoration: underline; color: #006633;">Percentage Calculator</a>
     </div>
-    <p style="font-size: 12px; color: #475569; margin: 0;">© 2025 Smart Converter Team</p>
 </footer>
 
+<div id="siteModal" class="modal" onclick="if(event.target == this) closeModal()">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">×</span>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
 <script>
-    const units = {
-        length: { "Метри": 1, "Кілометри": 1000, "Сантиметри": 0.01, "Милі": 1609.34 },
-        weight: { "Кілограми": 1, "Грами": 0.001, "Фунти": 0.453592 }
+    const translations = {
+        en: {
+            amount: "Amount:", from: "From:", to: "To:", result: "Result:", quick: "Popular Conversions",
+            privacy: "Privacy Policy", terms: "Terms of Use", footer: "© 2025 UnitConverters.io - Your Trusted Partner",
+            q_items: ["100 USD to EUR", "1 Inch to cm", "5 Miles to km", "180 Celsius to Fahrenheit", "10 kg to lbs", "US to UK Shoe Sizes", "50 Meters to Feet", "Speed: 60 mph to km/h"],
+            categories: ['Currency', 'Length', 'Weight', 'Clothing', 'Temp', 'Speed', 'Area', 'Time'],
+            seo: `<h2>Professional Multipurpose Unit Converter Online</h2><p>In today's globalized world, <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs. Accurate currency rates, clothing sizes, and technical measurements in one place.</p>`,
+            privText: `<h2>Privacy Policy</h2><p>Data protection details here...</p>`,
+            termsText: `<h2>Terms of Use</h2><p>Usage rules here...</p>`
+        },
+        uk: {
+            amount: "Сума:", from: "З:", to: "В:", result: "Результат:", quick: "Популярні запити",
+            privacy: "Конфіденційність", terms: "Умови", footer: "© 2025 UnitConverters.io - Ваш надійний партнер",
+            q_items: ["100 Доларів у Євро", "1 Дюйм у сантиметри", "5 Миль у кілометри", "180 Цельсія у Фаренгейти", "10 кг у фунти", "Розміри взуття США в ЄС", "50 Метрів у фути", "60 миль у км/год"],
+            categories: ['Валюта', 'Довжина', 'Вага', 'Одяг', 'Темп', 'Швидкість', 'Площа', 'Час'],
+            seo: `<h2>Професійний універсальний конвертер одиниць онлайн</h2><p>Швидке рішення для ваших потреб...</p>`,
+            privText: `<h2>Політика конфіденційності</h2><p>Ми не збираємо дані...</p>`,
+            termsText: `<h2>Умови використання</h2><p>Результати мають довідковий характер...</p>`
+        },
+        es: {
+            amount: "Cantidad:", from: "De:", to: "A:", result: "Resultado:", quick: "Conversiones Populares",
+            privacy: "Privacidad", terms: "Términos", footer: "© 2025 UnitConverters.io - Su Socio de Confianza",
+            q_items: ["100 USD a EUR", "1 Pulgada a cm", "5 Millas a km", "180 Celsius a Fahrenheit", "10 kg a lbs", "Tallas US a UE", "50 Metros a Pies", "60 mph a km/h"],
+            categories: ['Moneda', 'Longitud', 'Peso', 'Ropa', 'Temp', 'Velocidad', 'Área', 'Tiempo'],
+            seo: `<h2>Convertidor de Unidades Profesional</h2><p>Solución rápida y precisa...</p>`,
+            privText: `<h2>Privacidad</h2><p>Sus datos están seguros...</p>`,
+            termsText: `<h2>Términos</h2><p>Información informativa solamente...</p>`
+        },
+        de: {
+            amount: "Betrag:", from: "Von:", to: "Bis:", result: "Ergebnis:", quick: "Beliebte Umrechnungen",
+            privacy: "Datenschutz", terms: "Nutzungsbedingungen", footer: "© 2025 UnitConverters.io - Ihr Partner",
+            q_items: ["100 USD in EUR", "1 Zoll in cm", "5 Meilen in km", "180 Celsius in Fahrenheit", "10 kg in Pfund", "Größen US zu EU", "50 Meter in Fuß", "60 mph in km/h"],
+            categories: ['Währung', 'Länge', 'Gewicht', 'Kleidung', 'Temp', 'Tempo', 'Fläche', 'Zeit'],
+            seo: `<h2>Professioneller Einheitenrechner</h2><p>Schnelle Lösung für Umrechnungen...</p>`,
+            privText: `<h2>Datenschutz</h2><p>Keine persönlichen Daten...</p>`,
+            termsText: `<h2>Nutzungsbedingungen</h2><p>Alle Ergebnisse sind informativ...</p>`
+        }
     };
 
-    function updateUnits() {
-        const type = document.getElementById('type').value;
-        const from = document.getElementById('from');
-        const to = document.getElementById('to');
-        from.innerHTML = ''; to.innerHTML = '';
-        Object.keys(units[type]).forEach(u => {
-            from.innerHTML += `<option value="${units[type][u]}">${u}</option>`;
-            to.innerHTML += `<option value="${units[type][u]}">${u}</option>`;
+    let curLang = localStorage.getItem('lang') || 'en';
+    const clothingData = { "US Size": [2, 4, 6, 8, 10, 12, 14, 16], "EU Size": [32, 34, 36, 38, 40, 42, 44, 46], "UK Size": [4, 6, 8, 10, 12, 14, 16, 18], "Japan Size": [5, 7, 9, 11, 13, 15, 17, 19] };
+    const rawData = { 'Currency': { type: 'currency', units: {} }, 'Length': { 'Meter': 1, 'Kilometer': 0.001, 'Centimeter': 100, 'Mile': 0.000621, 'Foot': 3.2808, 'Inch': 39.3701 }, 'Weight': { 'Kilogram': 1, 'Gram': 1000, 'Pound': 2.2046, 'Ounce': 35.274 }, 'Clothing': { type: 'clothing', units: Object.keys(clothingData) }, 'Temp': { type: 'temp', units: ['Celsius', 'Fahrenheit', 'Kelvin'] }, 'Speed': { 'Km/h': 1, 'Mph': 0.62137, 'Knot': 0.5399 }, 'Area': { 'Sq Meter': 1, 'Acre': 0.000247, 'Hectare': 0.0001 }, 'Time': { 'Second': 1, 'Minute': 1/60, 'Hour': 1/3600 } };
+    let currentCatIndex = 0;
+
+    function changeLang(lang) { curLang = lang; localStorage.setItem('lang', lang); updateUI(); }
+
+    function updateUI() {
+        const l = translations[curLang] || translations['en'];
+        document.getElementById('langSelect').value = curLang;
+        document.getElementById('lbl-amount').innerText = l.amount;
+        document.getElementById('lbl-from').innerText = l.from;
+        document.getElementById('lbl-to').innerText = l.to;
+        document.getElementById('lbl-result').innerText = l.result;
+        document.getElementById('seo-box').innerHTML = l.seo;
+        document.getElementById('h3-quick').innerText = l.quick;
+        document.getElementById('txt-footer').innerText = l.footer;
+        document.getElementById('link-privacy').innerText = l.privacy;
+        document.getElementById('link-terms').innerText = l.terms;
+        
+        const qGrid = document.getElementById('q-grid');
+        qGrid.innerHTML = '';
+        l.q_items.forEach(item => {
+            const span = document.createElement('span');
+            span.className = 'q-item';
+            span.innerText = item;
+            span.onclick = () => { window.scrollTo({top: 0, behavior: 'smooth'}); };
+            qGrid.appendChild(span);
         });
-        if(to.options.length > 1) to.selectedIndex = 1;
-        convert();
+        initTabs();
     }
 
-    function convert() {
-        const val = parseFloat(document.getElementById('input').value) || 0;
-        const from = parseFloat(document.getElementById('from').value);
-        const to = parseFloat(document.getElementById('to').value);
-        const res = (val * from) / to;
-        document.getElementById('output').innerText = res.toLocaleString(undefined, {maximumFractionDigits: 4});
+    async function fetchRates() {
+        try { const res = await fetch('https://open.er-api.com/v6/latest/USD'); const json = await res.json(); rawData['Currency'].units = json.rates; } 
+        catch(e) { rawData['Currency'].units = {'USD':1, 'EUR':0.92, 'UAH':41}; }
+        updateUI();
     }
 
-    updateUnits();
+    function initTabs() {
+        const t = document.getElementById('tabs'); t.innerHTML = '';
+        Object.keys(rawData).forEach((cat, index) => {
+            const d = document.createElement('div');
+            d.className = `tab ${index === currentCatIndex ? 'active' : ''}`;
+            d.innerText = (translations[curLang] || translations['en']).categories[index];
+            d.onclick = () => { currentCatIndex = index; initTabs(); fill(); };
+            t.appendChild(d);
+        });
+        fill();
+    }
+
+    function fill() {
+        const catKey = Object.keys(rawData)[currentCatIndex];
+        const si = document.getElementById('unitIn'), so = document.getElementById('unitOut');
+        si.innerHTML = ''; so.innerHTML = '';
+        let u = (rawData[catKey].type === 'temp' || rawData[catKey].type === 'clothing') ? rawData[catKey].units : Object.keys(rawData[catKey].type === 'currency' ? rawData[catKey].units : rawData[catKey]);
+        u.forEach(x => { si.add(new Option(x, x)); so.add(new Option(x, x)); });
+        if (so.options.length > 1) so.selectedIndex = 1;
+        calc();
+    }
+
+    function calc() {
+        const v = parseFloat(document.getElementById('valIn').value);
+        const catKey = Object.keys(rawData)[currentCatIndex];
+        const fi = document.getElementById('unitIn').value, ti = document.getElementById('unitOut').value;
+        const out = document.getElementById('valOut');
+        if (isNaN(v)) { out.value = ''; return; }
+        if (rawData[catKey].type === 'temp') {
+            let c = fi==='Celsius'?v : fi==='Fahrenheit'?(v-32)*5/9 : v-273.15;
+            let r = ti==='Celsius'?c : ti==='Fahrenheit'?(c*9/5)+32 : c+273.15;
+            out.value = r.toFixed(2);
+        } else if (rawData[catKey].type === 'clothing') {
+            const idx = clothingData[fi].indexOf(v); out.value = idx !== -1 ? clothingData[ti][idx] : "N/A";
+        } else {
+            const rates = rawData[catKey].type === 'currency' ? rawData[catKey].units : rawData[catKey];
+            out.value = ((v / rates[fi]) * rates[ti]).toLocaleString('en-US', {maximumFractionDigits: 4});
+        }
+    }
+
+    function openPol(type) { 
+        const l = translations[curLang] || translations['en'];
+        document.getElementById('modalBody').innerHTML = type==='privacy' ? l.privText : l.termsText;
+        document.getElementById('siteModal').style.display = 'block'; 
+    }
+    function closeModal() { document.getElementById('siteModal').style.display = 'none'; }
+    fetchRates();
 </script>
 </body>
 </html>

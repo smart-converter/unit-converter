@@ -3,60 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UnitConverters.io - Universal Unit Converter</title>
+    <title>UnitConverters.io</title>
     <style>
-        body { font-family: -apple-system, system-ui, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; line-height: 1.5; }
-        .top-header { background-color: #006633; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .top-header h1 { margin: 0; font-size: 22px; font-weight: 700; }
+        :root { --main-green: #006633; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; background: #f0f2f5; color: #333; }
         
-        .container { max-width: 800px; margin: 0 auto; padding: 10px; background: #fff; box-sizing: border-box; min-height: 100vh; }
+        /* Header */
+        .header { background: var(--main-green); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .header h1 { margin: 0; font-size: 20px; letter-spacing: 0.5px; }
+        .lang-select { padding: 5px; border-radius: 4px; border: none; font-weight: bold; cursor: pointer; }
 
-        .tabs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background-color: #ccc; border: 1px solid #ccc; margin-top: 5px; }
-        .tab { background: #006633; color: #fff; height: 45px; text-align: center; cursor: pointer; font-size: 11px; font-weight: 900; text-transform: uppercase; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
-        .tab.active { background: #fff; color: #006633; position: relative; }
-        .tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: #006633; }
-        
-        .converter-box { 
-            border: 2px solid #006633; 
+        .wrapper { max-width: 650px; margin: 15px auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 10px; }
+
+        /* Вкладки 4х2 */
+        .tabs-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: #ddd; border: 1px solid #ddd; margin-bottom: 10px; }
+        .tab-btn { background: var(--main-green); color: white; border: none; padding: 12px 2px; cursor: pointer; font-size: 11px; font-weight: 800; text-transform: uppercase; transition: 0.2s; }
+        .tab-btn.active { background: white; color: var(--main-green); }
+
+        /* Конвертер - Рівно 4.5 см */
+        .main-converter { 
             height: 4.5cm; 
-            padding: 20px; 
-            background: #fafafa; 
-            margin: 15px 0; 
-            box-sizing: border-box;
+            border: 2px solid #eee; 
+            border-radius: 6px; 
+            padding: 15px; 
+            background: #fafafa;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            border-radius: 8px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
         }
+
+        .input-group { display: flex; align-items: center; gap: 10px; }
+        .input-group label { width: 100px; font-weight: 700; font-size: 14px; color: #555; }
+        .input-group input, .input-group select { 
+            flex: 1; 
+            padding: 8px 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            font-size: 18px; 
+            font-weight: 700;
+            outline: none;
+        }
+        .input-group input:focus { border-color: var(--main-green); }
+        .res-input { background: #e8f5e9 !important; color: var(--main-green) !important; border-color: var(--main-green) !important; }
+
+        /* SEO та Популярне */
+        .seo-section { padding: 15px; border-top: 1px solid #eee; font-size: 14px; line-height: 1.6; }
+        .seo-section h2 { color: var(--main-green); font-size: 18px; margin-top: 0; }
         
-        .row { display: flex; align-items: center; gap: 15px; }
-        .row label { width: 110px; font-size: 16px; font-weight: 700; color: #444; }
-        .input-field { flex: 1; padding: 10px; border: 1px solid #aaa; border-radius: 6px; font-size: 18px; font-weight: 800; color: #000; outline: none; }
-        .input-field:focus { border-color: #006633; box-shadow: 0 0 5px rgba(0,102,51,0.2); }
-        
-        .quick-links { margin: 20px 0; padding: 15px; background: #f9f9f9; border-radius: 8px; border: 1px solid #eee; }
-        .quick-links h3 { margin: 0 0 10px; font-size: 16px; color: #006633; }
-        .q-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .q-item { font-size: 13px; color: #004499; text-decoration: none; border-bottom: 1px dashed #004499; cursor: pointer; width: fit-content; }
+        .popular-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; }
+        .tag { background: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px; color: #004499; cursor: pointer; border: 1px solid #ddd; }
 
-        .seo-content { padding: 20px; border-top: 1px solid #eee; margin-top: 20px; }
-        .seo-content h2 { color: #006633; font-size: 20px; margin-bottom: 10px; }
-        .seo-content p { font-size: 15px; color: #555; margin-bottom: 15px; }
+        /* Footer */
+        footer { background: #333; color: #ccc; padding: 25px 15px; text-align: center; }
+        .f-links { margin-top: 10px; }
+        .f-links span { text-decoration: underline; cursor: pointer; margin: 0 10px; font-weight: bold; color: white; }
 
-        footer { border-top: 1px solid #ddd; padding: 30px 20px; text-align: center; background: #f1f1f1; margin-top: 20px; }
-        .footer-link { color: #004499; text-decoration: underline; cursor: pointer; font-weight: 700; margin: 0 15px; font-size: 14px; }
-        .copy-text { display: block; margin-bottom: 15px; font-size: 13px; font-weight: 600; color: #666; }
-
-        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(3px); }
-        .modal-content { background: #fff; margin: 10% auto; padding: 30px; width: 85%; max-width: 600px; border-radius: 12px; position: relative; max-height: 70vh; overflow-y: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .close { position: absolute; right: 20px; top: 15px; font-size: 30px; cursor: pointer; color: #999; }
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; }
+        .modal-inner { background: white; width: 85%; max-width: 500px; margin: 50px auto; padding: 25px; border-radius: 10px; position: relative; color: #333; }
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 25px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="top-header">
+<div class="header">
     <h1>UnitConverters.io</h1>
-    <select onchange="changeLang(this.value)" id="langSelect" style="padding:6px 10px; border-radius:4px; font-weight:bold; cursor:pointer;">
+    <select class="lang-select" onchange="setLang(this.value)" id="langMenu">
         <option value="en">English</option>
         <option value="uk">Українська</option>
         <option value="es">Español</option>
@@ -64,89 +78,88 @@
     </select>
 </div>
 
-<div class="container">
-    <div id="tabs" class="tabs-grid"></div>
+<div class="wrapper">
+    <div class="tabs-container" id="tabsGrid"></div>
     
-    <div class="converter-box">
-        <div class="row">
-            <label id="lbl-amount">Amount:</label>
-            <input type="number" id="valIn" class="input-field" value="1" oninput="calc()">
+    <div class="main-converter">
+        <div class="input-group">
+            <label id="l-amt">Amount:</label>
+            <input type="number" id="valIn" value="1" oninput="convert()">
         </div>
-        <div class="row">
-            <label id="lbl-from">From:</label>
-            <select id="unitIn" class="input-field" onchange="calc()"></select>
+        <div class="input-group">
+            <label id="l-from">From:</label>
+            <select id="unitIn" onchange="convert()"></select>
         </div>
-        <div class="row">
-            <label id="lbl-to">To:</label>
-            <select id="unitOut" class="input-field" onchange="calc()"></select>
+        <div class="input-group">
+            <label id="l-to">To:</label>
+            <select id="unitOut" onchange="convert()"></select>
         </div>
-        <div class="row">
-            <label id="lbl-result">Result:</label>
-            <input type="text" id="valOut" class="input-field" readonly style="background:#eef9f4; color:#006633; border-color:#006633;">
+        <div class="input-group">
+            <label id="l-res">Result:</label>
+            <input type="text" id="valOut" readonly class="res-input">
         </div>
     </div>
 
-    <div class="quick-links">
-        <h3 id="h3-quick">Popular Conversions</h3>
-        <div class="q-grid" id="q-grid"></div>
+    <div id="pop-box">
+        <h4 style="margin:0 0 10px 0; font-size:14px;" id="l-pop">Popular:</h4>
+        <div class="popular-tags" id="tags"></div>
     </div>
 
-    <div class="seo-content" id="seo-box"></div>
+    <div class="seo-section" id="seo-text"></div>
 </div>
 
 <footer>
-    <span class="copy-text" id="txt-footer">© 2025 UnitConverters.io - All Rights Reserved</span>
-    <span class="footer-link" onclick="openPop('priv')" id="link-privacy">Privacy Policy</span>
-    <span class="footer-link" onclick="openPop('terms')" id="link-terms">Terms of Use</span>
-    <div style="margin-top: 20px;">
-        <a href="https://smart-converter.github.io/percentage-calculator/" class="footer-link" style="color:#006633;">Percentage Calculator</a>
+    <div id="f-copy">© 2025 UnitConverters.io</div>
+    <div class="f-links">
+        <span onclick="modal('priv')" id="l-priv">Privacy</span>
+        <span onclick="modal('term')" id="l-term">Terms</span>
     </div>
 </footer>
 
-<div id="infoModal" class="modal" onclick="if(event.target==this) closePop()">
-    <div class="modal-content">
-        <span class="close" onclick="closePop()">×</span>
-        <div id="modalBody"></div>
+<div class="modal" id="modal">
+    <div class="modal-inner">
+        <span class="close-btn" onclick="modal('close')">×</span>
+        <div id="modal-content"></div>
     </div>
 </div>
 
 <script>
-    const translations = {
+    const langData = {
         en: {
-            amount: "Amount:", from: "From:", to: "To:", result: "Result:", quick: "Popular Conversions",
-            privacy: "Privacy Policy", terms: "Terms of Use", footer: "© 2025 UnitConverters.io - Your Precise Measurement Partner",
-            cats: ['Currency', 'Length', 'Weight', 'Clothing', 'Temp', 'Speed', 'Area', 'Time'],
-            seo: "<h2>Reliable Unit Converter Online</h2><p>Welcome to <strong>UnitConverters.io</strong>, your one-stop solution for all measurement needs. Whether you are a student, professional, or traveler, our tool provides instant and accurate results.</p><h3>Why Choose Us?</h3><p>We provide real-time currency rates and standard international conversion factors for metric and imperial systems.</p>",
-            priv: "<h2>Privacy Policy</h2><p>We respect your privacy. No personal data is stored on our servers. We use localized cookies to save your language preference and improve ad relevance.</p>",
-            terms: "<h2>Terms of Use</h2><p>The information provided by UnitConverters.io is for general informational purposes only. While we aim for 100% accuracy, we are not responsible for any discrepancies.</p>",
-            q_list: ["1 USD to EUR", "100 Meters to Feet", "180 Celsius to Fahrenheit", "10 Kilograms to Pounds"]
+            amt: "Amount:", from: "From:", to: "To:", res: "Result:", pop: "Popular Conversions:",
+            priv: "Privacy Policy", term: "Terms of Use", 
+            cats: ["Currency", "Length", "Weight", "Clothing", "Temp", "Speed", "Area", "Time"],
+            seo: "<h2>All-in-One Unit Converter</h2><p>Fast, free, and accurate. Convert between metric and imperial units instantly.</p>",
+            m_priv: "<h2>Privacy</h2><p>No personal data is collected. We use cookies for language settings.</p>",
+            m_term: "<h2>Terms</h2><p>Results are for informational purposes only.</p>",
+            tags: ["1 USD to EUR", "100 Meters to Feet", "180 C to F"]
         },
         uk: {
-            amount: "Сума:", from: "З:", to: "В:", result: "Результат:", quick: "Популярні запити",
-            privacy: "Політика конфіденційності", terms: "Умови використання", footer: "© 2025 UnitConverters.io - Ваш надійний партнер у вимірюваннях",
-            cats: ['Валюта', 'Довжина', 'Вага', 'Одяг', 'Темп', 'Швидкість', 'Площа', 'Час'],
-            seo: "<h2>Універсальний онлайн конвертер</h2><p><strong>UnitConverters.io</strong> — це швидкий та зручний інструмент для конвертації будь-яких величин. Від курсів валют до розмірів взуття — все в одному місці.</p><h3>Наші переваги</h3><p>Ми використовуємо актуальні дані та підтримуємо всі популярні світові стандарти вимірювань.</p>",
-            priv: "<h2>Політика конфіденційності</h2><p>Ми не збираємо ваші персональні дані. Файли cookie використовуються лише для збереження мовних налаштувань та аналітики.</p>",
-            terms: "<h2>Умови використання</h2><p>Сервіс надається безкоштовно. Результати мають ознайомчий характер. Ми не несемо відповідальності за можливі помилки в розрахунках.</p>",
-            q_list: ["1 USD у EUR", "100 Метрів у Фути", "180 Цельсія у Фаренгейти", "10 Кг у Фунти"]
+            amt: "Сума:", from: "З:", to: "В:", res: "Результат:", pop: "Популярні запити:",
+            priv: "Конфіденційність", term: "Умови",
+            cats: ["Валюта", "Довжина", "Вага", "Одяг", "Темп", "Швидкість", "Площа", "Час"],
+            seo: "<h2>Універсальний конвертер</h2><p>Швидка конвертація валют, довжини та ваги. Актуальні дані та точні розрахунки.</p>",
+            m_priv: "<h2>Конфіденційність</h2><p>Ми не збираємо ваші дані. Cookie потрібні для мовних налаштувань.</p>",
+            m_term: "<h2>Умови</h2><p>Результати мають лише інформаційний характер.</p>",
+            tags: ["1 USD у EUR", "100 Метрів у Фути", "180 C у F"]
         },
         es: {
-            amount: "Cantidad:", from: "De:", to: "A:", result: "Resultado:", quick: "Conversiones Populares",
-            privacy: "Política de Privacidad", terms: "Términos de Uso", footer: "© 2025 UnitConverters.io - Su Socio de Medición Precisa",
-            cats: ['Moneda', 'Longitud', 'Peso', 'Ropa', 'Temp', 'Velocidad', 'Área', 'Tiempo'],
-            seo: "<h2>Convertidor de Unidades Profesional</h2><p>En <strong>UnitConverters.io</strong>, ofrecemos una herramienta rápida y precisa para todas sus necesidades de conversión, desde finanzas hasta ciencia.</p><h3>Precisión Garantizada</h3><p>Actualizamos nuestras tasas de cambio y factores de conversión para asegurar que siempre obtenga el resultado correcto.</p>",
-            priv: "<h2>Política de Privacidad</h2><p>Valoramos su privacidad. No recopilamos información personal. Las cookies se utilizan para mejorar la experiencia del usuario y mostrar anuncios relevantes mediante cifrado SSL seguro.</p>",
-            terms: "<h2>Términos de Uso</h2><p>Los resultados de las conversiones son informativos. UnitConverters.io no se hace responsable de decisiones financieras o técnicas basadas en estos cálculos.</p>",
-            q_list: ["1 USD a EUR", "100 Metros a Pies", "180 Celsius a Fahrenheit", "10 Kg a Libras"]
+            amt: "Cantidad:", from: "De:", to: "A:", res: "Resultado:", pop: "Populares:",
+            priv: "Privacidad", term: "Términos",
+            cats: ["Moneda", "Longitud", "Peso", "Ropa", "Temp", "Velocidad", "Área", "Tiempo"],
+            seo: "<h2>Convertidor de Unidades</h2><p>Herramienta profesional para conversiones métricas e imperiales.</p>",
+            m_priv: "<h2>Privacidad</h2><p>UnitConverters.io no recopila datos personales. Usamos cookies técnicas.</p>",
+            m_term: "<h2>Términos</h2><p>Uso bajo su propia responsabilidad. No garantizamos precisión absoluta.</p>",
+            tags: ["1 USD a EUR", "100 Metros a Pies", "180 C a F"]
         },
         de: {
-            amount: "Betrag:", from: "Von:", to: "Bis:", result: "Ergebnis:", quick: "Beliebte Suchen",
-            privacy: "Datenschutzerklärung", terms: "Nutzungsbedingungen", footer: "© 2025 UnitConverters.io - Ihr Partner für präzise Messungen",
-            cats: ['Währung', 'Länge', 'Gewicht', 'Kleidung', 'Temp', 'Tempo', 'Fläche', 'Zeit'],
-            seo: "<h2>Professioneller Einheitenrechner Online</h2><p><strong>UnitConverters.io</strong> ist die erste Adresse für schnelle und zuverlässige Umrechnungen von Währungen, Maßen und Gewichten weltweit.</p><h3>Ihre Vorteile</h3><p>Einfache Bedienung, Echtzeit-Kurse und Unterstützung für metrische sowie imperiale Systeme.</p>",
-            priv: "<h2>Datenschutzerklärung</h2><p>Der Schutz Ihrer Daten ist uns wichtig. Wir speichern keine personenbezogenen Daten. Cookies helfen uns, Ihre Spracheinstellungen zu speichern und anonyme Analysen durchzuführen.</p>",
-            terms: "<h2>Nutzungsbedingungen</h2><p>Die Nutzung dieses Dienstes ist kostenlos. Wir übernehmen keine Haftung für die Richtigkeit der Ergebnisse oder daraus resultierende Schäden.</p>",
-            q_list: ["1 USD in EUR", "100 Meter in Fuß", "180 Celsius in Fahrenheit", "10 Kg in Pfund"]
+            amt: "Betrag:", from: "Von:", to: "Bis:", res: "Ergebnis:", pop: "Beliebt:",
+            priv: "Datenschutz", term: "AGB",
+            cats: ["Währung", "Länge", "Gewicht", "Kleidung", "Temp", "Tempo", "Fläche", "Zeit"],
+            seo: "<h2>Einheitenrechner</h2><p>Konvertieren Sie Maße und Gewichte in Echtzeit.</p>",
+            m_priv: "<h2>Datenschutz</h2><p>Keine Erfassung personenbezogener Daten.</p>",
+            m_term: "<h2>AGB</h2><p>Nur für Informationszwecke.</p>",
+            tags: ["1 USD in EUR", "100 Meter in Fuß", "180 C in F"]
         }
     };
 
@@ -154,96 +167,82 @@
     let activeCat = 0;
 
     const data = {
-        'Currency': { units: { USD: 1, EUR: 0.92, UAH: 41.2, GBP: 0.78, PLN: 3.95, CAD: 1.36 }, type: 'val' },
-        'Length': { units: { Meter: 1, KM: 0.001, CM: 100, Mile: 0.000621, Foot: 3.2808, Inch: 39.37 }, type: 'val' },
-        'Weight': { units: { KG: 1, Gram: 1000, Pound: 2.2046, Ounce: 35.274 }, type: 'val' },
-        'Clothing': { units: { 'US Size': 1, 'EU Size': 1, 'UK Size': 1 }, type: 'clothing' },
-        'Temp': { units: { Celsius: 1, Fahrenheit: 1, Kelvin: 1 }, type: 'temp' },
-        'Speed': { units: { 'Km/h': 1, 'Mph': 0.6213, 'Knot': 0.5399 }, type: 'val' },
-        'Area': { units: { 'Sq Meter': 1, 'Hectare': 0.0001, 'Acre': 0.000247, 'Sq Foot': 10.764 }, type: 'val' },
-        'Time': { units: { Second: 1, Minute: 0.0166, Hour: 0.000277, Day: 0.0000115 }, type: 'val' }
+        'Currency': { USD:1, EUR:0.92, UAH:41.2, GBP:0.78 },
+        'Length': { Meter:1, KM:0.001, CM:100, Mile:0.000621, Foot:3.28 },
+        'Weight': { KG:1, Gram:1000, Pound:2.2, Ounce:35.27 },
+        'Clothing': { US:1, EU:1, UK:1 },
+        'Temp': { type: 'temp', units: ['Celsius', 'Fahrenheit'] },
+        'Speed': { 'Km/h':1, 'Mph':0.62 },
+        'Area': { 'Sq Meter':1, 'Acre':0.00024 },
+        'Time': { Second:1, Minute:0.016, Hour:0.00027 }
     };
 
-    function changeLang(v) { curLang = v; localStorage.setItem('lang', v); updateUI(); }
+    function setLang(v) { curLang = v; localStorage.setItem('lang', v); update(); }
 
-    function updateUI() {
-        const l = translations[curLang];
-        document.getElementById('langSelect').value = curLang;
-        document.getElementById('lbl-amount').innerText = l.amount;
-        document.getElementById('lbl-from').innerText = l.from;
-        document.getElementById('lbl-to').innerText = l.to;
-        document.getElementById('lbl-result').innerText = l.result;
-        document.getElementById('h3-quick').innerText = l.quick;
-        document.getElementById('txt-footer').innerText = l.footer;
-        document.getElementById('link-privacy').innerText = l.privacy;
-        document.getElementById('link-terms').innerText = l.terms;
-        document.getElementById('seo-box').innerHTML = l.seo;
+    function update() {
+        const l = langData[curLang];
+        document.getElementById('langMenu').value = curLang;
+        document.getElementById('l-amt').innerText = l.amt;
+        document.getElementById('l-from').innerText = l.from;
+        document.getElementById('l-to').innerText = l.to;
+        document.getElementById('l-res').innerText = l.res;
+        document.getElementById('l-pop').innerText = l.pop;
+        document.getElementById('l-priv').innerText = l.priv;
+        document.getElementById('l-term').innerText = l.term;
+        document.getElementById('seo-text').innerHTML = l.seo;
 
-        const qg = document.getElementById('q-grid'); qg.innerHTML = '';
-        l.q_list.forEach(txt => {
-            const s = document.createElement('span'); s.className = 'q-item'; s.innerText = txt;
-            s.onclick = () => { window.scrollTo({top:0, behavior:'smooth'}); };
-            qg.appendChild(s);
+        const tg = document.getElementById('tabsGrid'); tg.innerHTML = '';
+        Object.keys(data).forEach((c, i) => {
+            const b = document.createElement('button');
+            b.className = `tab-btn ${i===activeCat?'active':''}`;
+            b.innerText = l.cats[i];
+            b.onclick = () => { activeCat=i; update(); };
+            tg.appendChild(b);
         });
 
-        const tg = document.getElementById('tabs'); tg.innerHTML = '';
-        Object.keys(data).forEach((cat, i) => {
-            const d = document.createElement('div');
-            d.className = `tab ${i === activeCat ? 'active' : ''}`;
-            d.innerText = l.cats[i];
-            d.onclick = () => { activeCat = i; updateUI(); };
-            tg.appendChild(d);
+        const tags = document.getElementById('tags'); tags.innerHTML = '';
+        l.tags.forEach(t => {
+            const s = document.createElement('span'); s.className = 'tag'; s.innerText = t;
+            s.onclick = () => window.scrollTo(0,0);
+            tags.appendChild(s);
         });
-        fillOptions();
+
+        fill();
     }
 
-    function fillOptions() {
+    function fill() {
         const cat = Object.keys(data)[activeCat];
         const sIn = document.getElementById('unitIn'), sOut = document.getElementById('unitOut');
         sIn.innerHTML = ''; sOut.innerHTML = '';
-        Object.keys(data[cat].units).forEach(u => {
-            sIn.add(new Option(u, u));
-            sOut.add(new Option(u, u));
-        });
-        if (sOut.options.length > 1) sOut.selectedIndex = 1;
-        calc();
+        const units = data[cat].type === 'temp' ? data[cat].units : Object.keys(data[cat]);
+        units.forEach(u => { sIn.add(new Option(u,u)); sOut.add(new Option(u,u)); });
+        if(sOut.options.length > 1) sOut.selectedIndex = 1;
+        convert();
     }
 
-    function calc() {
+    function convert() {
         const v = parseFloat(document.getElementById('valIn').value);
-        const catKey = Object.keys(data)[activeCat];
-        const cat = data[catKey];
+        const cat = Object.keys(data)[activeCat];
         const uIn = document.getElementById('unitIn').value, uOut = document.getElementById('unitOut').value;
-        const resField = document.getElementById('valOut');
+        const res = document.getElementById('valOut');
+        if(isNaN(v)) { res.value = ''; return; }
 
-        if (isNaN(v)) { resField.value = ''; return; }
-
-        if (cat.type === 'temp') {
-            let base;
-            if (uIn === 'Celsius') base = v;
-            else if (uIn === 'Fahrenheit') base = (v - 32) * 5 / 9;
-            else base = v - 273.15;
-
-            let res;
-            if (uOut === 'Celsius') res = base;
-            else if (uOut === 'Fahrenheit') res = (base * 9 / 5) + 32;
-            else res = base + 273.15;
-            resField.value = res.toFixed(2);
-        } else if (cat.type === 'clothing') {
-            resField.value = v; // спрощено для прикладу
+        if(data[cat].type === 'temp') {
+            res.value = uIn === uOut ? v : (uIn==='Celsius' ? (v*9/5)+32 : (v-32)*5/9).toFixed(2);
         } else {
-            const r = (v / cat.units[uIn]) * cat.units[uOut];
-            resField.value = r < 0.001 ? r.toFixed(6) : r.toLocaleString(undefined, {maximumFractionDigits: 4});
+            res.value = (v / data[cat][uIn] * data[cat][uOut]).toFixed(4);
         }
     }
 
-    function openPop(type) {
-        document.getElementById('modalBody').innerHTML = type === 'priv' ? translations[curLang].priv : translations[curLang].terms;
-        document.getElementById('infoModal').style.display = 'block';
+    function modal(mode) {
+        const m = document.getElementById('modal');
+        const c = document.getElementById('modal-content');
+        if(mode === 'close') { m.style.display = 'none'; return; }
+        c.innerHTML = mode === 'priv' ? langData[curLang].m_priv : langData[curLang].m_term;
+        m.style.display = 'block';
     }
-    function closePop() { document.getElementById('infoModal').style.display = 'none'; }
 
-    updateUI();
+    update();
 </script>
 </body>
 </html>

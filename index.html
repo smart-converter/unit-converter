@@ -3,82 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UnitConverters.io</title>
+    <title>UnitConverters.io - Universal Converter</title>
     <style>
-        body { font-family: -apple-system, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+        body { font-family: -apple-system, sans-serif; margin: 0; background: #f4f4f4; color: #333; }
         .header { background: #006633; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .container { max-width: 800px; margin: 20px auto; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .container { max-width: 650px; margin: 15px auto; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
-        /* Ваші вкладки 4х2 */
-        .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #ccc; border: 1px solid #ccc; }
+        /* Вкладки 4х2 - сувора структура */
+        .tabs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #ccc; border: 1px solid #ccc; }
         .tab { background: #006633; color: white; border: none; padding: 15px 5px; cursor: pointer; font-size: 11px; font-weight: 900; text-transform: uppercase; }
         .tab.active { background: white; color: #006633; }
 
-        /* Чистий блок конвертера */
-        .box { border: 1px solid #ddd; margin: 20px 0; padding: 25px; background: #fafafa; border-radius: 6px; }
+        /* Конвертер */
+        .converter-box { border: 1px solid #ddd; margin: 20px 0; padding: 25px; background: #fafafa; border-radius: 6px; }
         .row { display: flex; align-items: center; margin-bottom: 15px; gap: 15px; }
-        .row label { width: 100px; font-weight: bold; font-size: 15px; color: #444; }
-        .input { flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 18px; font-weight: 800; }
-        .res { background: #e8f5e9; border: 1px solid #006633; color: #006633; }
-
-        .seo { padding: 20px; border-top: 1px solid #eee; font-size: 15px; line-height: 1.6; color: #555; }
-        .seo h2 { color: #006633; margin-top: 0; }
+        .row label { width: 100px; font-weight: bold; font-size: 15px; color: #555; }
+        .field { flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 18px; font-weight: 800; }
+        .res-field { background: #e8f5e9; border: 1px solid #006633; color: #006633; }
 
         footer { text-align: center; padding: 30px; background: #333; color: white; margin-top: 40px; }
         .f-link { color: #82e0aa; text-decoration: underline; cursor: pointer; margin: 0 15px; font-weight: bold; }
-        
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; }
-        .modal-c { background: white; width: 90%; max-width: 500px; margin: 50px auto; padding: 25px; border-radius: 10px; position: relative; color: #333; }
     </style>
 </head>
 <body>
 
 <div class="header">
     <h1 style="margin:0; font-size:22px;">UnitConverters.io</h1>
-    <select onchange="setL(this.value)" id="langS" style="padding:5px; font-weight:bold;">
+    <select onchange="setL(this.value)" id="langSelect" style="padding:5px; font-weight:bold;">
         <option value="en">English</option>
         <option value="uk">Українська</option>
-        <option value="es">Español</option>
-        <option value="de">Deutsch</option>
     </select>
 </div>
 
 <div class="container">
-    <div id="tabs" class="tabs"></div>
-    <div class="box">
-        <div class="row"><label id="l-amt">Amount:</label><input type="number" id="vIn" class="input" value="1" oninput="calc()"></div>
-        <div class="row"><label id="l-fr">From:</label><select id="uIn" class="input" onchange="calc()"></select></div>
-        <div class="row"><label id="l-to">To:</label><select id="uOut" class="input" onchange="calc()"></select></div>
-        <div class="row"><label id="l-res">Result:</label><input type="text" id="vOut" class="input res" readonly></div>
+    <div id="tabs" class="tabs-grid"></div>
+    <div class="converter-box">
+        <div class="row"><label id="l-amt">Amount:</label><input type="number" id="vIn" class="field" value="1" oninput="calc()"></div>
+        <div class="row"><label id="l-fr">From:</label><select id="uIn" class="field" onchange="calc()"></select></div>
+        <div class="row"><label id="l-to">To:</label><select id="uOut" class="field" onchange="calc()"></select></div>
+        <div class="row"><label id="l-res">Result:</label><input type="text" id="vOut" class="field res-field" readonly></div>
     </div>
-    <div class="seo" id="seo"></div>
 </div>
 
 <footer>
-    <div id="copy" style="margin-bottom:10px;">© 2025 UnitConverters.io</div>
-    <span class="f-link" onclick="pop('priv')" id="l-priv">Privacy Policy</span>
-    <span class="f-link" onclick="pop('term')" id="l-term">Terms of Use</span>
+    <div style="margin-bottom:10px;">© 2025 UnitConverters.io</div>
+    <span class="f-link">Privacy Policy</span>
+    <span class="f-link">Terms of Use</span>
 </footer>
-
-<div class="modal" id="mod" onclick="pop('close')">
-    <div class="modal-c" onclick="event.stopPropagation()">
-        <span style="position:absolute; right:15px; top:5px; cursor:pointer; font-size:30px;" onclick="pop('close')">×</span>
-        <div id="m-text"></div>
-    </div>
-</div>
 
 <script>
     const langs = {
-        en: { amt:"Amount:", fr:"From:", to:"To:", res:"Result:", cats:["Currency","Length","Weight","Clothing","Temp","Speed","Area","Time"], seo:"<h2>Universal Converter</h2><p>Accurate results for all units.</p>", m_priv:"Privacy: No data collected.", m_term:"Terms: For info only." },
-        uk: { amt:"Сума:", fr:"З:", to:"В:", res:"Результат:", cats:["Валюта","Довжина","Вага","Одяг","Темп","Швидкість","Площа","Час"], seo:"<h2>Онлайн Конвертер</h2><p>Точні та швидкі розрахунки для всіх одиниць.</p>", m_priv:"Конфіденційність: Ваші дані не збираються.", m_term:"Умови: Тільки для ознайомлення." }
+        en: { amt:"Amount:", fr:"From:", to:"To:", res:"Result:", cats:["Currency","Length","Weight","Clothing","Temp","Speed","Area","Time"] },
+        uk: { amt:"Сума:", fr:"З:", to:"В:", res:"Результат:", cats:["Валюта","Довжина","Вага","Одяг","Темп","Швидкість","Площа","Час"] }
     };
 
     let curL = localStorage.getItem('lang') || 'en';
     let curC = 0;
     const data = {
-        "Currency": { USD: 1, EUR: 0.92, UAH: 41, GBP: 0.78 },
+        "Currency": { USD: 1, EUR: 0.92, UAH: 41.2 },
         "Length": { Meter: 1, KM: 0.001, Foot: 3.28 },
-        "Weight": { KG: 1, Pound: 2.2 },
+        "Weight": { KG: 1, Gram: 1000 },
         "Clothing": { "US": 1, "EU": 1 },
         "Temp": { type: "temp", units: ["Celsius", "Fahrenheit"] },
         "Speed": { "Km/h": 1, "Mph": 0.62 },
@@ -94,10 +78,9 @@
         document.getElementById('l-fr').innerText = l.fr;
         document.getElementById('l-to').innerText = l.to;
         document.getElementById('l-res').innerText = l.res;
-        document.getElementById('seo').innerHTML = l.seo;
 
         const g = document.getElementById('tabs'); g.innerHTML = '';
-        Object.keys(data).forEach((c, i) => {
+        Object.keys(data).forEach((cat, i) => {
             const b = document.createElement('button');
             b.className = `tab ${i === curC ? 'active' : ''}`;
             b.innerText = l.cats[i];
@@ -129,15 +112,6 @@
             res.value = (v / data[ck][uI] * data[ck][uO]).toFixed(4);
         }
     }
-
-    function pop(m) {
-        const mod = document.getElementById('mod');
-        if (m === 'close') { mod.style.display = 'none'; return; }
-        const l = langs[curL] || langs.en;
-        document.getElementById('m-text').innerHTML = m === 'priv' ? l.m_priv : l.m_term;
-        mod.style.display = 'block';
-    }
-
     update();
 </script>
 </body>

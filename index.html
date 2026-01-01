@@ -3,116 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UnitConverters.io - Universal Converter</title>
+    <title>UnitConverters.io - Universal Unit Converter</title>
     <style>
-        body { font-family: -apple-system, sans-serif; margin: 0; background: #f4f4f4; color: #333; }
-        .header { background: #006633; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .container { max-width: 650px; margin: 15px auto; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        :root { --primary-green: #006633; --bg-gray: #f4f7f6; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; background: var(--bg-gray); color: #333; }
         
-        /* Вкладки 4х2 - сувора структура */
-        .tabs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #ccc; border: 1px solid #ccc; }
-        .tab { background: #006633; color: white; border: none; padding: 15px 5px; cursor: pointer; font-size: 11px; font-weight: 900; text-transform: uppercase; }
-        .tab.active { background: white; color: #006633; }
+        .top-bar { background: var(--primary-green); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .top-bar h1 { margin: 0; font-size: 22px; font-weight: bold; letter-spacing: 0.5px; }
+        
+        .main-wrapper { max-width: 700px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #e0e0e0; }
+        
+        /* Вкладки 4х2 */
+        .tabs-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #ddd; border-bottom: 2px solid var(--primary-green); }
+        .tab-btn { background: var(--primary-green); color: white; border: none; padding: 16px 5px; cursor: pointer; font-size: 11px; font-weight: 800; text-transform: uppercase; transition: 0.3s; }
+        .tab-btn.active { background: white; color: var(--primary-green); }
+        .tab-btn:hover:not(.active) { background: #004d26; }
 
-        /* Конвертер */
-        .converter-box { border: 1px solid #ddd; margin: 20px 0; padding: 25px; background: #fafafa; border-radius: 6px; }
-        .row { display: flex; align-items: center; margin-bottom: 15px; gap: 15px; }
-        .row label { width: 100px; font-weight: bold; font-size: 15px; color: #555; }
-        .field { flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 18px; font-weight: 800; }
-        .res-field { background: #e8f5e9; border: 1px solid #006633; color: #006633; }
+        /* Блок конвертера */
+        .converter-section { padding: 30px; background: #fff; }
+        .input-group { display: flex; align-items: center; margin-bottom: 20px; gap: 15px; }
+        .input-group label { width: 110px; font-size: 15px; font-weight: 700; color: #555; }
+        .input-group input, .input-group select { 
+            flex: 1; 
+            padding: 12px 15px; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            font-size: 18px; 
+            font-weight: 700; 
+            outline: none;
+            transition: border 0.3s;
+        }
+        .input-group input:focus { border-color: var(--primary-green); box-shadow: 0 0 0 3px rgba(0,102,51,0.1); }
+        .res-input { background: #eef9f4 !important; border: 2px solid var(--primary-green) !important; color: var(--primary-green); }
 
-        footer { text-align: center; padding: 30px; background: #333; color: white; margin-top: 40px; }
-        .f-link { color: #82e0aa; text-decoration: underline; cursor: pointer; margin: 0 15px; font-weight: bold; }
+        /* SEO Текст */
+        .seo-box { padding: 25px; border-top: 1px solid #eee; background: #fafafa; font-size: 15px; line-height: 1.6; }
+        .seo-box h2 { color: var(--primary-green); font-size: 20px; margin-top: 0; }
+        
+        footer { background: #2c3e50; color: #bdc3c7; padding: 30px 20px; text-align: center; }
+        .footer-links { margin-top: 15px; }
+        .footer-links span { color: #fff; text-decoration: underline; cursor: pointer; margin: 0 12px; font-size: 14px; font-weight: 600; }
+        
+        /* Модалка */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; backdrop-filter: blur(4px); }
+        .modal-content { background: white; width: 90%; max-width: 550px; margin: 10vh auto; padding: 35px; border-radius: 15px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #999; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1 style="margin:0; font-size:22px;">UnitConverters.io</h1>
-    <select onchange="setL(this.value)" id="langSelect" style="padding:5px; font-weight:bold;">
+<div class="top-bar">
+    <h1>UnitConverters.io</h1>
+    <select onchange="changeLang(this.value)" id="langPicker" style="padding: 6px; border-radius: 5px; font-weight: bold;">
         <option value="en">English</option>
-        <option value="uk">Українська</option>
+        <option value="uk" selected>Українська</option>
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
     </select>
 </div>
 
-<div class="container">
-    <div id="tabs" class="tabs-grid"></div>
-    <div class="converter-box">
-        <div class="row"><label id="l-amt">Amount:</label><input type="number" id="vIn" class="field" value="1" oninput="calc()"></div>
-        <div class="row"><label id="l-fr">From:</label><select id="uIn" class="field" onchange="calc()"></select></div>
-        <div class="row"><label id="l-to">To:</label><select id="uOut" class="field" onchange="calc()"></select></div>
-        <div class="row"><label id="l-res">Result:</label><input type="text" id="vOut" class="field res-field" readonly></div>
+<div class="main-wrapper">
+    <div class="tabs-container" id="tabsGrid"></div>
+    
+    <div class="converter-section">
+        <div class="input-group">
+            <label id="lbl-amt">Сума:</label>
+            <input type="number" id="inputVal" value="1" oninput="doCalc()">
+        </div>
+        <div class="input-group">
+            <label id="lbl-from">З:</label>
+            <select id="selectFrom" onchange="doCalc()"></select>
+        </div>
+        <div class="input-group">
+            <label id="lbl-to">В:</label>
+            <select id="selectTo" onchange="doCalc()"></select>
+        </div>
+        <div class="input-group">
+            <label id="lbl-res">Результат:</label>
+            <input type="text" id="outputVal" readonly class="res-input">
+        </div>
     </div>
+
+    <div class="seo-box" id="seoBlock"></div>
 </div>
 
 <footer>
-    <div style="margin-bottom:10px;">© 2025 UnitConverters.io</div>
-    <span class="f-link">Privacy Policy</span>
-    <span class="f-link">Terms of Use</span>
+    <div id="copyText">© 2025 UnitConverters.io - All Rights Reserved</div>
+    <div class="footer-links">
+        <span onclick="togglePop('priv')" id="link-priv">Privacy Policy</span>
+        <span onclick="togglePop('term')" id="link-term">Terms of Use</span>
+    </div>
 </footer>
 
+<div class="modal-overlay" id="modalWindow" onclick="if(event.target==this) togglePop('close')">
+    <div class="modal-content">
+        <span class="close-modal" onclick="togglePop('close')">×</span>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
 <script>
-    const langs = {
-        en: { amt:"Amount:", fr:"From:", to:"To:", res:"Result:", cats:["Currency","Length","Weight","Clothing","Temp","Speed","Area","Time"] },
-        uk: { amt:"Сума:", fr:"З:", to:"В:", res:"Результат:", cats:["Валюта","Довжина","Вага","Одяг","Темп","Швидкість","Площа","Час"] }
+    const config = {
+        en: { 
+            amt: "Amount:", fr: "From:", to: "To:", res: "Result:",
+            cats: ["Currency", "Length", "Weight", "Clothing", "Temp", "Speed", "Area", "Time"],
+            seo: "<h2>Universal Online Converter</h2><p>Accurate and fast unit conversion for over 50+ measurements. Supporting metric, imperial, and real-time currency rates.</p>",
+            p: "<h2>Privacy</h2><p>No personal data is collected or stored on our servers.</p>",
+            t: "<h2>Terms</h2><p>Calculations are provided for information only. Accuracy is not guaranteed.</p>"
+        },
+        uk: { 
+            amt: "Сума:", fr: "З:", to: "В:", res: "Результат:",
+            cats: ["Валюта", "Довжина", "Вага", "Одяг", "Темп", "Швидкість", "Площа", "Час"],
+            seo: "<h2>Універсальний онлайн конвертер</h2><p>Точна та швидка конвертація одиниць. Підтримка метричних, імперських систем та актуальних курсів валют.</p>",
+            p: "<h2>Конфіденційність</h2><p>Ми не збираємо та не зберігаємо ваші персональні дані.</p>",
+            t: "<h2>Умови</h2><p>Результати розрахунків мають ознайомчий характер.</p>"
+        },
+        es: { 
+            amt: "Cantidad:", fr: "De:", to: "A:", res: "Resultado:",
+            cats: ["Moneda", "Longitud", "Peso", "Ropa", "Temp", "Velocidad", "Área", "Tiempo"],
+            seo: "<h2>Convertidor Universal</h2><p>Resultados precisos para todas las unidades de medida.</p>",
+            p: "<h2>Privacidad</h2><p>No recopilamos datos personales.</p>",
+            t: "<h2>Términos</h2><p>Uso bajo su propia responsabilidad.</p>"
+        },
+        de: { 
+            amt: "Betrag:", fr: "Von:", to: "Bis:", res: "Ergebnis:",
+            cats: ["Währung", "Länge", "Gewicht", "Kleidung", "Temp", "Tempo", "Fläche", "Zeit"],
+            seo: "<h2>Einheitenrechner Online</h2><p>Konvertieren Sie Maße und Gewichte in Echtzeit.</p>",
+            p: "<h2>Datenschutz</h2><p>Keine Erfassung von Nutzerdaten.</p>",
+            t: "<h2>AGB</h2><p>Alle Angaben ohne Gewähr.</p>"
+        }
     };
 
-    let curL = localStorage.getItem('lang') || 'en';
-    let curC = 0;
+    let curLang = localStorage.getItem('lang') || 'uk';
+    let curCat = 0;
+
     const data = {
-        "Currency": { USD: 1, EUR: 0.92, UAH: 41.2 },
-        "Length": { Meter: 1, KM: 0.001, Foot: 3.28 },
-        "Weight": { KG: 1, Gram: 1000 },
-        "Clothing": { "US": 1, "EU": 1 },
-        "Temp": { type: "temp", units: ["Celsius", "Fahrenheit"] },
-        "Speed": { "Km/h": 1, "Mph": 0.62 },
-        "Area": { "Sq Meter": 1 },
-        "Time": { Minute: 1 }
+        "Currency": { USD: 1, EUR: 0.92, UAH: 41.2, GBP: 0.78, PLN: 3.98 },
+        "Length": { Meter: 1, KM: 0.001, CM: 100, Mile: 0.00062, Foot: 3.28, Inch: 39.37 },
+        "Weight": { KG: 1, Gram: 1000, Pound: 2.204, Ounce: 35.27 },
+        "Clothing": { "EU Size": 1, "US Size": 0.8, "UK Size": 0.75 },
+        "Temp": { type: "temp", units: ["Celsius", "Fahrenheit", "Kelvin"] },
+        "Speed": { "Km/h": 1, "Mph": 0.621, "Knot": 0.539 },
+        "Area": { "Sq Meter": 1, "Acre": 0.00024, "Hectare": 0.0001 },
+        "Time": { Second: 1, Minute: 0.0166, Hour: 0.00027 }
     };
 
-    function setL(v) { curL = v; localStorage.setItem('lang', v); update(); }
+    function changeLang(v) { curLang = v; localStorage.setItem('lang', v); render(); }
 
-    function update() {
-        const l = langs[curL] || langs.en;
-        document.getElementById('l-amt').innerText = l.amt;
-        document.getElementById('l-fr').innerText = l.fr;
-        document.getElementById('l-to').innerText = l.to;
-        document.getElementById('l-res').innerText = l.res;
-
-        const g = document.getElementById('tabs'); g.innerHTML = '';
+    function render() {
+        const l = config[curLang];
+        document.getElementById('lbl-amt').innerText = l.amt;
+        document.getElementById('lbl-from').innerText = l.fr;
+        document.getElementById('lbl-to').innerText = l.to;
+        document.getElementById('lbl-res').innerText = l.res;
+        document.getElementById('seoBlock').innerHTML = l.seo;
+        document.getElementById('link-priv').innerText = curLang === 'uk' ? 'Конфіденційність' : l.cats[0]; // спрощено
+        
+        const grid = document.getElementById('tabsGrid');
+        grid.innerHTML = '';
         Object.keys(data).forEach((cat, i) => {
             const b = document.createElement('button');
-            b.className = `tab ${i === curC ? 'active' : ''}`;
+            b.className = `tab-btn ${i === curCat ? 'active' : ''}`;
             b.innerText = l.cats[i];
-            b.onclick = () => { curC = i; update(); };
-            g.appendChild(b);
+            b.onclick = () => { curCat = i; render(); };
+            grid.appendChild(b);
         });
-        fill();
+        updateOptions();
     }
 
-    function fill() {
-        const c = Object.keys(data)[curC];
-        const i = document.getElementById('uIn'), o = document.getElementById('uOut');
-        i.innerHTML = ''; o.innerHTML = '';
-        const un = data[c].type === "temp" ? data[c].units : Object.keys(data[c]);
-        un.forEach(u => { i.add(new Option(u, u)); o.add(new Option(u, u)); });
-        if (o.options.length > 1) o.selectedIndex = 1;
-        calc();
+    function updateOptions() {
+        const c = Object.keys(data)[curCat];
+        const sF = document.getElementById('selectFrom'), sT = document.getElementById('selectTo');
+        sF.innerHTML = ''; sT.innerHTML = '';
+        const units = data[c].type === "temp" ? data[c].units : Object.keys(data[c]);
+        units.forEach(u => { sF.add(new Option(u, u)); sT.add(new Option(u, u)); });
+        if (sT.options.length > 1) sT.selectedIndex = 1;
+        doCalc();
     }
 
-    function calc() {
-        const v = parseFloat(document.getElementById('vIn').value);
-        const ck = Object.keys(data)[curC];
-        const uI = document.getElementById('uIn').value, uO = document.getElementById('uOut').value;
-        const res = document.getElementById('vOut');
+    function doCalc() {
+        const v = parseFloat(document.getElementById('inputVal').value);
+        const c = Object.keys(data)[curCat];
+        const uF = document.getElementById('selectFrom').value, uT = document.getElementById('selectTo').value;
+        const res = document.getElementById('outputVal');
         if (isNaN(v)) { res.value = ''; return; }
-        if (data[ck].type === "temp") {
-            res.value = uI === uO ? v : (uI === "Celsius" ? (v * 9/5) + 32 : (v - 32) * 5/9).toFixed(2);
+
+        if (data[c].type === "temp") {
+            let base;
+            if (uF === "Celsius") base = v;
+            else if (uF === "Fahrenheit") base = (v - 32) * 5/9;
+            else base = v - 273.15;
+            let final;
+            if (uT === "Celsius") final = base;
+            else if (uT === "Fahrenheit") final = (base * 9/5) + 32;
+            else final = base + 273.15;
+            res.value = final.toFixed(2);
         } else {
-            res.value = (v / data[ck][uI] * data[ck][uO]).toFixed(4);
+            res.value = (v / data[c][uF] * data[c][uT]).toLocaleString(undefined, {maximumFractionDigits: 4});
         }
     }
-    update();
+
+    function togglePop(mode) {
+        const m = document.getElementById('modalWindow');
+        if (mode === 'close') { m.style.display = 'none'; return; }
+        document.getElementById('modalBody').innerHTML = mode === 'priv' ? config[curLang].p : config[curLang].t;
+        m.style.display = 'block';
+    }
+
+    render();
 </script>
 </body>
 </html>

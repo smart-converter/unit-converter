@@ -19,24 +19,23 @@
         .top-header { background-color: var(--card-bg); padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); }
         .top-header h1 { margin: 0; font-size: 18px; font-weight: 900; color: var(--accent-green); text-transform: uppercase; }
         
-        /* БІЛЬШИЙ ТА ЖИРНІШИЙ ПЕРЕМИКАЧ */
-        .lang-switcher { background: var(--bg-dark); border: 2px solid var(--accent-green); color: white; padding: 5px 10px; border-radius: 6px; font-size: 16px; font-weight: 800; cursor: pointer; }
+        .lang-switcher { background: var(--bg-dark); border: 2px solid var(--accent-green); color: white; padding: 4px 8px; border-radius: 8px; font-size: 15px; font-weight: 800; cursor: pointer; }
         
         .container { max-width: 800px; margin: 0 auto; padding: 5px; box-sizing: border-box; }
         
-        /* КОМПАКТНЕ МЕНЮ ІЗ ЗАОКРУГЛЕННЯМ */
-        .tabs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 10px 0; }
-        .tab { background: var(--card-bg); color: #fff; height: 32px; text-align: center; cursor: pointer; font-size: 10px; font-weight: 900; text-transform: uppercase; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+        /* КОМПАКТНЕ МЕНЮ 2х4 */
+        .tabs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin: 10px 0; }
+        .tab { background: var(--card-bg); color: #fff; height: 40px; text-align: center; cursor: pointer; font-size: 13px; font-weight: 900; text-transform: uppercase; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; border-radius: 10px; }
         .tab.active { background: var(--accent-green); color: var(--bg-dark); border-color: var(--accent-green); }
         
         .converter-box { border: 1px solid var(--border-color); padding: 15px; background: var(--card-bg); border-radius: 12px; margin-bottom: 12px; }
-        .row { display: flex; align-items: center; margin-bottom: 8px; }
-        .row label { width: 90px; font-size: 13px; color: #94a3b8; font-weight: 800; text-transform: uppercase; }
+        .row { display: flex; flex-direction: column; margin-bottom: 10px; }
+        .row label { font-size: 12px; color: #94a3b8; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; }
         
-        .input-field { flex: 1; padding: 8px; background: var(--bg-dark); border: 2px solid var(--border-color); border-radius: 8px; color: #fff; font-size: 18px; font-weight: 800; width: 100%; box-sizing: border-box; outline: none; }
+        .input-field { padding: 10px; background: var(--bg-dark); border: 2px solid var(--border-color); border-radius: 10px; color: #fff; font-size: 18px; font-weight: 800; width: 100%; box-sizing: border-box; outline: none; }
         .input-field:focus { border-color: var(--accent-green); }
 
-        .ad-space { background: rgba(34, 197, 94, 0.05); border: 1px dashed var(--accent-green); margin: 10px 0; text-align: center; padding: 10px; color: #64748b; font-size: 11px; min-height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+        .ad-space { background: rgba(34, 197, 94, 0.05); border: 1px dashed var(--accent-green); margin: 10px 0; text-align: center; padding: 10px; color: #64748b; font-size: 11px; min-height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 10px; }
         
         .quick-links-box { padding: 15px; background: var(--card-bg); border: 1px solid var(--border-color); margin-top: 10px; border-radius: 12px; }
         .quick-links-box h3 { font-size: 16px; color: var(--accent-green); margin: 0 0 10px 0; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; font-weight: 900; }
@@ -46,18 +45,17 @@
 
         .seo-content { padding: 15px; line-height: 1.6; font-size: 14px; color: #94a3b8; }
         .seo-content h2 { color: var(--accent-green); font-size: 18px; margin: 20px 0 10px; font-weight: 900; }
+        .seo-content p { margin-bottom: 12px; }
 
         .tools-network { padding: 20px 15px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 15px; }
-        .tool-link-btn { display: inline-block; padding: 6px 14px; margin: 4px; border: 2px solid var(--accent-green); color: var(--accent-green); text-decoration: none; border-radius: 50px; font-size: 12px; font-weight: 800; }
+        .tool-link-btn { display: inline-block; padding: 8px 16px; margin: 4px; border: 2px solid var(--accent-green); color: var(--accent-green); text-decoration: none; border-radius: 50px; font-size: 12px; font-weight: 800; }
 
         footer { border-top: 1px solid var(--border-color); padding: 20px 15px; text-align: center; font-size: 11px; color: #475569; }
-        .footer-link { color: var(--accent-green); text-decoration: underline; cursor: pointer; padding: 0 5px; font-weight: 800; }
+        .footer-link { color: var(--accent-green); text-decoration: underline; cursor: pointer; padding: 0 8px; font-weight: 800; }
 
         .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); }
-        .modal-content { background: var(--card-bg); margin: 10% auto; padding: 20px; width: 85%; max-width: 500px; border-radius: 12px; border: 1px solid var(--accent-green); position: relative; }
+        .modal-content { background: var(--card-bg); margin: 10% auto; padding: 20px; width: 85%; max-width: 500px; border-radius: 15px; border: 1px solid var(--accent-green); position: relative; }
         .close-btn { position: absolute; right: 10px; top: 0; font-size: 30px; cursor: pointer; color: var(--accent-green); }
-        
-        @media (max-width: 500px) { .tabs-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
@@ -90,14 +88,14 @@
     <div class="seo-content" id="seo-box"></div>
 
     <div class="tools-network">
-        <h4 id="txt-other-tools" style="font-size: 11px; margin-bottom: 10px; color: #94a3b8; text-transform: uppercase;">Other Tools</h4>
+        <h4 id="txt-other-tools" style="font-size: 11px; margin-bottom: 10px; color: #94a3b8; text-transform: uppercase;">Other Finance Tools</h4>
         <a href="https://smart-converter.github.io/percentage-calculator/" class="tool-link-btn">Percentage Calculator</a>
         <a href="https://smart-converter.github.io/vat-calculator/" class="tool-link-btn">VAT Calculator</a>
     </div>
 </div>
 
 <footer>
-    <p id="txt-footer">© 2026 UnitConverters.io - Your Trusted Partner</p>
+    <p id="txt-footer">© 2026 UnitConverters.io - All Rights Reserved</p>
     <div style="margin-top:10px;">
         <span class="footer-link" onclick="openPol('privacy')" id="link-privacy">Privacy Policy</span>
         <span class="footer-link" onclick="openPol('terms')" id="link-terms">Terms of Use</span>
@@ -115,43 +113,31 @@
     const translations = {
         en: {
             amount: "Amount:", from: "From:", to: "To:", result: "Result:", quick: "Popular Conversions",
-            privacy: "Privacy Policy", terms: "Terms of Use", footer: "© 2026 UnitConverters.io - Your Trusted Partner",
-            other: "Other Tools",
+            privacy: "Privacy Policy", terms: "Terms of Use", footer: "© 2026 UnitConverters.io - All Rights Reserved",
+            other: "Other Finance Tools",
             q_items: ["100 USD to EUR", "1 Inch to cm", "5 Miles to km", "180 Celsius to Fahrenheit", "10 kg to lbs", "US to UK Shoe Sizes", "50 Meters to Feet", "Speed: 60 mph to km/h"],
             categories: ['Currency', 'Length', 'Weight', 'Clothing', 'Temp', 'Speed', 'Area', 'Time'],
-            seo: `<h2>Professional Multipurpose Unit Converter Online</h2><p>In today's globalized world, <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs. Accurate currency rates, clothing sizes, and technical measurements in one place.</p><h2>Accurate Currency Exchange Rates</h2><p>Our currency tool offers real-time exchange rates for major global currencies. We fetch data from reliable financial sources for international transactions.</p><h2>Scientific and Daily Measurements</h2><p>From kitchen recipes to construction projects, our converters for Length, Weight, Area, and Speed ensure you have the correct data every time.</p>`,
-            privText: `<h2>Privacy Policy</h2><p>We take your privacy seriously. We do not collect names or emails. Cookies are used for language settings and ads.</p>`,
-            termsText: `<h2>Terms of Use</h2><p>Results are for informational purposes only. We are not responsible for errors.</p>`
+            seo: `<h2>Professional Multipurpose Unit Converter Online</h2>
+                  <p>In today's globalized world, <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs. Whether you are a traveler, a student, or a professional, our tool ensures accuracy across 8 essential categories.</p>
+                  <p>Our currency converter uses real-time exchange rates, ensuring you get the most up-to-date financial data for USD, EUR, and dozens of other global currencies. No more manual calculations or searching for current rates.</p>
+                  <p>For technical and everyday tasks, we offer precise conversions for Length, Weight, Area, and Speed. From converting miles to kilometers for a road trip to calculating square meters for home renovation, we've got you covered.</p>
+                  <p>Specialized tools like our Clothing and Temperature converters help you navigate international standards easily. Convert shoe sizes between US and EU or check the weather in Celsius and Fahrenheit with just one click.</p>`,
+            privText: `<h2>Privacy Policy</h2><p>We do not collect personal data. Cookies are used only for language settings.</p>`,
+            termsText: `<h2>Terms of Use</h2><p>Results are for informational purposes only. Use at your own risk.</p>`
         },
         uk: {
             amount: "Сума:", from: "З:", to: "В:", result: "Результат:", quick: "Популярні запити",
-            privacy: "Конфіденційність", terms: "Умови", footer: "© 2026 UnitConverters.io - Ваш надійний партнер",
-            other: "Інші інструменти",
+            privacy: "Конфіденційність", terms: "Умови", footer: "© 2026 UnitConverters.io - Всі права захищені",
+            other: "Інші фінансові інструменти",
             q_items: ["100 Доларів у Євро", "1 Дюйм у сантиметри", "5 Миль у кілометри", "180 Цельсія у Фаренгейти", "10 кг у фунти", "Розміри взуття США в ЄС", "50 Метрів у фути", "60 миль у км/год"],
             categories: ['Валюта', 'Довжина', 'Вага', 'Одяг', 'Темп', 'Швидкість', 'Площа', 'Час'],
-            seo: `<h2>Професійний універсальний конвертер одиниць онлайн</h2><p><strong>UnitConverters.io</strong> пропонує швидке рішення для всіх ваших потреб у конвертації валют, довжини, ваги та розмірів одягу.</p><h2>Актуальні курси валют</h2><p>Наш інструмент надає курси в реальному часі для USD, EUR, GBP та UAH.</p><h2>Побутові та наукові вимірювання</h2><p>Від кулінарії до будівництва — наші конвертери гарантують точність у кожному розрахунку.</p>`,
-            privText: `<h2>Політика конфіденційності</h2><p>Ми не збираємо особисту інформацію.</p>`,
-            termsText: `<h2>Умови використання</h2><p>Результати мають довідковий характер.</p>`
-        },
-        es: {
-            amount: "Cantidad:", from: "De:", to: "A:", result: "Resultado:", quick: "Conversiones Populares",
-            privacy: "Privacidad", terms: "Términos", footer: "© 2026 UnitConverters.io - Su socio de confianza",
-            other: "Otras herramientas",
-            q_items: ["100 USD a EUR", "1 Pulgada a cm", "5 Millas a km", "180 Celsius a Fahrenheit", "10 kg a lbs", "Tallas US a UK", "50 Metros a Pies", "60 mph a km/h"],
-            categories: ['Moneda', 'Longitud', 'Peso', 'Ropa', 'Temp', 'Velocidad', 'Área', 'Tiempo'],
-            seo: `<h2>Convertidor de unidades profesional</h2><p>Conversiones rápidas y precisas de moneda, longitud y peso.</p>`,
-            privText: `<h2>Política de Privacidad</h2><p>No recopilamos datos.</p>`,
-            termsText: `<h2>Términos</h2><p>Solo para fines informativos.</p>`
-        },
-        de: {
-            amount: "Betrag:", from: "Von:", to: "Bis:", result: "Ergebnis:", quick: "Beliebte Umrechnungen",
-            privacy: "Datenschutz", terms: "AGB", footer: "© 2026 UnitConverters.io - Ihr Partner",
-            other: "Andere Werkzeuge",
-            q_items: ["100 USD zu EUR", "1 Zoll zu cm", "5 Meilen zu km", "180 Celsius zu Fahrenheit", "10 kg zu lbs", "Schuhgrößen US zu UK", "50 Meter zu Fuß", "60 mph zu km/h"],
-            categories: ['Währung', 'Länge', 'Gewicht', 'Kleidung', 'Temp', 'Tempo', 'Fläche', 'Zeit'],
-            seo: `<h2>Einheitenumrechner Online</h2><p>Präzise Umrechnung von Währungen und Maßeinheiten.</p>`,
-            privText: `<h2>Datenschutz</h2><p>Keine Datenspeicherung.</p>`,
-            termsText: `<h2>Nutzungsbedingungen</h2><p>Ohne Gewähr.</p>`
+            seo: `<h2>Професійний універсальний конвертер одиниць онлайн</h2>
+                  <p>У сучасному глобалізованому світі <strong>UnitConverters.io</strong> забезпечує швидке та надійне рішення для всіх ваших потреб у конвертації. Наш інструмент гарантує точність у 8 основних категоріях для щоденного та професійного використання.</p>
+                  <p>Конвертер валют використовує курси в реальному часі, що дозволяє отримувати найсвіжіші фінансові дані для USD, EUR, UAH та інших світових валют. Забудьте про ручні розрахунки та пошук актуальних курсів у мережі.</p>
+                  <p>Для технічних завдань ми пропонуємо точні перетворення довжини, ваги, площі та швидкості. Від переведення миль у кілометри для подорожі до розрахунку квадратних метрів для ремонту — ми допоможемо вам у всьому.</p>
+                  <p>Спеціалізовані інструменти, такі як конвертери одягу та температури, допоможуть вам легко розібратися у міжнародних стандартах. Переводьте розміри взуття або дізнавайтеся прогноз погоди у зручних для вас одиницях.</p>`,
+            privText: `<h2>Політика конфіденційності</h2><p>Ми не збираємо особисті дані користувачів.</p>`,
+            termsText: `<h2>Умови використання</h2><p>Результати мають виключно довідковий характер.</p>`
         }
     };
 

@@ -6,6 +6,7 @@
     <meta name="google-site-verification" content="8boxzAKQUKKF8IEuVEX1wX8aUwcdch3Q11BgfGM3vkM" />
     <title>Unit Converter Express - Accurate 8-in-1 Online Tool</title>
     <style>
+        /* ТІЛЬКИ КОЛЬОРИ ТА ЗАОКРУГЛЕННЯ */
         :root {
             --bg-dark: #0f172a;
             --card-bg: #1e293b;
@@ -19,12 +20,12 @@
         .top-header { background-color: #166534; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); }
         .top-header h1 { margin: 0; font-size: 18px; font-weight: 900; color: #fff; text-transform: uppercase; }
         
-        /* ЧІТКИЙ ПЕРЕМИКАЧ МОВ */
+        /* Чіткий перемикач мов */
         .lang-switcher { background: var(--bg-dark); border: 2px solid #fff; color: white; padding: 4px 8px; border-radius: 8px; font-size: 16px; font-weight: 800; cursor: pointer; }
         
         .container { max-width: 800px; margin: 0 auto; padding: 5px; box-sizing: border-box; }
         
-        /* КОМПАКТНЕ МЕНЮ 2х4 ЯК НА СКРІНШОТІ */
+        /* Оригінальне меню 2х4 з заокругленням і жирним текстом */
         .tabs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background-color: #14532d; border: 1px solid #14532d; margin: 10px 0; border-radius: 8px; overflow: hidden; }
         .tab { background: #166534; color: #fff; height: 34px; text-align: center; cursor: pointer; font-size: 12px; font-weight: 900; text-transform: uppercase; border: 0.5px solid #14532d; display: flex; align-items: center; justify-content: center; }
         .tab.active { background: #fff; color: #166534; }
@@ -36,7 +37,7 @@
         .input-field { flex: 1; padding: 8px; background: #fff; border: 2px solid var(--border-color); border-radius: 8px; color: #000; font-size: 18px; font-weight: 800; width: 100%; box-sizing: border-box; outline: none; }
         #valOut { color: #166534; background: #f0fdf4; border-color: #22c55e; }
 
-        .ad-space { background: #fefce8; border: 1px dashed #ca8a04; margin: 10px 0; text-align: center; padding: 10px; color: #854d0e; font-size: 11px; min-height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+        .ad-space { background: rgba(255, 255, 255, 0.05); border: 1px dashed var(--border-color); margin: 10px 0; text-align: center; padding: 10px; color: #94a3b8; font-size: 11px; min-height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
         
         .quick-links-box { padding: 15px; }
         .quick-links-box h3 { font-size: 18px; color: var(--accent-green); border-bottom: 1px solid var(--border-color); padding-bottom: 5px; font-weight: 900; }
@@ -45,9 +46,10 @@
         .q-item { font-size: 13px; color: #38bdf8; text-decoration: underline; cursor: pointer; font-weight: 700; }
 
         .seo-content { padding: 15px; line-height: 1.6; font-size: 14px; color: #94a3b8; }
-        .seo-content h2 { color: var(--accent-green); font-size: 18px; font-weight: 900; }
+        .seo-content h2 { color: var(--accent-green); font-size: 18px; font-weight: 900; margin-top: 20px; }
+        .seo-content p { margin-bottom: 12px; }
 
-        footer { border-top: 1px solid var(--border-color); padding: 20px; text-align: center; }
+        footer { border-top: 1px solid var(--border-color); padding: 20px; text-align: center; font-size: 12px; color: #64748b; }
         .footer-link { color: var(--accent-green); text-decoration: underline; cursor: pointer; font-weight: 800; padding: 0 10px; }
     </style>
 </head>
@@ -86,6 +88,7 @@
 </footer>
 
 <script>
+    /* ПОВНИЙ ОРИГІНАЛЬНИЙ ТЕКСТ ТА ЛОГІКА */
     const translations = {
         en: {
             amount: "Amount:", from: "From:", to: "To:", result: "Result:", quick: "Popular Conversions",
@@ -104,37 +107,28 @@
             categories: ['Валюта', 'Довжина', 'Вага', 'Одяг', 'Темп', 'Швидкість', 'Площа', 'Час'],
             q_items: ["100 Доларів у Євро", "1 Дюйм у сантиметри", "5 Миль у кілометри", "180 Цельсія у Фаренгейти", "10 кг у фунти", "Розміри взуття США в ЄС", "50 Метрів у фути", "60 миль у км/год"],
             seo: `<h2>Професійний універсальний конвертер одиниць онлайн</h2>
-                  <p>У сучасному глобалізованому світі <strong>UnitConverters.io</strong> забезпечує швидке та надійне рішення для всіх ваших потреб у конвертації. Наш інструмент гарантує точність у 8 основних категоріях.</p>
-                  <p>Конвертер валют використовує курси в реальному часі, що дозволяє отримувати найсвіжіші фінансові дані для USD, EUR, UAH та інших світових валют. Забудьте про ручні розрахунки.</p>
-                  <p>Для технічних завдань ми пропонуємо точні перетворення довжини, ваги, площі та швидкості. Від переведення миль у кілометри до розрахунку площі для ремонту — ми допоможемо вам у всьому.</p>
-                  <p>Спеціалізовані інструменти для одягу та температури допоможуть вам легко розібратися у міжнародних стандартах. Переводьте розміри взуття або перевіряйте температуру одним кліком.</p>`
+                  <p>У сучасному глобалізованому світі <strong>UnitConverters.io</strong> забезпечує швидке та надійне рішення для всіх ваших потреб у конвертації. Наш інструмент гарантує точність у 8 основних категоріях для щоденного та професійного використання.</p>
+                  <p>Конвертер валют використовує курси в реальному часі, що дозволяє отримувати найсвіжіші фінансові дані для USD, EUR, UAH та інших світових валют. Забудьте про ручні розрахунки та пошук актуальних курсів у мережі.</p>
+                  <p>Для технічних завдань ми пропонуємо точні перетворення довжини, ваги, площі та швидкості. Від переведення миль у кілометри для подорожі до розрахунку квадратних метрів для ремонту — ми допоможемо вам у всьому.</p>
+                  <p>Спеціалізовані інструменти, такі як конвертери одягу та температури, допоможуть вам легко розібратися у міжнародних стандартах. Переводьте розміри взуття або дізнавайтеся прогноз погоди у зручних для вас одиницях.</p>`
         }
     };
 
     let curLang = localStorage.getItem('lang') || 'en';
-    const clothingData = { "US Size": [2, 4, 6, 8, 10, 12, 14, 16], "EU Size": [32, 34, 36, 38, 40, 42, 44, 46], "UK Size": [4, 6, 8, 10, 12, 14, 16, 18], "Japan Size": [5, 7, 9, 11, 13, 15, 17, 19] };
-    const rawData = { 'Currency': { type: 'currency', units: {} }, 'Length': { 'Meter': 1, 'Kilometer': 0.001, 'Centimeter': 100, 'Mile': 0.000621, 'Foot': 3.2808, 'Inch': 39.3701 }, 'Weight': { 'Kilogram': 1, 'Gram': 1000, 'Pound': 2.2046, 'Ounce': 35.274 }, 'Clothing': { type: 'clothing', units: Object.keys(clothingData) }, 'Temp': { type: 'temp', units: ['Celsius', 'Fahrenheit', 'Kelvin'] }, 'Speed': { 'Km/h': 1, 'Mph': 0.62137, 'Knot': 0.5399 }, 'Area': { 'Sq Meter': 1, 'Acre': 0.000247, 'Hectare': 0.0001 }, 'Time': { 'Second': 1, 'Minute': 1/60, 'Hour': 1/3600 } };
+    const rawData = { 'Currency': { type: 'currency', units: {} }, 'Length': { 'Meter': 1, 'Kilometer': 0.001, 'Centimeter': 100, 'Mile': 0.000621, 'Foot': 3.2808, 'Inch': 39.3701 }, 'Weight': { 'Kilogram': 1, 'Gram': 1000, 'Pound': 2.2046, 'Ounce': 35.274 }, 'Clothing': { type: 'clothing', units: ["US Size", "EU Size", "UK Size"] }, 'Temp': { type: 'temp', units: ['Celsius', 'Fahrenheit', 'Kelvin'] }, 'Speed': { 'Km/h': 1, 'Mph': 0.62137, 'Knot': 0.5399 }, 'Area': { 'Sq Meter': 1, 'Acre': 0.000247, 'Hectare': 0.0001 }, 'Time': { 'Second': 1, 'Minute': 1/60, 'Hour': 1/3600 } };
     let currentCatIndex = 0;
 
     function changeLang(lang) { curLang = lang; localStorage.setItem('lang', lang); updateUI(); }
 
     function updateUI() {
-        const l = translations[curLang];
+        const l = translations[curLang] || translations['en'];
+        document.getElementById('langSelect').value = curLang;
         document.getElementById('lbl-amount').innerText = l.amount;
         document.getElementById('lbl-from').innerText = l.from;
         document.getElementById('lbl-to').innerText = l.to;
         document.getElementById('lbl-result').innerText = l.result;
         document.getElementById('seo-box').innerHTML = l.seo;
         document.getElementById('h3-quick').innerText = l.quick;
-        
-        const qGrid = document.getElementById('q-grid');
-        qGrid.innerHTML = '';
-        l.q_items.forEach(item => {
-            const span = document.createElement('span');
-            span.className = 'q-item';
-            span.innerText = item;
-            qGrid.appendChild(span);
-        });
         initTabs();
     }
 
@@ -143,7 +137,7 @@
         Object.keys(rawData).forEach((cat, index) => {
             const d = document.createElement('div');
             d.className = `tab ${index === currentCatIndex ? 'active' : ''}`;
-            d.innerText = translations[curLang].categories[index];
+            d.innerText = (translations[curLang] || translations['en']).categories[index];
             d.onclick = () => { currentCatIndex = index; initTabs(); fill(); };
             t.appendChild(d);
         });

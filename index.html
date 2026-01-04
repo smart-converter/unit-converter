@@ -50,13 +50,25 @@
         .tools-network h4 { margin: 0 0 12px 0; color: #64748b; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
         .tool-link-btn { display: inline-block; padding: 8px 16px; margin: 5px; border: 1px solid var(--accent-green); color: var(--accent-green); text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 900; }
 
-        /* ВИПРАВЛЕНА ВИДИМА ОКАНТОВКА ФУТЕРА */
         footer { border-top: 1px solid var(--border-color); padding: 25px 15px; text-align: center; font-size: 13px; color: #94a3b8; }
         .footer-info-block { border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 12px; padding: 18px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); }
         .footer-link { color: var(--accent-green); text-decoration: underline; cursor: pointer; padding: 0 8px; font-weight: 900; }
         
+        /* ДОДАНО ОКАНТОВКУ ДЛЯ МОДАЛЬНОГО ВІКНА (Privacy & Terms) */
         .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; }
-        .modal-content { background: var(--card-bg); margin: 5% auto; padding: 25px; width: 90%; max-width: 600px; border-radius: 12px; position: relative; line-height: 1.6; color: var(--text-light); }
+        .modal-content { 
+            background: var(--card-bg); 
+            margin: 5% auto; 
+            padding: 25px; 
+            width: 90%; 
+            max-width: 600px; 
+            border-radius: 12px; 
+            position: relative; 
+            line-height: 1.6; 
+            color: var(--text-light);
+            border: 2px solid rgba(255, 255, 255, 0.3); /* Чітка окантовка модалки */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
         .close-btn { position: absolute; right: 10px; top: 0; font-size: 38px; cursor: pointer; color: var(--text-light); padding: 10px; }
     </style>
 </head>

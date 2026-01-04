@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit Converter Elite - All-in-One Pro</title>
+    <title>Unit Converter Elite - Pro Tool</title>
     <style>
         body { font-family: -apple-system, system-ui, sans-serif; margin: 0; padding: 0; background-color: #0f172a; color: #f8fafc; -webkit-font-smoothing: antialiased; }
         .top-header { background-color: #166534; padding: 20px 15px; text-align: center; border-bottom: 1px solid #1e293b; }
@@ -89,8 +89,7 @@
 <script>
     const translations = {
         en: {
-            cat: "Category", val: "Value", from: "From", to: "To", 
-            len: "Length", wei: "Weight", tem: "Temperature",
+            cat: "Category", val: "Value", from: "From", to: "To", len: "Length", wei: "Weight", tem: "Temperature",
             privacy: "Privacy Policy", terms: "Terms of Use",
             footer: "© 2026 UNIT CONVERTER ELITE. All rights reserved. Secure and fast conversions.",
             tools: "Other Elite Tools:",
@@ -98,8 +97,7 @@
             termsText: "<h3>Terms of Use</h3><p>Informational purposes only. Accuracy is not guaranteed.</p>"
         },
         uk: {
-            cat: "Категорія", val: "Значення", from: "Звідки", to: "Куди", 
-            len: "Довжина", wei: "Вага", tem: "Температура",
+            cat: "Категорія", val: "Значення", from: "Звідки", to: "Куди", len: "Довжина", wei: "Вага", tem: "Температура",
             privacy: "Конфіденційність", terms: "Умови",
             footer: "© 2026 UNIT CONVERTER ELITE. Всі права захищено. Швидкі та безпечні розрахунки.",
             tools: "Інші інструменти:",
@@ -107,29 +105,27 @@
             termsText: "<h3>Умови використання</h3><p>Тільки для ознайомлення. Ми не несемо відповідальності за точність.</p>"
         },
         es: {
-            cat: "Categoría", val: "Valor", from: "De", to: "A", 
-            len: "Longitud", wei: "Peso", tem: "Temperatura",
+            cat: "Categoría", val: "Valor", from: "De", to: "A", len: "Longitud", wei: "Peso", tem: "Temperatura",
             privacy: "Privacidad", terms: "Términos",
             footer: "© 2026 UNIT CONVERTER ELITE. Reservados todos los derechos. Conversiones rápidas y seguras.",
             tools: "Otras herramientas:",
-            privacyText: "<h3>Privacidad</h3><p>No recopilamos datos. Todas las conversiones se procesan en su navegador.</p>",
-            termsText: "<h3>Términos</h3><p>Uso informativo solamente. No nos hacemos responsables de los errores.</p>"
+            privacyText: "<h3>Privacidad</h3><p>No recopilamos datos personales. Todo es local.</p>",
+            termsText: "<h3>Términos</h3><p>Uso informativo solamente. No hay garantías de precisión.</p>"
         },
         de: {
-            cat: "Kategorie", val: "Wert", from: "Von", to: "Zu", 
-            len: "Länge", wei: "Gewicht", tem: "Temperatur",
+            cat: "Kategorie", val: "Wert", from: "Von", to: "Zu", len: "Länge", wei: "Gewicht", tem: "Temperatur",
             privacy: "Datenschutz", terms: "AGB",
-            footer: "© 2026 UNIT CONVERTER ELITE. Alle Rechte vorbehalten. Sichere und schnelle Umrechnungen.",
+            footer: "© 2026 UNIT CONVERTER ELITE. Alle Rechte vorbehalten. Sichere Umrechnungen.",
             tools: "Andere Werkzeuge:",
-            privacyText: "<h3>Datenschutz</h3><p>Keine Datenerfassung. Alle Berechnungen werden lokal im Browser durchgeführt.</p>",
-            termsText: "<h3>AGB</h3><p>Nur zu Informationszwecken. Nutzung auf eigene Gefahr ohne Gewähr.</p>"
+            privacyText: "<h3>Datenschutz</h3><p>Keine Datenerfassung. Alles wird im Browser berechnet.</p>",
+            termsText: "<h3>AGB</h3><p>Nur zur Information. Keine Haftung für Fehler.</p>"
         }
     };
 
     const units = {
         length: { m: 1, km: 0.001, ft: 3.28084, mi: 0.000621371 },
         weight: { kg: 1, g: 1000, lb: 2.20462, oz: 35.274 },
-        temp: { c: "C", f: "F", k: "K" }
+        temp: { c: "Celsius", f: "Fahrenheit", k: "Kelvin" }
     };
 
     let curLang = localStorage.getItem('lang_unit_elite') || 'en';

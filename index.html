@@ -28,18 +28,15 @@
         .tab { background: #166534; color: #fff; height: 32px; text-align: center; cursor: pointer; font-size: 11px; font-weight: 900; text-transform: uppercase; border: none; display: flex; align-items: center; justify-content: center; }
         .tab.active { background: #fff; color: #166534; box-shadow: inset 0 -2px 0 #166534; }
         
-        /* РОЗТЯГНУТО КОНВЕРТЕР (додано padding) */
         .converter-box { border: 1px solid var(--border-color); padding: 30px 20px; background: var(--card-bg); border-radius: 12px; margin-bottom: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
         .row { display: flex; align-items: center; margin-bottom: 12px; }
         .row label { width: 90px; font-size: 15px; color: #94a3b8; font-weight: 700; }
         
-        /* ЗБІЛЬШЕНО ВИСОТУ ПОЛІВ */
         .input-field { flex: 1; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 19px; font-weight: 800; width: 100%; box-sizing: border-box; height: 48px; background: #fff; color: #000; }
         #valOut { background: #f0fdf4; color: #166534; border-color: #22c55e; }
 
         .ad-space { background: rgba(255, 255, 255, 0.05); border: 1px dashed var(--border-color); margin: 10px 0; text-align: center; padding: 15px; color: #64748b; font-size: 11px; min-height: 90px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
         
-        /* СКОРОЧЕНО ВІДСТАНЬ МІЖ ТЕКСТОМ ТА КОНВЕРТЕРОМ */
         .quick-links-box { padding: 5px 15px 15px 15px; background: var(--card-bg); border: 1px solid var(--border-color); margin-top: 5px; border-radius: 10px; }
         .quick-links-box h3 { font-size: 16px; color: var(--accent-green); margin: 0 0 10px 0; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; font-weight: 900; }
         
@@ -120,8 +117,8 @@
             other: "Other Tools",
             q_items: ["100 USD to EUR", "1 Inch to cm", "5 Miles to km", "180 Celsius to Fahrenheit", "10 kg to lbs", "US to UK Shoe Sizes", "50 Meters to Feet", "Speed: 60 mph to km/h"],
             categories: ['Currency', 'Length', 'Weight', 'Clothing', 'Temp', 'Speed', 'Area', 'Time'],
-            seo: `<h2>Professional Multipurpose Unit Converter Online</h2><p>In today's globalized world, <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs. Accurate currency rates, clothing sizes, and technical measurements in one place.</p><h2>Accurate Currency Exchange Rates</h2><p>Our currency tool offers real-time exchange rates for major global currencies. We fetch data from reliable financial sources for international transactions.</p><h2>Scientific and Daily Measurements</h2><p>From kitchen recipes to construction projects, our converters for Length, Weight, Area, and Speed ensure you have the correct data every time.</p>`,
-            privText: `<h2>Privacy Policy</h2><p>We take your privacy seriously. We do not collect names or emails. Cookies are used for language settings and ads.</p>`,
+            seo: `<h2>Professional Multipurpose Unit Converter Online</h2><p>In today's globalized world, <strong>UnitConverters.io</strong> provides a seamless, high-speed solution for all your conversion needs.</p>`,
+            privText: `<h2>Privacy Policy</h2><p>We take your privacy seriously. We do not collect names or emails.</p>`,
             termsText: `<h2>Terms of Use</h2><p>Results are for informational purposes only. We are not responsible for errors.</p>`
         },
         uk: {
@@ -130,9 +127,29 @@
             other: "Інші інструменти",
             q_items: ["100 Доларів у Євро", "1 Дюйм у сантиметри", "5 Миль у кілометри", "180 Цельсія у Фаренгейти", "10 кг у фунти", "Розміри взуття США в ЄС", "50 Метрів у фути", "60 миль у км/год"],
             categories: ['Валюта', 'Довжина', 'Вага', 'Одяг', 'Темп', 'Швидкість', 'Площа', 'Час'],
-            seo: `<h2>Професійний універсальний конвертер одиниць онлайн</h2><p><strong>UnitConverters.io</strong> пропонує швидке рішення для всіх ваших потреб у конвертації валют, довжини, ваги та розмірів одягу.</p><h2>Актуальні курси валют</h2><p>Наш інструмент надає курси в реальному часі для USD, EUR, GBP та UAH.</p><h2>Побутові та наукові вимірювання</h2><p>Від кулінарії до будівництва — наші конвертери гарантують точність у кожному розрахунку.</p>`,
-            privText: `<h2>Політика конфіденційності</h2><p>Ми не збираємо особисту інформацію. Використовуємо cookie для збереження вибору мови.</p>`,
-            termsText: `<h2>Умови використання</h2><p>Результати мають довідковий характер. Ми не несемо відповідальності за помилки.</p>`
+            seo: `<h2>Професійний універсальний конвертер одиниць онлайн</h2><p><strong>UnitConverters.io</strong> пропонує швидке рішення для всіх ваших потреб у конвертації.</p>`,
+            privText: `<h2>Політика конфіденційності</h2><p>Ми не збираємо особисту інформацію.</p>`,
+            termsText: `<h2>Умови використання</h2><p>Результати мають довідковий характер.</p>`
+        },
+        es: {
+            amount: "Cantidad:", from: "De:", to: "A:", result: "Resultado:", quick: "Conversiones populares",
+            privacy: "Privacidad", terms: "Términos", footer: "© 2025 UnitConverters.io - Su socio de confianza",
+            other: "Otras herramientas",
+            q_items: ["100 USD a EUR", "1 Pulgada a cm", "5 Millas a km", "180 Celsius a Fahrenheit", "10 kg a lbs", "Tallas de zapatos US a UK", "50 Metros a Pies", "60 mph a km/h"],
+            categories: ['Moneda', 'Longitud', 'Peso', 'Ropa', 'Temp', 'Velocidad', 'Área', 'Tiempo'],
+            seo: `<h2>Convertidor de unidades profesional en línea</h2><p><strong>UnitConverters.io</strong> ofrece una solución rápida para todas sus necesidades.</p>`,
+            privText: `<h2>Privacidad</h2><p>No recopilamos información personal.</p>`,
+            termsText: `<h2>Términos de uso</h2><p>Los resultados son solo para fines informativos.</p>`
+        },
+        de: {
+            amount: "Betrag:", from: "Von:", to: "Zu:", result: "Ergebnis:", quick: "Beliebte Umrechnungen",
+            privacy: "Datenschutz", terms: "AGB", footer: "© 2025 UnitConverters.io - Ihr Partner",
+            other: "Andere Werkzeuge",
+            q_items: ["100 USD zu EUR", "1 Zoll zu cm", "5 Meilen zu km", "180 Celsius zu Fahrenheit", "10 kg zu lbs", "Schuhgrößen US zu UK", "50 Meter zu Fuß", "60 mph zu km/h"],
+            categories: ['Währung', 'Länge', 'Gewicht', 'Kleidung', 'Temp', 'Geschwindigkeit', 'Fläche', 'Zeit'],
+            seo: `<h2>Professioneller Online-Einheitenumrechner</h2><p><strong>UnitConverters.io</strong> bietet eine schnelle Lösung für alle Ihre Bedürfnisse.</p>`,
+            privText: `<h2>Datenschutz</h2><p>Wir sammeln keine persönlichen Informationen.</p>`,
+            termsText: `<h2>Nutzungsbedingungen</h2><p>Die Ergebnisse dienen nur zur Information.</p>`
         }
     };
 

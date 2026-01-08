@@ -11,10 +11,15 @@
             --card-bg: #1e293b;
             --accent-green: #22c55e;
             --text-light: #f8fafc;
+            --text-muted: #cbd5e1; /* Зроблено світлішим для контрасту (Accessibility) */
             --border-color: #334155;
         }
 
-        body { font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: var(--bg-dark); -webkit-font-smoothing: antialiased; color: var(--text-light); }
+        body { 
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; 
+            margin: 0; padding: 0; background-color: var(--bg-dark); 
+            -webkit-font-smoothing: antialiased; color: var(--text-light); 
+        }
         
         .top-header { background-color: #166534; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; color: white; border-bottom: 1px solid var(--border-color); }
         .top-header h1 { margin: 0; font-size: 20px; font-weight: 900; letter-spacing: 0.5px; }
@@ -24,18 +29,30 @@
         
         .container { max-width: 800px; margin: 0 auto; padding: 5px; background: var(--bg-dark); min-height: 100vh; box-sizing: border-box; }
         
-        .tabs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background-color: #14532d; border: 1px solid #14532d; margin: 15px 0 10px; border-radius: 8px; overflow: hidden; }
+        /* ФІКСАЦІЯ ВИСОТИ ТАБІВ (Лікує CLS) */
+        .tabs-grid { 
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; 
+            background-color: #14532d; border: 1px solid #14532d; 
+            margin: 15px 0 10px; border-radius: 8px; overflow: hidden; 
+            min-height: 66px; /* Зарезервоване місце під два ряди табів */
+        }
         .tab { background: #166534; color: #fff; height: 32px; text-align: center; cursor: pointer; font-size: 11px; font-weight: 900; text-transform: uppercase; border: none; display: flex; align-items: center; justify-content: center; }
         .tab.active { background: #fff; color: #166534; box-shadow: inset 0 -2px 0 #166534; }
         
         .converter-box { border: 1px solid var(--border-color); padding: 30px 20px; background: var(--card-bg); border-radius: 12px; margin-bottom: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
         .row { display: flex; align-items: center; margin-bottom: 12px; }
-        .row label { width: 90px; font-size: 15px; color: #94a3b8; font-weight: 700; }
+        .row label { width: 90px; font-size: 15px; color: var(--text-muted); font-weight: 700; }
         
         .input-field { flex: 1; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 19px; font-weight: 800; width: 100%; box-sizing: border-box; height: 48px; background: #fff; color: #000; }
         #valOut { background: #f0fdf4; color: #166534; border-color: #22c55e; }
 
-        .ad-space { background: rgba(255, 255, 255, 0.05); border: 1px dashed var(--border-color); margin: 10px 0; text-align: center; padding: 15px; color: #64748b; font-size: 11px; min-height: 90px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+        /* ФІКСАЦІЯ ВИСОТИ РЕКЛАМИ (Лікує CLS) */
+        .ad-space { 
+            background: rgba(255, 255, 255, 0.05); border: 1px dashed var(--border-color); 
+            margin: 10px 0; text-align: center; padding: 15px; color: var(--text-muted); 
+            font-size: 11px; min-height: 90px; height: 90px; /* Чітка висота */
+            display: flex; align-items: center; justify-content: center; border-radius: 8px; 
+        }
         
         .quick-links-box { padding: 5px 15px 15px 15px; background: var(--card-bg); border: 1px solid var(--border-color); margin-top: 5px; border-radius: 10px; }
         .quick-links-box h3 { font-size: 16px; color: var(--accent-green); margin: 0 0 10px 0; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; font-weight: 900; }
@@ -43,28 +60,22 @@
         .q-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .q-item { font-size: 13px; color: #38bdf8; text-decoration: underline; cursor: pointer; line-height: 1.4; font-weight: 600; }
         
-        .seo-content { padding: 15px; line-height: 1.7; font-size: 15px; color: #94a3b8; border-top: 1px solid var(--border-color); }
+        .seo-content { padding: 15px; line-height: 1.7; font-size: 15px; color: var(--text-muted); border-top: 1px solid var(--border-color); }
         .seo-content h2 { color: var(--accent-green); font-size: 19px; margin: 20px 0 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; font-weight: 900; }
         
         .tools-network { padding: 20px 15px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 20px; }
-        .tools-network h4 { margin: 0 0 12px 0; color: #64748b; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        .tools-network h4 { margin: 0 0 12px 0; color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
         .tool-link-btn { display: inline-block; padding: 8px 16px; margin: 5px; border: 1px solid var(--accent-green); color: var(--accent-green); text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 900; }
 
-        footer { border-top: 1px solid var(--border-color); padding: 25px 15px; text-align: center; font-size: 13px; color: #94a3b8; }
+        footer { border-top: 1px solid var(--border-color); padding: 25px 15px; text-align: center; font-size: 13px; color: var(--text-muted); }
         .footer-info-block { border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 12px; padding: 18px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); text-align: left; line-height: 1.5; }
         .footer-link { color: var(--accent-green); text-decoration: underline; cursor: pointer; padding: 0 8px; font-weight: 900; }
         
         .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; }
         .modal-content { 
-            background: var(--card-bg); 
-            margin: 5% auto; 
-            padding: 25px; 
-            width: 90%; 
-            max-width: 600px; 
-            border-radius: 12px; 
-            position: relative; 
-            line-height: 1.6; 
-            color: var(--text-light);
+            background: var(--card-bg); margin: 5% auto; padding: 25px; 
+            width: 90%; max-width: 600px; border-radius: 12px; 
+            position: relative; line-height: 1.6; color: var(--text-light);
             border: 2px solid rgba(255, 255, 255, 0.3); 
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
@@ -75,7 +86,7 @@
 
 <div class="top-header">
     <h1>UnitConverters.io</h1>
-    <select class="lang-switcher" onchange="changeLang(this.value)" id="langSelect">
+    <select class="lang-switcher" onchange="changeLang(this.value)" id="langSelect" aria-label="Change language">
         <option value="en">English</option>
         <option value="uk">Українська</option>
         <option value="es">Español</option>
@@ -87,10 +98,10 @@
     <div id="tabs" class="tabs-grid"></div>
     <div class="ad-space">ADVERTISEMENT AREA</div>
     <div class="converter-box">
-        <div class="row"><label id="lbl-amount">Amount:</label><input type="number" id="valIn" class="input-field" value="1" oninput="calc()"></div>
-        <div class="row"><label id="lbl-from">From:</label><select id="unitIn" class="input-field" onchange="calc()"></select></div>
-        <div class="row"><label id="lbl-to">To:</label><select id="unitOut" class="input-field" onchange="calc()"></select></div>
-        <div class="row"><label id="lbl-result">Result:</label><input type="text" id="valOut" class="input-field" readonly></div>
+        <div class="row"><label for="valIn" id="lbl-amount">Amount:</label><input type="number" id="valIn" class="input-field" value="1" oninput="calc()"></div>
+        <div class="row"><label for="unitIn" id="lbl-from">From:</label><select id="unitIn" class="input-field" onchange="calc()" aria-label="From unit"></select></div>
+        <div class="row"><label for="unitOut" id="lbl-to">To:</label><select id="unitOut" class="input-field" onchange="calc()" aria-label="To unit"></select></div>
+        <div class="row"><label for="valOut" id="lbl-result">Result:</label><input type="text" id="valOut" class="input-field" readonly></div>
     </div>
 
     <div class="quick-links-box">
@@ -150,23 +161,23 @@
             amount: "Cantidad:", from: "De:", to: "A:", result: "Resultado:", quick: "Conversiones populares",
             privacy: "Privacidad", terms: "Términos", other: "Otras herramientas",
             footerCopy: "© 2025 UnitConverters.io - Su socio global de confianza para cálculos diarios.",
-            footerFull: "UnitConverters.io se dedica a proporcionar herramientas de conversión de alta precisión para profesionales y estudiantes de todo el mundo. Nuestra plataforma garantiza cálculos seguros, rápidos y confiables sin necesidad de instalar software. Actualizamos diariamente nuestras tasas de cambio y estándares de medición para mantener la mayor precisión.",
+            footerFull: "UnitConverters.io se dedica a proporcionar herramientas de conversión de alta precisión para profesionales y estudiantes de todo el mundo. Nuestra plataforma garantiza cálculos seguros, rápidos y confiables sin necesidad de instalar software. Actualizamos diariamente nuestras tasas de cambio y estándares de medición.",
             q_items: ["100 USD a EUR", "1 Pulgada a cm", "5 Millas a km", "180 Celsius a Fahrenheit", "10 kg a lbs", "Tallas US a UK", "50 Metros a Pies", "60 mph a km/h"],
             categories: ['Moneda', 'Longitud', 'Peso', 'Ropa', 'Temp', 'Velocidad', 'Área', 'Tiempo'],
-            seo: `<h2>Convertidor de unidades profesional en línea</h2><p>En el mundo globalizado de hoy, <strong>UnitConverters.io</strong> ofrece una solución rápida y sin interrupciones para todas sus necesidades de conversión. Tipos de cambio precisos, tallas de ropa y medidas técnicas en un solo lugar.</p><h2>Tipos de cambio de divisas precisos</h2><p>Nuestra herramienta de divisas ofrece tipos de cambio en tiempo real para las principales monedas mundiales como USD, EUR y GBP. Obtenemos datos de fuentes financieras confiables.</p><h2>Mediciones científicas y diarias</h2><p>Desde recetas de cocina hasta proyectos de construcción, nuestros convertidores de longitud, peso, área y velocidad aseguran que tenga los datos correctos cada vez.</p>`,
-            privText: `<h2>Política de Privacidad</h2><p>Nos tomamos muy en serio su privacidad. No recopilamos nombres ni correos electrónicos personales. Las cookies se utilizan estrictamente para la configuración del idioma.</p>`,
-            termsText: `<h2>Términos de Uso</h2><p>Los resultados proporcionados por nuestras herramientas son solo para fines informativos. Aunque nos esforzamos por lograr el 100% de precisión, no somos responsables de ninguna pérdida financiera.</p>`
+            seo: `<h2>Convertidor de unidades profesional en línea</h2><p>En el mundo globalizado de hoy, <strong>UnitConverters.io</strong> ofrece una solución rápida para todas sus necesidades de conversión.</p>`,
+            privText: `<h2>Política de Privacidad</h2><p>Nos tomamos muy en serio su privacidad. No recopilamos nombres ni correos electrónicos personales.</p>`,
+            termsText: `<h2>Términos de Uso</h2><p>Los resultados proporcionados por nuestras herramientas son solo para fines informativos.</p>`
         },
         de: {
             amount: "Betrag:", from: "Von:", to: "Zu:", result: "Ergebnis:", quick: "Beliebte Umrechnungen",
             privacy: "Datenschutz", terms: "AGB", other: "Andere Werkzeuge",
             footerCopy: "© 2025 UnitConverters.io - Ihr globaler Partner für tägliche Berechnungen.",
-            footerFull: "UnitConverters.io bietet hochpräzise Umrechnungstools für Profis und Studenten weltweit. Unsere Plattform garantiert sichere, schnelle und zuverlässige Berechnungen ohne Softwareinstallation. Wir aktualisieren Wechselkurse und Messstandards täglich, um höchste Präzision für jeden Benutzer zu gewährleisten.",
+            footerFull: "UnitConverters.io bietet hochpräzise Umrechnungstools für Profis und Studenten weltweit. Unsere платформа гарантує безпечні, швидкі та надійні розрахунки.",
             q_items: ["100 USD zu EUR", "1 Zoll zu cm", "5 Meilen zu km", "180 Celsius zu Fahrenheit", "10 kg zu lbs", "Schuhgrößen US zu UK", "50 Meter zu Fuß", "60 mph zu km/h"],
             categories: ['Währung', 'Länge', 'Gewicht', 'Kleidung', 'Temp', 'Geschwindigkeit', 'Fläche', 'Zeit'],
-            seo: `<h2>Professioneller Online-Einheitenumrechner</h2><p>In der heutigen globalisierten Welt bietet <strong>UnitConverters.io</strong> eine nahtlose Hochgeschwindigkeitslösung für alle Ihre Umrechnungsanforderungen. Genaue Wechselkurse, Kleidergrößen und technische Messungen an einem Ort.</p><h2>Genaue Wechselkurse</h2><p>Unser Währungstool bietet Echtzeit-Wechselkurse für wichtige Weltwährungen wie USD, EUR und GBP. Wir beziehen Daten aus zuverlässigen Finanzquellen.</p><h2>Wissenschaftliche und tägliche Messungen</h2><p>Von Kochrezepten bis hin zu Bauprojekten – unsere Umrechner für Länge, Gewicht, Fläche und Geschwindigkeit garantieren Ihnen jederzeit korrekte Daten.</p>`,
-            privText: `<h2>Datenschutzrichtlinie</h2><p>Wir nehmen Ihren Datenschutz ernst. Wir sammeln keine persönlichen Daten. Cookies werden ausschließlich für Spracheinstellungen verwendet.</p>`,
-            termsText: `<h2>Nutzungsbedingungen</h2><p>Die von unseren Tools bereitgestellten Ergebnisse dienen nur zu Informationszwecken. Wir haften nicht für finanzielle Verluste aufgrund von Rechenfehlern.</p>`
+            seo: `<h2>Professioneller Online-Einheitenumrechner</h2><p>UnitConverters.io bietet eine nahtlose Hochgeschwindigkeitslösung für alle Ihre Umrechnungsanforderungen.</p>`,
+            privText: `<h2>Datenschutzrichtlinie</h2><p>Wir nehmen Ihren Datenschutz ernst. Wir sammeln keine persönlichen Daten.</p>`,
+            termsText: `<h2>Nutzungsbedingungen</h2><p>Die von unseren Tools bereitgestellten Ergebnisse dienen nur zu Informationszwecken.</p>`
         }
     };
 
@@ -202,7 +213,6 @@
         document.getElementById('link-terms').innerText = l.terms;
         document.getElementById('txt-other-tools').innerText = l.other;
         
-        // Populate Tools Network (All 7 links)
         const linksArea = document.getElementById('links-area');
         linksArea.innerHTML = '';
         externalTools.forEach(t => {

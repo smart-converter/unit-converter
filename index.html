@@ -53,7 +53,6 @@
         .lang-switcher { background: var(--bg-dark); border: 2px solid white; color: white; padding: 4px 8px; border-radius: 8px; font-size: 15px; cursor: pointer; font-weight: 800; }
         .lang-switcher option { color: #333; }
         
-        /* Виправлено для Googlebot: додано padding-bottom */
         .container { max-width: 800px; margin: 0 auto; padding: 5px 5px 60px 5px; background: var(--bg-dark); min-height: 100vh; }
         
         .tabs-grid { 
@@ -92,8 +91,18 @@
         .tools-network h2 { margin: 0 0 12px 0; color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; font-weight: normal; }
         .tool-link-btn { display: inline-block; padding: 8px 16px; margin: 5px; border: 1px solid var(--accent-green); color: var(--accent-green); text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 900; min-height: 44px; line-height: 28px; }
 
-        /* Покращено видимість футера */
-        footer { border-top: 1px solid var(--border-color); padding: 40px 15px; text-align: center; font-size: 13px; color: var(--text-muted); display: block; margin-top: 30px; }
+        /* ОНОВЛЕНИЙ ФУТЕР З МІНІМАЛЬНОЮ ВИСОТОЮ ДЛЯ GOOGLE */
+        footer { 
+            border-top: 1px solid var(--border-color); 
+            padding: 40px 15px; 
+            text-align: center; 
+            font-size: 13px; 
+            color: var(--text-muted); 
+            display: block; 
+            margin-top: 30px;
+            min-height: 150px; 
+            clear: both;
+        }
         .footer-info-block { border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 12px; padding: 18px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); text-align: left; line-height: 1.5; min-height: 100px; }
         .footer-link { color: var(--accent-green); text-decoration: underline; cursor: pointer; padding: 12px 10px; font-weight: 900; display: inline-block; }
         

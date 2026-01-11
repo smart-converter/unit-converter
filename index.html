@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Unit Converter - Fast & Precise</title>
-    <meta name="description" content="Free high-precision unit converter. Convert length, weight, temperature, and area instantly. Mobile-friendly, accurate, and professional tool for everyday use.">
+    <meta name="description" content="Free high-precision unit converter. Convert length, weight, temperature, and area instantly. Mobile-friendly, accurate, and professional tool.">
     <style>
         :root {
             --bg-dark: #0f172a;
@@ -20,22 +20,11 @@
         .top-header { background-color: #166534; padding: 0 15px; height: 60px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); }
         .top-header h1 { margin: 0; font-size: 18px; font-weight: 900; color: white; }
         
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-
-        .lang-switcher { 
-            background: transparent; border: 1px solid white; color: white; 
-            padding: 5px 10px; border-radius: 6px; font-size: 15px; 
-            cursor: pointer; font-weight: 700; outline: none;
-        }
-        .lang-switcher option { color: #333; background: #fff; }
-        
-        .container { max-width: 600px; margin: 0 auto; padding: 10px; box-sizing: border-box; }
+        .container { max-width: 600px; margin: 0 auto; padding: 10px 10px 60px 10px; box-sizing: border-box; }
         
         .tabs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background-color: #14532d; border: 1px solid #14532d; margin: 10px 0; border-radius: 8px; overflow: hidden; }
         .tab { background: #166534; color: #fff; height: 48px; text-align: center; cursor: pointer; font-size: 9px; font-weight: 800; text-transform: uppercase; display: flex; align-items: center; justify-content: center; border: none; width: 100%; font-family: inherit; }
         .tab.active { background: #fff; color: #166534; }
-        
-        .ad-space { background: rgba(255, 255, 255, 0.02); border: 1px dashed var(--border-color); margin: 10px 0; text-align: center; color: var(--text-muted); font-size: 10px; height: 90px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
         
         .converter-box { border: 1px solid var(--border-color); padding: 25px 20px; background: var(--card-bg); border-radius: 12px; }
         .row { display: flex; flex-direction: column; margin-bottom: 15px; }
@@ -49,70 +38,32 @@
 
         .tools-network { padding: 20px 0; text-align: center; border-top: 1px solid var(--border-color); margin-top: 10px; }
         .tools-network h2 { margin: 0 0 15px 0; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
-        
         .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 440px; margin: 0 auto; }
         .tool-link-btn { padding: 10px 5px; border: 1px solid var(--accent-green); color: var(--accent-green); text-decoration: none; border-radius: 8px; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; height: 44px; box-sizing: border-box; }
 
-        /* ВІЗУАЛЬНИЙ ФУТЕР ДЛЯ GOOGLE */
-        footer { 
-            border-top: 1px solid var(--border-color); 
-            padding: 40px 15px; 
-            text-align: center; 
-            display: block; 
-            width: 100%; 
-            margin-top: 20px;
-        }
-        .footer-info-block { 
-            border: 1px solid var(--border-color); 
-            border-radius: 12px; 
-            padding: 20px; 
-            margin: 0 auto 20px auto; 
-            background: rgba(255, 255, 255, 0.02); 
-            text-align: left; 
-            max-width: 500px; 
-            font-size: 13px; 
-            line-height: 1.6; 
-            color: var(--text-muted); 
-        }
-        .footer-btn { 
-            background: none; border: none; color: var(--accent-green); 
-            cursor: pointer; padding: 12px 15px; font-weight: 700; 
-            font-size: 13px; font-family: inherit; text-decoration: underline; 
-            display: inline-block; 
-        }
+        footer { border-top: 1px solid var(--border-color); padding: 50px 15px; text-align: center; display: block; width: 100%; margin-top: 40px; }
+        .footer-info-block { border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin: 0 auto 25px auto; background: rgba(255, 255, 255, 0.02); text-align: left; max-width: 500px; font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+        .footer-btn { background: none; border: none; color: var(--accent-green); cursor: pointer; padding: 12px 15px; font-weight: 700; font-size: 13px; font-family: inherit; text-decoration: underline; display: inline-block; }
         
         .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); overflow-y: auto; }
-        .modal-content { 
-            background: var(--card-bg); margin: 15% auto; padding: 35px 20px 20px; 
-            width: 88%; max-width: 500px; border-radius: 12px; position: relative; 
-            border: 1px solid var(--border-color); color: white; line-height: 1.6; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .close-btn { 
-            position: absolute; right: 5px; top: 5px; 
-            font-size: 40px; cursor: pointer; color: var(--text-muted); 
-            padding: 10px 20px; background: none; border: none;
-        }
+        .modal-content { background: var(--card-bg); margin: 15% auto; padding: 35px 20px 20px; width: 88%; max-width: 500px; border-radius: 12px; position: relative; border: 1px solid var(--border-color); color: white; line-height: 1.6; }
+        .close-btn { position: absolute; right: 5px; top: 5px; font-size: 40px; cursor: pointer; color: var(--text-muted); padding: 10px 20px; background: none; border: none; }
     </style>
 </head>
 <body>
 
 <header class="top-header">
     <h1>SmartUnit.io</h1>
-    <div>
-        <label for="langSelect" class="sr-only">Language</label>
-        <select class="lang-switcher" onchange="changeLang(this.value)" id="langSelect">
-            <option value="en">English</option>
-            <option value="uk">Українська</option>
-            <option value="es">Español</option>
-            <option value="de">Deutsch</option>
-        </select>
-    </div>
+    <select class="lang-switcher" onchange="changeLang(this.value)" id="langSelect">
+        <option value="en">English</option>
+        <option value="uk">Українська</option>
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
+    </select>
 </header>
 
 <main class="container">
-    <nav id="tabs" class="tabs-grid" aria-label="Units"></nav>
-    <div class="ad-space">ADVERTISEMENT</div>
-    
+    <nav id="tabs" class="tabs-grid"></nav>
     <div class="converter-box">
         <div class="row">
             <label id="lbl-from">From:</label>
@@ -122,7 +73,7 @@
         <div class="row">
             <label id="lbl-to">To:</label>
             <select id="unitTo" class="select-field" onchange="calc()"></select>
-            <input type="text" id="valOut" class="input-field res-field" style="margin-top:10px" readonly aria-live="polite">
+            <input type="text" id="valOut" class="input-field res-field" style="margin-top:10px" readonly>
         </div>
     </div>
 
@@ -131,29 +82,29 @@
     <section class="tools-network">
         <h2 id="txt-other-tools">Elite Tool Network</h2>
         <div class="tools-grid">
-            <a href="https://smart-converter.github.io/percentage-calculator/" class="tool-link-btn" id="lnk-perc">Percentage Calc</a>
-            <a href="https://smart-converter.github.io/vat-calculator/" class="tool-link-btn" id="lnk-vat">VAT Calculator</a>
-            <a href="https://smart-converter.github.io/currency-converter/" class="tool-link-btn" id="lnk-cur">Currency</a>
-            <a href="https://smart-converter.github.io/loan-calculator/" class="tool-link-btn" id="lnk-loan">Loans</a>
-            <a href="https://smart-converter.github.io/discount-calculator/" class="tool-link-btn" id="lnk-disc">Discounts</a>
-            <a href="https://smart-converter.github.io/tip-calculator/" class="tool-link-btn" id="lnk-tip">Tips</a>
-            <a href="https://smart-converter.github.io/bmi-calculator/" class="tool-link-btn" id="lnk-bmi">BMI Calc</a>
+            <a href="https://smart-converter.github.io/percentage-calculator/" class="tool-link-btn">Percentage Calc</a>
+            <a href="https://smart-converter.github.io/vat-calculator/" class="tool-link-btn">VAT Calculator</a>
+            <a href="https://smart-converter.github.io/currency-converter/" class="tool-link-btn">Currency</a>
+            <a href="https://smart-converter.github.io/loan-calculator/" class="tool-link-btn">Loans</a>
+            <a href="https://smart-converter.github.io/discount-calculator/" class="tool-link-btn">Discounts</a>
+            <a href="https://smart-converter.github.io/tip-calculator/" class="tool-link-btn">Tips</a>
+            <a href="https://smart-converter.github.io/bmi-calculator/" class="tool-link-btn">BMI Calc</a>
         </div>
     </section>
 </main>
 
 <footer>
     <div class="footer-info-block" id="footer-full-text"></div>
-    <p style="font-size: 11px; margin-bottom: 10px;">© 2026 SmartUnit.io - Engineering Standards</p>
-    <nav aria-label="Legal">
+    <p style="font-size: 11px;">© 2026 SmartUnit.io - All Rights Reserved</p>
+    <nav>
         <button class="footer-btn" onclick="openPol('privacy')" id="link-privacy">Privacy Policy</button>
         <button class="footer-btn" onclick="openPol('terms')" id="link-terms">Terms of Use</button>
     </nav>
 </footer>
 
-<div id="siteModal" class="modal" onclick="if(event.target == this) closeModal()" aria-hidden="true" role="dialog">
+<div id="siteModal" class="modal" onclick="if(event.target == this) closeModal()">
     <div class="modal-content">
-        <button class="close-btn" onclick="closeModal()" aria-label="Close modal">×</button>
+        <button class="close-btn" onclick="closeModal()">×</button>
         <div id="modalBody"></div>
     </div>
 </div>
@@ -175,7 +126,7 @@
             termsText: "<h2>Terms of Use</h2><p>Our tools are for informational use. Always double-check critical values.</p>"
         },
         uk: {
-            from: "З:", to: "В:", other: "Інші професійні інструменти", cats: ["Довжина", "Вага", "Темп.", "Площа"],
+            from: "З:", to: "В:", other: "Інші інструменти", cats: ["Довжина", "Вага", "Темп.", "Площа"],
             unitNames: {
                 Довжина: ["Метри", "Кілометри", "Милі", "Фути", "Дюйми", "Сантиметри"],
                 Вага: ["Кілограми", "Грами", "Фунти", "Унції"],
@@ -187,6 +138,34 @@
             privacy: "Конфіденційність", terms: "Умови",
             privText: "<h2>Конфіденційність</h2><p>Ваші дані не зберігаються на серверах. Все працює у вашому браузері.</p>",
             termsText: "<h2>Умови використання</h2><p>Використовуйте для ознайомлення. Перевіряйте критичні дані перед проектуванням.</p>"
+        },
+        es: {
+            from: "De:", to: "A:", other: "Red de herramientas", cats: ["Longitud", "Peso", "Temp", "Área"],
+            unitNames: {
+                Longitud: ["Metros", "Kilómetros", "Millas", "Pies", "Pulgadas", "Centímetros"],
+                Peso: ["Kilogramos", "Gramos", "Libras", "Onzas"],
+                Temp: ["Celsius", "Fahrenheit", "Kelvin"],
+                Área: ["Metros C.", "Kilómetros C.", "Acres", "Hectáreas"]
+            },
+            footer: "SmartUnit.io es una plataforma de conversión de unidades de grado profesional. Ofrecemos cálculos de alta precisión para ingenieros y estudiantes.",
+            seo: "<h2>¿Por qué elegir SmartUnit?</h2><p>Nuestro convertidor ofrece resultados instantáneos con precisión matemática del 100%.</p>",
+            privacy: "Privacidad", terms: "Términos",
+            privText: "<h2>Privacidad</h2><p>No almacenamos sus datos.</p>",
+            termsText: "<h2>Términos</h2><p>Uso informativo únicamente.</p>"
+        },
+        de: {
+            from: "Von:", to: "Nach:", other: "Elite-Tool-Netzwerk", cats: ["Länge", "Gewicht", "Temp", "Fläche"],
+            unitNames: {
+                Länge: ["Meter", "Kilometer", "Meilen", "Fuß", "Zoll", "Zentimeter"],
+                Gewicht: ["Kilogramm", "Gramm", "Pfund", "Unzen"],
+                Temp: ["Celsius", "Fahrenheit", "Kelvin"],
+                Fläche: ["QMeter", "QKilometer", "Acker", "Hektar"]
+            },
+            footer: "SmartUnit.io ist eine professionelle Plattform zur Einheitenumrechnung. Wir bieten hochpräzise Berechnungen weltweit.",
+            seo: "<h2>Warum SmartUnit?</h2><p>Unser Konverter liefert sofortige Ergebnisse mit 100%iger mathematischer Genauigkeit.</p>",
+            privacy: "Datenschutz", terms: "AGB",
+            privText: "<h2>Datenschutz</h2><p>Wir speichern keine Daten.</p>",
+            termsText: "<h2>AGB</h2><p>Nur zu Informationszwecken.</p>"
         }
     };
 
@@ -204,7 +183,6 @@
 
     function updateUI() {
         const l = translations[curLang] || translations.en;
-        document.documentElement.lang = curLang;
         document.getElementById('langSelect').value = curLang;
         document.getElementById('lbl-from').innerText = l.from;
         document.getElementById('lbl-to').innerText = l.to;
@@ -246,26 +224,32 @@
 
     function calc() {
         const val = parseFloat(document.getElementById('valIn').value) || 0;
-        const fromU = document.getElementById('unitFrom').value;
-        const toU = document.getElementById('unitTo').value;
+        const fromIdx = document.getElementById('unitFrom').selectedIndex;
+        const toIdx = document.getElementById('unitTo').selectedIndex;
         const out = document.getElementById('valOut');
         
-        if (currentTab === 2) { // Logic for Temperature
-            if (fromU.includes("Celsius") || fromU.includes("Цельсій")) {
-                out.value = toU.includes("Fahrenheit") ? (val * 9/5) + 32 : toU.includes("Kelvin") ? val + 273.15 : val;
-            } else if (fromU.includes("Fahrenheit")) {
-                out.value = toU.includes("Celsius") ? (val - 32) * 5/9 : toU.includes("Kelvin") ? (val - 32) * 5/9 + 273.15 : val;
-            } else {
-                out.value = toU.includes("Celsius") ? val - 273.15 : toU.includes("Fahrenheit") ? (val - 273.15) * 9/5 + 32 : val;
-            }
-        } else {
+        if (currentTab === 2) {
             const lEn = translations.en;
-            const catEn = lEn.cats[currentTab];
-            const unitsEn = lEn.unitNames[catEn];
-            const curFromEn = unitsEn[document.getElementById('unitFrom').selectedIndex];
-            const curToEn = unitsEn[document.getElementById('unitTo').selectedIndex];
+            const unitsEn = lEn.unitNames["Temp"];
+            const fromU = unitsEn[fromIdx];
+            const toU = unitsEn[toIdx];
+
+            let celsius;
+            if (fromU === "Celsius") celsius = val;
+            else if (fromU === "Fahrenheit") celsius = (val - 32) * 5/9;
+            else celsius = val - 273.15;
+
+            let result;
+            if (toU === "Celsius") result = celsius;
+            else if (toU === "Fahrenheit") result = (celsius * 9/5) + 32;
+            else result = celsius + 273.15;
+            out.value = result.toFixed(4);
+        } else {
             const data = conversionData[currentTab];
-            out.value = (val / data[curFromEn] * data[curToEn]).toLocaleString(undefined, {maximumFractionDigits: 4});
+            const unitKeys = Object.keys(data);
+            const fromVal = data[unitKeys[fromIdx]];
+            const toVal = data[unitKeys[toIdx]];
+            out.value = (val / fromVal * toVal).toLocaleString(undefined, {maximumFractionDigits: 5});
         }
     }
 
